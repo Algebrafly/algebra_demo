@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.algebra.demobase.mapper.PersonMapper">
+  <resultMap id="BaseResultMap" type="com.algebra.demobase.entity.domain.Person">
+    <!--@mbg.generated-->
+    <!--@Table person-->
+    <id column="person_id" jdbcType="VARCHAR" property="personId" />
+    <result column="person_name" jdbcType="VARCHAR" property="personName" />
+    <result column="person_age" jdbcType="INTEGER" property="personAge" />
+    <result column="person_birthday" jdbcType="TIMESTAMP" property="personBirthday" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    person_id, person_name, person_age, person_birthday, remark
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from person
+    where person_id = #{personId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    <!--@mbg.generated-->
+    delete from person
+    where person_id = #{personId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.algebra.demobase.entity.domain.Person">
+    <!--@mbg.generated-->
+    insert into person (person_id, person_name, person_age, 
+      person_birthday, remark)
+    values (#{personId,jdbcType=VARCHAR}, #{personName,jdbcType=VARCHAR}, #{personAge,jdbcType=INTEGER}, 
+      #{personBirthday,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.algebra.demobase.entity.domain.Person">
+    <!--@mbg.generated-->
+    insert into person
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="personId != null">
+        person_id,
+      </if>
+      <if test="personName != null">
+        person_name,
+      </if>
+      <if test="personAge != null">
+        person_age,
+      </if>
+      <if test="personBirthday != null">
+        person_birthday,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="personId != null">
+        #{personId,jdbcType=VARCHAR},
+      </if>
+      <if test="personName != null">
+        #{personName,jdbcType=VARCHAR},
+      </if>
+      <if test="personAge != null">
+        #{personAge,jdbcType=INTEGER},
+      </if>
+      <if test="personBirthday != null">
+        #{personBirthday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.algebra.demobase.entity.domain.Person">
+    <!--@mbg.generated-->
+    update person
+    <set>
+      <if test="personName != null">
+        person_name = #{personName,jdbcType=VARCHAR},
+      </if>
+      <if test="personAge != null">
+        person_age = #{personAge,jdbcType=INTEGER},
+      </if>
+      <if test="personBirthday != null">
+        person_birthday = #{personBirthday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where person_id = #{personId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.algebra.demobase.entity.domain.Person">
+    <!--@mbg.generated-->
+    update person
+    set person_name = #{personName,jdbcType=VARCHAR},
+      person_age = #{personAge,jdbcType=INTEGER},
+      person_birthday = #{personBirthday,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR}
+    where person_id = #{personId,jdbcType=VARCHAR}
+  </update>
+  <select id="getPersonList" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select *from person
+    where 1=1
+    <if test="name != null">
+       and person_name = #{name,jdbcType=VARCHAR}
+    </if>
+  </select>
+</mapper>

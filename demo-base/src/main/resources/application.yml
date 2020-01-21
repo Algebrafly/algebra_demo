@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: algebra-demo
+  profiles:
+    include: param
+    active: dev
+
+---
+server:
+  tomcat:
+    uri-encoding: UTF-8
+  port: 8082
+  servlet:
+    context-path: /base/v1
+
