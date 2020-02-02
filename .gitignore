@@ -34,3 +34,5 @@ build/
 ### others ####
 logs
 
+/demo-base/src/main/resources/rebel.xml
+/demo-api/src/main/resources/rebel.xml
