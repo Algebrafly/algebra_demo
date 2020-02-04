@@ -23,7 +23,7 @@ import java.util.Date;
 @RestController
 @RequestMapping("/redis")
 @Slf4j
-@Api("redis 测试")
+@Api(value = "redis",tags = "redis测试")
 public class RedisController {
 
     private static int ExpireTime = 600;   // redis中存储的过期时间600s
@@ -32,7 +32,7 @@ public class RedisController {
     private RedisUtil redisUtil;
 
     @GetMapping("/redisSet")
-    @ApiOperation("redisSet")
+    @ApiOperation(value = "redisSet")
     // 限制一分钟内只能访问三次
     @AccessLimit(seconds = 60,maxCount = 3)
     public boolean redisSet(@RequestParam("key") String key, @RequestParam("value")String value){
@@ -44,7 +44,7 @@ public class RedisController {
     }
 
     @GetMapping("redisGet")
-    @ApiOperation("redisGet")
+    @ApiOperation(value = "redisGet")
     public WebApiResult<Person2> redisGet(@RequestParam("key")String key){
         WebApiResult<Person2> result = new WebApiResult<>();
         result.setData((Person2) redisUtil.get(key));
@@ -52,7 +52,7 @@ public class RedisController {
     }
 
     @GetMapping("expire")
-    @ApiOperation("expire")
+    @ApiOperation(value = "expire")
     public boolean expire(@RequestParam("key")String key){
         return redisUtil.expire(key,ExpireTime);
     }

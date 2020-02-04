@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Configuration;
  * @date 2020/1/15 17:30
  * @description
  */
-@Configuration
+//@Configuration
 public class RedissonConfig {
 
     @Bean(destroyMethod="shutdown")

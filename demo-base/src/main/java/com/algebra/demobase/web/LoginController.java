@@ -20,7 +20,7 @@ import java.util.List;
  * @description 用户登录接口
  */
 @RestController
-@Api("登录接口")
+@Api(value = "Login",tags = "登录接口")
 @Slf4j
 public class LoginController {
 
@@ -28,7 +28,7 @@ public class LoginController {
     PersonService personService;
 
     @GetMapping("/login")
-    @ApiOperation("登录")
+    @ApiOperation(value = "登录")
     public WebApiResult<String> login(@RequestParam("name") String name, @RequestParam("passward") String password){
         log.info("登陆接口，接收到请求参数：name = {}, password = {}", name, password);
         WebApiResult<String> result = new WebApiResult<>();
@@ -46,7 +46,7 @@ public class LoginController {
     }
 
     @PostMapping("/getUserList")
-    @ApiOperation("获取用户列表")
+    @ApiOperation(value = "获取用户列表")
     public WebApiResult<List<Person>> getUserList(@RequestBody RequestPageUtil requestPageUtil){
         log.info("登陆接口，接收到请求参数：pageUtil = {}", JSONObject.toJSON(requestPageUtil));
         WebApiResult<List<Person>> result = new WebApiResult<>();

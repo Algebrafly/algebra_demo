@@ -5,7 +5,7 @@ import java.lang.annotation.*;
 /**
  * @author al
  * @date 2019/6/10 20:11
- * @description
+ * @description 切面编程使用的注解
  */
 @Documented
 @Inherited
