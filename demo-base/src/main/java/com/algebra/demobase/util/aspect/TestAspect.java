@@ -36,7 +36,8 @@ public class TestAspect {
     /**
      * 环绕通知-2：灵活自由的在目标方法中切入代码
      * 借助参数传入注解信息
-     * @param joinPoint
+     * @param joinPoint 第一参数
+     * @param testAspectAnnotation 自定义参数
      * @return
      */
     @Around(value = "testPointCutAnnotation(testAspectAnnotation)", argNames = "joinPoint,testAspectAnnotation")
