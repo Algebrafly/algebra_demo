@@ -2,6 +2,7 @@ package com.algebra.demobase.util.aspect;
 
 import com.algebra.demo.annotation.DoSomething;
 import com.algebra.demo.util.SpelParser;
+import com.algebra.demobase.entity.domain.SysUser;
 import com.algebra.demobase.entity.domain.User;
 import com.algebra.demobase.service.ICacheService;
 import com.algebra.demobase.service.ILogService;
@@ -29,7 +30,7 @@ public class DoSomethingAspect {
     ILogService logService;
 
     @Autowired
-    ICacheService<User> cacheService;
+    ICacheService<SysUser> cacheService;
 
     @Around("@annotation(doSomething)")
     public Object doAround(ProceedingJoinPoint proceedingJoinPoint, DoSomething doSomething) throws Throwable {
@@ -37,7 +38,7 @@ public class DoSomethingAspect {
         String cacheName = doSomething.cacheName();
         boolean needLog = doSomething.needLog();
 
-        User cacheUser = cacheService.cacheGet(key,cacheName);
+        SysUser cacheUser = cacheService.cacheGet(key,cacheName);
         if(cacheUser != null){
             return cacheUser;
         }
@@ -49,7 +50,7 @@ public class DoSomethingAspect {
         }
         logService.infoLog(this.getClass().getName(),"getUserInfoOne","successful",new Date());
         if(ret != null){
-            cacheService.cachePut(key,"user", (User) ret);
+            cacheService.cachePut(key,"user", (SysUser) ret);
         }
         return ret;
     }
