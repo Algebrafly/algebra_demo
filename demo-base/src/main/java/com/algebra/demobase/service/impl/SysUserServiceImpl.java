@@ -53,7 +53,6 @@ public class SysUserServiceImpl implements ISysUserService {
     @Override
     @DoSomething(key = "#userId",cacheName = "sys_user")
     public SysUser getUserInfoOne(String userId, SysUser sysUser) {
-
         return sysUserMapper.selectUserOne(sysUser);
     }
 

@@ -1,6 +1,5 @@
 package com.algebra.demobase.web;
 
-import com.algebra.demo.annotation.TestAspectAnnotation;
 import com.algebra.demo.util.base.WebApiResult;
 import com.algebra.demobase.entity.domain.SysUser;
 import com.algebra.demobase.service.ISysUserService;
