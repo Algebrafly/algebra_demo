@@ -1,4 +1,4 @@
-package com.algebra.demouser;
+package com.algebra.demozuul;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

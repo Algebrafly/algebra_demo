@@ -19,12 +19,18 @@ public class ProductController {
     @Autowired
     UserRibbonService userRibbonService;
 
+    /**
+     * feign 实现的服务调用
+     */
     @GetMapping("/productTest")
     public String productTest(String productName){
         String name = productName == null? "null":productName;
         return userService.getUserInfo(name);
     }
 
+    /**
+     * ribbon 实现的服务调用
+     */
     @GetMapping("/productTest2")
     public String productTest2(String productName){
         String name = productName == null? "null":productName;
