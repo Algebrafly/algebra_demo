@@ -1,5 +1,7 @@
 package com.algebra.demoproduct.conf;
 
+import brave.Span;
+import brave.Tracer;
 import com.algebra.demo.util.trace.WebTraceUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.core.annotation.Order;
@@ -21,9 +23,18 @@ import java.io.IOException;
 @WebFilter(urlPatterns = "/*",filterName = "webTraceFilter")
 @Order(1)
 public class WebTraceFilter extends GenericFilterBean {
+
+    private final Tracer tracer;
+
+    WebTraceFilter(Tracer tracer) {
+        this.tracer = tracer;
+    }
+
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
             throws IOException, ServletException {
+
+        Span span = this.tracer.currentSpan();
 
         initWebTraceParam((HttpServletRequest)servletRequest);
         filterChain.doFilter(servletRequest,servletResponse);
