@@ -1,4 +1,4 @@
-package com.algebra.demoproduct.conf;
+package com.algebra.demouser.conf;
 
 import brave.Span;
 import brave.Tracer;
@@ -43,7 +43,6 @@ public class WebTraceFilter extends GenericFilterBean {
         log.info(currentSpan.context().traceIdString());
 
         String clientId = initWebTraceParam(request);
-
         currentSpan.tag("clientId",clientId);
         filterChain.doFilter(servletRequest,servletResponse);
     }
@@ -54,6 +53,8 @@ public class WebTraceFilter extends GenericFilterBean {
      */
     private String initWebTraceParam(HttpServletRequest request){
         String clientId = request.getHeader(WebTraceUtil.CLIENT_ID);
+        String token = request.getHeader("token");
+        log.info("接收到token = {}",token);
 
         //如果当前clientId为空或者为默认clientId，则生成新的clientId
         if (StringUtils.isBlank(clientId) || WebTraceUtil.defaultClientId(clientId)){

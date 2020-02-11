@@ -2,9 +2,13 @@ package com.algebra.demoproduct.web;
 
 import com.algebra.demoproduct.feign.IUserService;
 import com.algebra.demoproduct.ribbon.UserRibbonService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author al
@@ -12,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @description
  */
 @RestController
+@Slf4j
 public class ProductController {
 
     @Autowired
@@ -23,8 +28,9 @@ public class ProductController {
      * feign 实现的服务调用
      */
     @GetMapping("/productTest")
-    public String productTest(String productName){
+    public String productTest(HttpServletRequest request, @RequestParam("productName") String productName){
         String name = productName == null? "null":productName;
+        log.info("接收到参数：{}",productName);
         return userService.getUserInfo(name);
     }
 

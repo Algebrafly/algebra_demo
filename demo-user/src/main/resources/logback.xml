@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--debug:当此属性设置为true时，将打印出logback内部日志信息，实时查看logback运行状态。-->
 <configuration debug="false">
-    <contextName>product</contextName>
-    <property name="contextName" value="demo-product" />
+    <contextName>user</contextName>
+    <property name="contextName" value="demo-user" />
     <property name="log_dir" value="./logs" />
 
     <property name="log_pattern"
@@ -72,7 +72,7 @@
 
     </appender>
 
-    <logger name="com.algebra.demoproduct.mapper" level="debug" additivity="false" >
+    <logger name="com.algebra.demouser.mapper" level="debug" additivity="false" >
         <appender-ref ref="console" />
         <appender-ref ref="file-info" />
         <appender-ref ref="file-error" />

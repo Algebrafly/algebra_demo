@@ -3,6 +3,7 @@ package com.algebra.demo.util.aspect.common;
 import com.algebra.demo.annotation.TraceEvent;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
@@ -59,7 +60,8 @@ public class WebTraceAspect {
         log.info("流水号:"+millis);
     }
 
-    public void doFinally() {
+    @After("webTraceLog(traceEvent)")
+    public void doFinally(ProceedingJoinPoint joinPoint, TraceEvent traceEvent) {
 
     }
 
