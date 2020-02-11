@@ -29,7 +29,7 @@ import java.util.concurrent.TimeUnit;
 @Component
 @Slf4j
 public class FeignHystrixConcurrencyStrategy extends HystrixConcurrencyStrategy {
-    
+
     private HystrixConcurrencyStrategy delegate;
 
     public FeignHystrixConcurrencyStrategy() {
