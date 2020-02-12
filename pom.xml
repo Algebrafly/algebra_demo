@@ -11,6 +11,10 @@
     <modules>
         <module>demo-api</module>
         <module>demo-base</module>
+        <module>demo-eureka</module>
+        <module>demo-product</module>
+        <module>demo-user</module>
+        <module>demo-zuul</module>
     </modules>
 
 
