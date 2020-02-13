@@ -2,8 +2,8 @@ spring:
   application:
     name: data-demo
   profiles:
-#    include: data
-    active: data
+    include: data
+    active: dev
 
 ---
 server:

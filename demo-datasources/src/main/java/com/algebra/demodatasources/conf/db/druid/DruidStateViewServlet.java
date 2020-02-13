@@ -1,4 +1,4 @@
-package com.algebra.demodatasources.conf.db;
+package com.algebra.demodatasources.conf.db.druid;
 
 import com.alibaba.druid.support.http.StatViewServlet;
 

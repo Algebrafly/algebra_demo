@@ -1,5 +1,6 @@
 package com.algebra.demodatasources.conf.db;
 
+import com.algebra.demodatasources.conf.db.druid.DataSourceType;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
@@ -31,7 +32,7 @@ public class MultipleDataSourceAop {
      * @param joinPoint
      * @throws Throwable
      */
-    @Before("execution(* com.algebra.*.service.*.*(..))")
+    @Before("execution(* com.algebra.*.service.wrapper.*.*(..))")
 //    @Before("@annotation(dataSourceType)")
     public void changeDataSource(JoinPoint joinPoint) throws Throwable {
 
@@ -62,7 +63,7 @@ public class MultipleDataSourceAop {
     /**
      * 方法结束后
      */
-    @After("execution(* com.algebra.*.service.*.*(..))")
+    @After("execution(* com.algebra.*.service.wrapper.*.*(..))")
 //    @After("@annotation(dataSourceType)")
     public void afterReturning() throws Throwable {
         try {

@@ -2,6 +2,10 @@ package com.algebra.demodatasources.conf.db;
 
 import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 
+import javax.sql.DataSource;
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @author al
  * @date 2020/2/12 16:50
@@ -10,6 +14,15 @@ import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 public class MultipleDataSource extends AbstractRoutingDataSource {
 
     private static final ThreadLocal<String> dataSourceHolder = new ThreadLocal<>();
+
+    public MultipleDataSource(){
+    }
+
+    public MultipleDataSource(DataSource defaultTargetDataSource, Map<String, DataSource> targetDataSources){
+        super.setDefaultTargetDataSource(defaultTargetDataSource);
+        super.setTargetDataSources(new HashMap<>(targetDataSources));
+        super.afterPropertiesSet();
+    }
 
     /**
      * 设置数据源
@@ -37,6 +50,6 @@ public class MultipleDataSource extends AbstractRoutingDataSource {
 
     @Override
     protected Object determineCurrentLookupKey() {
-        return dataSourceHolder.get();
+        return getDatasource();
     }
 }

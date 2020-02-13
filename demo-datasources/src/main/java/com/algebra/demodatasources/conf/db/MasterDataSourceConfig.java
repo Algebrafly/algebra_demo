@@ -1,12 +1,15 @@
 package com.algebra.demodatasources.conf.db;
 
 import com.alibaba.druid.pool.DruidDataSource;
+import com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceBuilder;
 import com.github.pagehelper.PageHelper;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -15,6 +18,7 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.TransactionManager;
 import org.springframework.transaction.annotation.TransactionManagementConfigurer;
 
+import javax.sql.DataSource;
 import java.util.Properties;
 
 /**
@@ -33,15 +37,22 @@ public class MasterDataSourceConfig {
     @Autowired
     private MasterDataBaseProperties masterProp;
 
+//    @Bean(name = "masterDruidDataSource")
+//    @Primary
+//    public DruidDataSource masterDruidDataSource(){
+//        DruidDataSource druidDataSource = new DruidDataSource();
+//        druidDataSource.setDriverClassName(masterProp.driverClassName);
+//        druidDataSource.setUrl(masterProp.url);
+//        druidDataSource.setUsername(masterProp.username);
+//        druidDataSource.setPassword(masterProp.password);
+//        return druidDataSource;
+//    }
+
     @Bean(name = "masterDruidDataSource")
+    @ConfigurationProperties(prefix = "spring.datasource.druid.master")
     @Primary
-    public DruidDataSource masterDruidDataSource(){
-        DruidDataSource druidDataSource = new DruidDataSource();
-        druidDataSource.setDriverClassName(masterProp.driverClassName);
-        druidDataSource.setUrl(masterProp.url);
-        druidDataSource.setUsername(masterProp.username);
-        druidDataSource.setPassword(masterProp.password);
-        return druidDataSource;
+    public DataSource masterDruidDataSource(){
+        return DruidDataSourceBuilder.create().build();
     }
 
 //    @Bean(name = "masterSqlSessionFactory")
@@ -55,11 +66,12 @@ public class MasterDataSourceConfig {
 
     @Bean(name = "masterSqlSessionFactory")
     @Primary
-    public SqlSessionFactory masterSqlSessionFactory() {
+    public SqlSessionFactory masterSqlSessionFactory(@Qualifier("masterDruidDataSource") DataSource masterDataSource) {
         final SqlSessionFactoryBean sessionFactoryBean = new SqlSessionFactoryBean();
-        sessionFactoryBean.setDataSource(masterDruidDataSource());
+        sessionFactoryBean.setDataSource(masterDataSource);
         try {
             sessionFactoryBean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources(MAPPER_LOCAL));
+            sessionFactoryBean.setTypeAliasesPackage("com.algebra.demodatasources.entity.domain");
             return sessionFactoryBean.getObject();
         } catch (Exception e) {
             log.error("配置主库的SqlSessionFactory失败，error:{}",e.getMessage());
@@ -69,8 +81,8 @@ public class MasterDataSourceConfig {
 
     @Bean(name = "masterTransactionManager")
     @Primary
-    public DataSourceTransactionManager masterTransactionManager(){
-        return new DataSourceTransactionManager(masterDruidDataSource());
+    public DataSourceTransactionManager masterTransactionManager(@Qualifier("masterDruidDataSource") DataSource masterDataSource){
+        return new DataSourceTransactionManager(masterDataSource);
     }
 
     @Bean(name = "pageHelper")

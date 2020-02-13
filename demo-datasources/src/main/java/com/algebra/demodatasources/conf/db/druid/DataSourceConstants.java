@@ -1,4 +1,4 @@
-package com.algebra.demodatasources.conf.db;
+package com.algebra.demodatasources.conf.db.druid;
 
 /**
  * @author al

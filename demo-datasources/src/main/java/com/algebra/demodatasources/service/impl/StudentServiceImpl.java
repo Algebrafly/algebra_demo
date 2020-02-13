@@ -1,13 +1,12 @@
 package com.algebra.demodatasources.service.impl;
 
-import com.algebra.demodatasources.conf.db.DataSourceConstants;
-import com.algebra.demodatasources.conf.db.DataSourceType;
+import com.algebra.demodatasources.conf.db.druid.DataSourceConstants;
+import com.algebra.demodatasources.conf.db.druid.DataSourceType;
 import com.algebra.demodatasources.service.StudentService;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import com.algebra.demodatasources.entity.domain.Student;
 import com.algebra.demodatasources.mapper.slave.StudentMapper;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
   * @author al
@@ -15,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
   * @description 
   */
 @Service
-@DataSourceType(value = DataSourceConstants.SLAVE)
 public class StudentServiceImpl implements StudentService {
 
     @Resource

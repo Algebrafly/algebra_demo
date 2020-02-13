@@ -1,4 +1,4 @@
-package com.algebra.demodatasources.conf.db;
+package com.algebra.demodatasources.conf.db.druid;
 
 import java.lang.annotation.*;
 
@@ -9,7 +9,7 @@ import java.lang.annotation.*;
  */
 @Documented
 @Inherited
-@Target(ElementType.TYPE)
+@Target({ElementType.METHOD,ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface DataSourceType {
 
