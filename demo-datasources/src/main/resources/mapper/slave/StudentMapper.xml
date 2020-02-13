@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.algebra.demodatasources.mapper.slave.StudentMapper">
-  <resultMap id="BaseResultMap" type="com.algebra.demodatasources.entity.domain.Student">
+<mapper namespace="com.algebra.demofastdep.mapper.slave.StudentMapper">
+  <resultMap id="BaseResultMap" type="com.algebra.demofastdep.entity.domain.Student">
     <!--@mbg.generated-->
     <!--@Table student-->
     <id column="id" jdbcType="CHAR" property="id" />
@@ -24,12 +24,12 @@
     delete from student
     where id = #{id,jdbcType=CHAR}
   </delete>
-  <insert id="insert" parameterType="com.algebra.demodatasources.entity.domain.Student">
+  <insert id="insert" parameterType="com.algebra.demofastdep.entity.domain.Student">
     <!--@mbg.generated-->
     insert into student (id, `name`, age)
     values (#{id,jdbcType=CHAR}, #{name,jdbcType=VARCHAR}, #{age,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.algebra.demodatasources.entity.domain.Student">
+  <insert id="insertSelective" parameterType="com.algebra.demofastdep.entity.domain.Student">
     <!--@mbg.generated-->
     insert into student
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -55,7 +55,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.algebra.demodatasources.entity.domain.Student">
+  <update id="updateByPrimaryKeySelective" parameterType="com.algebra.demofastdep.entity.domain.Student">
     <!--@mbg.generated-->
     update student
     <set>
@@ -68,7 +68,7 @@
     </set>
     where id = #{id,jdbcType=CHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.algebra.demodatasources.entity.domain.Student">
+  <update id="updateByPrimaryKey" parameterType="com.algebra.demofastdep.entity.domain.Student">
     <!--@mbg.generated-->
     update student
     set `name` = #{name,jdbcType=VARCHAR},

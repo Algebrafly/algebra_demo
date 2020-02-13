@@ -1,0 +1,24 @@
+fastdep:
+  datasource:
+    master: #数据源名称可随意取
+      mapper: com.algebra.demodatasources.mapper.master #当前数据源对应的mapper目录不能多个数据源相同
+      password: 123456
+      url: jdbc:mysql://127.0.0.1:3306/test_job?serverTimezone=Asia/Chongqing&useLegacyDatetimeCode=false&nullNamePatternMatchesAll=true&zeroDateTimeBehavior=CONVERT_TO_NULL&tinyInt1isBit=false&autoReconnect=true&useSSL=false&pinGlobalTxToPhysicalConnection=true
+      driverClassName: com.mysql.cj.jdbc.Driver
+      username: root
+    #      # 下面为druid连接池的补充设置
+    #      initialSize: 10
+    #      minIdle: 5
+    #      maxActive: 100
+    #      connectionInitSqls: 'set names utf8mb4;'
+    slave: #数据源名称可随意取
+      mapper: com.algebra.demodatasources.mapper.slave #当前数据源对应的mapper目录不能多个数据源相同
+      password: 123456
+      url: jdbc:mysql://127.0.0.1:3306/test?serverTimezone=Asia/Chongqing&useLegacyDatetimeCode=false&nullNamePatternMatchesAll=true&zeroDateTimeBehavior=CONVERT_TO_NULL&tinyInt1isBit=false&autoReconnect=true&useSSL=false&pinGlobalTxToPhysicalConnection=true
+      driverClassName: com.mysql.cj.jdbc.Driver
+      username: root
+#      # 下面为druid连接池的补充设置
+#      initialSize: 10
+#      minIdle: 5
+#      maxActive: 100
+#      connectionInitSqls: 'set names utf8mb4;'

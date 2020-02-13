@@ -2,8 +2,8 @@ spring:
   application:
     name: fastdep-demo
   profiles:
-    include: data
-    active: dev
+#    include: data
+    active: fastdep
 
 ---
 server:

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.algebra.demodatasources.mapper.master.LessonMapper">
-  <resultMap id="BaseResultMap" type="com.algebra.demodatasources.entity.domain.Lesson">
+<mapper namespace="com.algebra.demofastdep.mapper.master.LessonMapper">
+  <resultMap id="BaseResultMap" type="com.algebra.demofastdep.entity.domain.Lesson">
     <!--@mbg.generated-->
     <!--@Table lesson-->
     <id column="id" jdbcType="CHAR" property="id" />
@@ -25,14 +25,14 @@
     delete from lesson
     where id = #{id,jdbcType=CHAR}
   </delete>
-  <insert id="insert" parameterType="com.algebra.demodatasources.entity.domain.Lesson">
+  <insert id="insert" parameterType="com.algebra.demofastdep.entity.domain.Lesson">
     <!--@mbg.generated-->
     insert into lesson (id, `name`, credit, 
       teacher)
     values (#{id,jdbcType=CHAR}, #{name,jdbcType=VARCHAR}, #{credit,jdbcType=DECIMAL}, 
       #{teacher,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.algebra.demodatasources.entity.domain.Lesson">
+  <insert id="insertSelective" parameterType="com.algebra.demofastdep.entity.domain.Lesson">
     <!--@mbg.generated-->
     insert into lesson
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -64,7 +64,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.algebra.demodatasources.entity.domain.Lesson">
+  <update id="updateByPrimaryKeySelective" parameterType="com.algebra.demofastdep.entity.domain.Lesson">
     <!--@mbg.generated-->
     update lesson
     <set>
@@ -80,7 +80,7 @@
     </set>
     where id = #{id,jdbcType=CHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.algebra.demodatasources.entity.domain.Lesson">
+  <update id="updateByPrimaryKey" parameterType="com.algebra.demofastdep.entity.domain.Lesson">
     <!--@mbg.generated-->
     update lesson
     set `name` = #{name,jdbcType=VARCHAR},
