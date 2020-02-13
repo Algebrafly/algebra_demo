@@ -25,6 +25,7 @@ public class DataSourcesConfig {
         Map<String, DataSource> dataSources = new HashMap<>();
         dataSources.put("masterDruidDataSource",masterDataSource);
         dataSources.put("slaveDruidDataSource",slaveDataSource);
+//        MultipleDataSource.setDataSource("slaveDruidDataSource");
         return new MultipleDataSource(masterDataSource,dataSources);
     }
 
