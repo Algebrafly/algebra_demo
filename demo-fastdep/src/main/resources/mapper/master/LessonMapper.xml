@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.algebra.demodatasources.mapper.master.LessonMapper">
+  <resultMap id="BaseResultMap" type="com.algebra.demodatasources.entity.domain.Lesson">
+    <!--@mbg.generated-->
+    <!--@Table lesson-->
+    <id column="id" jdbcType="CHAR" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="credit" jdbcType="DECIMAL" property="credit" />
+    <result column="teacher" jdbcType="VARCHAR" property="teacher" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, `name`, credit, teacher
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from lesson
+    where id = #{id,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    <!--@mbg.generated-->
+    delete from lesson
+    where id = #{id,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.algebra.demodatasources.entity.domain.Lesson">
+    <!--@mbg.generated-->
+    insert into lesson (id, `name`, credit, 
+      teacher)
+    values (#{id,jdbcType=CHAR}, #{name,jdbcType=VARCHAR}, #{credit,jdbcType=DECIMAL}, 
+      #{teacher,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.algebra.demodatasources.entity.domain.Lesson">
+    <!--@mbg.generated-->
+    insert into lesson
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        `name`,
+      </if>
+      <if test="credit != null">
+        credit,
+      </if>
+      <if test="teacher != null">
+        teacher,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=CHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="credit != null">
+        #{credit,jdbcType=DECIMAL},
+      </if>
+      <if test="teacher != null">
+        #{teacher,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.algebra.demodatasources.entity.domain.Lesson">
+    <!--@mbg.generated-->
+    update lesson
+    <set>
+      <if test="name != null">
+        `name` = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="credit != null">
+        credit = #{credit,jdbcType=DECIMAL},
+      </if>
+      <if test="teacher != null">
+        teacher = #{teacher,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.algebra.demodatasources.entity.domain.Lesson">
+    <!--@mbg.generated-->
+    update lesson
+    set `name` = #{name,jdbcType=VARCHAR},
+      credit = #{credit,jdbcType=DECIMAL},
+      teacher = #{teacher,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=CHAR}
+  </update>
+</mapper>
