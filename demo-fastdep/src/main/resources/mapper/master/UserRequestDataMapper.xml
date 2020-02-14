@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.algebra.demofastdep.mapper.master.UserRequestDataMapper">
+  <resultMap id="BaseResultMap" type="com.algebra.demofastdep.entity.domain.UserRequestData">
+    <!--@mbg.generated-->
+    <!--@Table tb_user-->
+    <id column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="nickname" jdbcType="VARCHAR" property="nickname" />
+    <result column="avatar" jdbcType="VARCHAR" property="avatar" />
+    <result column="created_time" jdbcType="TIMESTAMP" property="createdTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="query" jdbcType="VARCHAR" property="query" />
+    <result column="headers" jdbcType="VARCHAR" property="headers" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    user_id, nickname, avatar, created_time, update_time, query, headers
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from tb_user
+    where user_id = #{userId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    <!--@mbg.generated-->
+    delete from tb_user
+    where user_id = #{userId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="user_id" keyProperty="userId" parameterType="com.algebra.demofastdep.entity.domain.UserRequestData" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into tb_user (nickname, avatar, created_time, 
+      update_time, query, headers
+      )
+    values (#{nickname,jdbcType=VARCHAR}, #{avatar,jdbcType=VARCHAR}, #{createdTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{query,jdbcType=VARCHAR}, #{headers,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="user_id" keyProperty="userId" parameterType="com.algebra.demofastdep.entity.domain.UserRequestData" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into tb_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="nickname != null">
+        nickname,
+      </if>
+      <if test="avatar != null">
+        avatar,
+      </if>
+      <if test="createdTime != null">
+        created_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="query != null">
+        query,
+      </if>
+      <if test="headers != null">
+        headers,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="nickname != null">
+        #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="avatar != null">
+        #{avatar,jdbcType=VARCHAR},
+      </if>
+      <if test="createdTime != null">
+        #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="query != null">
+        #{query,jdbcType=VARCHAR},
+      </if>
+      <if test="headers != null">
+        #{headers,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.algebra.demofastdep.entity.domain.UserRequestData">
+    <!--@mbg.generated-->
+    update tb_user
+    <set>
+      <if test="nickname != null">
+        nickname = #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="avatar != null">
+        avatar = #{avatar,jdbcType=VARCHAR},
+      </if>
+      <if test="createdTime != null">
+        created_time = #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="query != null">
+        query = #{query,jdbcType=VARCHAR},
+      </if>
+      <if test="headers != null">
+        headers = #{headers,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where user_id = #{userId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.algebra.demofastdep.entity.domain.UserRequestData">
+    <!--@mbg.generated-->
+    update tb_user
+    set nickname = #{nickname,jdbcType=VARCHAR},
+      avatar = #{avatar,jdbcType=VARCHAR},
+      created_time = #{createdTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      query = #{query,jdbcType=VARCHAR},
+      headers = #{headers,jdbcType=VARCHAR}
+    where user_id = #{userId,jdbcType=BIGINT}
+  </update>
+    <select id="selectOptions" resultMap="BaseResultMap">
+        select user_id, nickname, avatar
+        from tb_user
+    </select>
+    <select id="selectAll" resultMap="BaseResultMap">
+        select user_id, nickname, avatar, created_time, update_time, query, headers
+        from tb_user
+    </select>
+</mapper>
