@@ -32,7 +32,7 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <scope>runtime</scope>
+            <version>8.0.11</version>
         </dependency>
 
         <dependency>
@@ -48,38 +48,20 @@
         </dependency>
 
         <dependency>
-            <groupId>com.algebra</groupId>
-            <artifactId>demo-api</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-starter-data-redis</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.redisson</groupId>
-                    <artifactId>redisson</artifactId>
-                </exclusion>
-            </exclusions>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper-spring-boot-starter</artifactId>
+            <version>1.2.10</version>
         </dependency>
 
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-thymeleaf</artifactId>
-            <version>2.2.4.RELEASE</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.data</groupId>
-            <artifactId>spring-data-commons</artifactId>
-            <version>2.2.4.RELEASE</version>
-        </dependency>
-
+        <!--fastdep-datasource-->
         <dependency>
             <groupId>com.louislivi.fastdep</groupId>
             <artifactId>fastdep-datasource</artifactId>
             <version>1.0.3</version>
         </dependency>
+
+
+
 
     </dependencies>
 

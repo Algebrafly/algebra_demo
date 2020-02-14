@@ -1,6 +1,6 @@
 package com.algebra.demofastdep.web;
 
-import com.algebra.demo.util.base.WebApiResult;
+import com.algebra.demofastdep.conf.web.WebApiResult;
 import com.algebra.demofastdep.entity.domain.Lesson;
 import com.algebra.demofastdep.service.LessonService;
 import org.springframework.beans.factory.annotation.Autowired;

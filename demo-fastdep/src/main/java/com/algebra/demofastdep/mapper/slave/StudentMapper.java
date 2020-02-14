@@ -1,7 +1,11 @@
 package com.algebra.demofastdep.mapper.slave;
 
 import com.algebra.demofastdep.entity.domain.Student;
+import com.github.pagehelper.PageInfo;
 import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
+import java.util.Map;
 
 /**
   * @author al
@@ -21,4 +25,7 @@ public interface StudentMapper {
     int updateByPrimaryKeySelective(Student record);
 
     int updateByPrimaryKey(Student record);
+
+    List<Student> selectList(Map<String,Object> param);
+
 }

@@ -3,9 +3,12 @@ package com.algebra.demofastdep.service.impl;
 import com.algebra.demofastdep.entity.domain.Student;
 import com.algebra.demofastdep.mapper.slave.StudentMapper;
 import com.algebra.demofastdep.service.StudentService;
+import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
+import java.util.Map;
 
 /**
   * @author al
@@ -46,6 +49,12 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public int updateByPrimaryKey(Student record) {
         return studentMapper.updateByPrimaryKey(record);
+    }
+
+    @Override
+    public PageInfo<Student> getStudents(Map<String, Object> param) {
+        List<Student> students = studentMapper.selectList(param);
+        return new PageInfo<>(students);
     }
 
 }

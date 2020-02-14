@@ -75,4 +75,14 @@
       age = #{age,jdbcType=INTEGER}
     where id = #{id,jdbcType=CHAR}
   </update>
+  <select id="selectList" resultMap="BaseResultMap" parameterType="java.util.Map">
+    select * from student
+    where 1 = 1
+    <if test="name != null">
+      AND name = #{name}
+    </if>
+    <if test="start != null">
+      limit #{start},#{total}
+    </if>
+  </select>
 </mapper>
