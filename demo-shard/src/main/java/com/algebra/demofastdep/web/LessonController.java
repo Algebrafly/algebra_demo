@@ -2,7 +2,7 @@ package com.algebra.demofastdep.web;
 
 import com.algebra.demo.util.base.WebApiResult;
 import com.algebra.demofastdep.entity.domain.Lesson;
-import com.algebra.demofastdep.service.wrapper.LessonServiceWrapper;
+import com.algebra.demofastdep.service.LessonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class LessonController {
 
     @Autowired
-    LessonServiceWrapper lessonService;
+    LessonService lessonService;
 
     @GetMapping("/getLessonInfo")
     public WebApiResult<Lesson> getLessonInfo(@RequestParam("id") String lessonId){

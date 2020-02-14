@@ -1,15 +1,15 @@
 spring:
   application:
-    name: fastdep-demo
+    name: shard-demo
   profiles:
-    include: data
+#    include: data
     active: dev
 
 ---
 server:
   tomcat:
     uri-encoding: UTF-8
-  port: 8084
+  port: 8085
   servlet:
-    context-path: /fastdep/v1
+    context-path: /shard/v1
 
