@@ -1,12 +1,11 @@
-package com.algebra.demofastdep.service.impl;
+package com.algebra.demoshard.service.impl;
 
-import com.algebra.demofastdep.entity.domain.TUser;
-import com.algebra.demofastdep.mapper.TUserMapper;
-import com.algebra.demofastdep.service.IUserService;
+import com.algebra.demoshard.entity.domain.TUser;
+import com.algebra.demoshard.mapper.TUserMapper;
+import com.algebra.demoshard.service.IUserService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.Date;
 import java.util.List;
 
 /**

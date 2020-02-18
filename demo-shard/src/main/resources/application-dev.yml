@@ -1,17 +1,3 @@
-# mybatis
-mybatis:
-  # 注意通配符的配置
-  mapper-locations: classpath*:/mapper/**/**.xml
-  # 实体扫描，mybatis 驼峰命名映射
-  typeAliasesPackage: com.algebra.demodatasources.entity.domain
-# 分页插件
-pagehelper:
-  helper-dialect: mysql
-  reasonable: true
-  support-methods-arguments: true
-  params: count=sountSql
-  page-size-zero: true
-
 spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.algebra.demofastdep.mapper.TUserMapper">
-  <resultMap id="BaseResultMap" type="com.algebra.demofastdep.entity.domain.TUser">
+<mapper namespace="com.algebra.demoshard.mapper.TUserMapper">
+  <resultMap id="BaseResultMap" type="com.algebra.demoshard.entity.domain.TUser">
     <!--@mbg.generated-->
     <!--@Table t_user0-->
     <id column="id" jdbcType="BIGINT" property="id" />
@@ -29,7 +29,7 @@
     delete from t_user0
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.algebra.demofastdep.entity.domain.TUser">
+  <insert id="insert" parameterType="com.algebra.demoshard.entity.domain.TUser">
     <!--@mbg.generated-->
     insert into t_user0 (id, `name`, city_id, 
       sex, phone, email, 
@@ -38,7 +38,7 @@
       #{sex,jdbcType=BOOLEAN}, #{phone,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
       #{createTime,jdbcType=TIMESTAMP}, #{password,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.algebra.demofastdep.entity.domain.TUser">
+  <insert id="insertSelective" parameterType="com.algebra.demoshard.entity.domain.TUser">
     <!--@mbg.generated-->
     insert into t_user0
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -94,7 +94,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.algebra.demofastdep.entity.domain.TUser">
+  <update id="updateByPrimaryKeySelective" parameterType="com.algebra.demoshard.entity.domain.TUser">
     <!--@mbg.generated-->
     update t_user0
     <set>
@@ -122,7 +122,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.algebra.demofastdep.entity.domain.TUser">
+  <update id="updateByPrimaryKey" parameterType="com.algebra.demoshard.entity.domain.TUser">
     <!--@mbg.generated-->
     update t_user0
     set `name` = #{name,jdbcType=VARCHAR},

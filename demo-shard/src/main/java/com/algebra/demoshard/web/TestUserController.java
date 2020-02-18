@@ -1,10 +1,9 @@
-package com.algebra.demofastdep.web;
+package com.algebra.demoshard.web;
 
-import com.algebra.demofastdep.entity.domain.TUser;
-import com.algebra.demofastdep.service.IUserService;
+import com.algebra.demoshard.entity.domain.TUser;
+import com.algebra.demoshard.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
@@ -35,7 +34,6 @@ public class TestUserController {
                     .phone("11111111"+1)
                     .email("aaaaaaa@"+i)
                     .password("asdasdasd"+i)
-                    .strategy(i%2==0?1:2)
                     .build()
                     ;
             users.add(user);

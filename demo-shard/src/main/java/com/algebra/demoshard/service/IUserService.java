@@ -1,6 +1,6 @@
-package com.algebra.demofastdep.service;
+package com.algebra.demoshard.service;
 
-import com.algebra.demofastdep.entity.domain.TUser;
+import com.algebra.demoshard.entity.domain.TUser;
 
 import java.util.List;
 

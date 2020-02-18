@@ -1,6 +1,6 @@
-package com.algebra.demofastdep.mapper;
+package com.algebra.demoshard.mapper;
 
-import com.algebra.demofastdep.entity.domain.TUser;
+import com.algebra.demoshard.entity.domain.TUser;
 import org.apache.ibatis.annotations.Mapper;
 
 /**

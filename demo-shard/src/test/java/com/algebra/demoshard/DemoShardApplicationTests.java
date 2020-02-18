@@ -1,4 +1,4 @@
-package com.algebra.demofastdep;
+package com.algebra.demoshard;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

@@ -1,4 +1,4 @@
-package com.algebra.demofastdep.entity.domain;
+package com.algebra.demoshard.entity.domain;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -54,9 +54,6 @@ public class TUser implements Serializable {
     * 密码
     */
     private String password;
-
-    // 分表策略字段
-    private int strategy;
 
     private static final long serialVersionUID = 1L;
 }
