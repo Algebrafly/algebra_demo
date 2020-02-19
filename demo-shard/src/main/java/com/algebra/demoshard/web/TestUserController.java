@@ -26,7 +26,7 @@ public class TestUserController {
         List<TUser> users = new ArrayList<>();
         for(int i = 0; i < 10; i++){
             TUser user = TUser.builder()
-                    .id((long)(i+1))
+//                    .id((long)(i+10))
                     .name("test"+i)
                     .cityId(i%2==0?1:2)
                     .createTime(new Date())

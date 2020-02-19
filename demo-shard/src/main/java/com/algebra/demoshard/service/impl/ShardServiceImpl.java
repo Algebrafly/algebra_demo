@@ -16,12 +16,12 @@ public class ShardServiceImpl implements ShardService {
     @Resource
     private TableOneMapper tableOneMapper ;
 
-    @Autowired
-    @Qualifier("dataOneTemplate")
+//    @Autowired
+//    @Qualifier("dataOneTemplate")
     private JdbcTemplate jdbcTemplate ;
 
-    @Autowired
-    @Qualifier("dataTwoTemplate")
+//    @Autowired
+//    @Qualifier("dataTwoTemplate")
     private JdbcTemplate dataTwoTemplate ;
 
     @Override

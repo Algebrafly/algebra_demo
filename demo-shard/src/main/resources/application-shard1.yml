@@ -19,15 +19,15 @@ sharding:
       sharding:
         tables:
           t_user:
-            actual-data-nodes: ds${0..1}.t_user${0..1}
+            actual-data-nodes: ds${0..1}.t_user_${0..1}
             databaseStrategy:
               inline:
-                shardingColumn: id
-                algorithmExpression: ds${id % 2}
+                shardingColumn: city_id
+                algorithmExpression: ds${city_id % 2}
             table-strategy:
               inline:
-                sharding-column: id
-                algorithm-expression: t_user${id % 2}
+                sharding-column: city_id
+                algorithm-expression: t_user_${city_id % 2}
             keyGenerator:
               type: SNOWFLAKE
               column: id

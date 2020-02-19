@@ -3,7 +3,7 @@ spring:
     name: shard-demo
   profiles:
 #    include: data
-    active: shard2
+    active: shard1
 
 ---
 server:
@@ -29,3 +29,5 @@ pagehelper:
 spring:
   main:
     allow-bean-definition-overriding: true
+
+# 关于shard的详细配置：https://shardingsphere.apache.org/document/current/cn/manual/sharding-jdbc/configuration/config-spring-boot/

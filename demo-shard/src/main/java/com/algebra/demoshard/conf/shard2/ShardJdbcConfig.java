@@ -23,7 +23,7 @@ import java.util.Properties;
 /**
  * 数据库分库分表配置
  */
-@Configuration
+//@Configuration
 public class ShardJdbcConfig {
 
     @Value("${spring.datasource.dataOne.druid.url}")

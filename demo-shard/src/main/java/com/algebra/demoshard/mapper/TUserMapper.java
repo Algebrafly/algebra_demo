@@ -1,6 +1,7 @@
 package com.algebra.demoshard.mapper;
 
 import com.algebra.demoshard.entity.domain.TUser;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
@@ -9,16 +10,7 @@ import org.apache.ibatis.annotations.Mapper;
   * @description 
   */
 @Mapper
-public interface TUserMapper {
-    int deleteByPrimaryKey(Long id);
+public interface TUserMapper extends BaseMapper<TUser> {
 
-    int insert(TUser record);
 
-    int insertSelective(TUser record);
-
-    TUser selectByPrimaryKey(Long id);
-
-    int updateByPrimaryKeySelective(TUser record);
-
-    int updateByPrimaryKey(TUser record);
 }

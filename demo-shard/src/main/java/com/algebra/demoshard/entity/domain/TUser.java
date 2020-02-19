@@ -3,6 +3,9 @@ package com.algebra.demoshard.entity.domain;
 import java.io.Serializable;
 import java.util.Date;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,7 +20,10 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@TableName("t_user")
 public class TUser implements Serializable {
+
+    @TableId(value = "id",type = IdType.AUTO)
     private Long id;
 
     /**
@@ -28,7 +34,7 @@ public class TUser implements Serializable {
     /**
     * 城市
     */
-    private Integer cityId;
+    private int cityId;
 
     /**
     * 性别
