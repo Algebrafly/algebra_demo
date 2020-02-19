@@ -17,6 +17,7 @@ public class TableOneAlg implements PreciseShardingAlgorithm<String>  {
     public String doSharding(Collection<String> names, PreciseShardingValue<String> value) {
         log.debug("分表算法参数:{},{}",names,value);
         int hash = HashUtil.rsHash(String.valueOf(value.getValue()));
-        return "table_one_" + (hash % 5+1);
+        log.info("hash = {}",hash);
+        return "table_one_" + (hash % 3+1);
     }
 }

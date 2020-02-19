@@ -3,7 +3,7 @@ spring:
     name: shard-demo
   profiles:
 #    include: data
-    active: shard1
+    active: shard2
 
 ---
 server:
@@ -18,7 +18,7 @@ mybatis:
   # 注意通配符的配置
   mapper-locations: classpath*:/mapper/**/**.xml
   # 实体扫描，mybatis 驼峰命名映射
-  typeAliasesPackage: com.algebra.demofastdep.entity.domain
+  typeAliasesPackage: com.algebra.demoshard.entity.domain
 # 分页插件
 pagehelper:
   helper-dialect: mysql

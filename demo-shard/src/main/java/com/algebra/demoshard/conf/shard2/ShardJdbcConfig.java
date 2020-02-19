@@ -5,7 +5,10 @@ import io.shardingsphere.api.config.rule.ShardingRuleConfiguration;
 import io.shardingsphere.api.config.rule.TableRuleConfiguration;
 import io.shardingsphere.api.config.strategy.StandardShardingStrategyConfiguration;
 import io.shardingsphere.shardingjdbc.api.ShardingDataSourceFactory;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.mybatis.spring.SqlSessionFactoryBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,7 +23,7 @@ import java.util.Properties;
 /**
  * 数据库分库分表配置
  */
-//@Configuration
+@Configuration
 public class ShardJdbcConfig {
 
     @Value("${spring.datasource.dataOne.druid.url}")
@@ -145,168 +148,34 @@ public class ShardJdbcConfig {
         return datasource;
     }
 
-    @Value("${spring.datasource.dataThree.druid.url}")
-    private String dbUrl3;
-    @Value("${spring.datasource.dataThree.druid.username}")
-    private String username3;
-    @Value("${spring.datasource.dataThree.druid.password}")
-    private String password3;
-    @Value("${spring.datasource.dataThree.druid.driverClassName}")
-    private String driverClassName3;
-    @Value("${spring.datasource.dataThree.druid.initial-size}")
-    private int initialSize3;
-    @Value("${spring.datasource.dataThree.druid.max-active}")
-    private int maxActive3;
-    @Value("${spring.datasource.dataThree.druid.min-idle}")
-    private int minIdle3;
-    @Value("${spring.datasource.dataThree.druid.max-wait}")
-    private int maxWait3;
-    @Value("${spring.datasource.dataThree.druid.pool-prepared-statements}")
-    private boolean poolPreparedStatements3;
-    @Value("${spring.datasource.dataThree.druid.max-pool-prepared-statement-per-connection-size}")
-    private int maxPoolPreparedStatementPerConnectionSize3;
-    @Value("${spring.datasource.dataThree.druid.time-between-eviction-runs-millis}")
-    private int timeBetweenEvictionRunsMillis3;
-    @Value("${spring.datasource.dataThree.druid.min-evictable-idle-time-millis}")
-    private int minEvictableIdleTimeMillis3;
-    @Value("${spring.datasource.dataThree.druid.max-evictable-idle-time-millis}")
-    private int maxEvictableIdleTimeMillis3;
-    @Value("${spring.datasource.dataThree.druid.validation-query}")
-    private String validationQuery3;
-    @Value("${spring.datasource.dataThree.druid.test-while-idle}")
-    private boolean testWhileIdle3;
-    @Value("${spring.datasource.dataThree.druid.test-on-borrow}")
-    private boolean testOnBorrow3;
-    @Value("${spring.datasource.dataThree.druid.test-on-return}")
-    private boolean testOnReturn3;
-    @Value("{spring.datasource.dataThree.druid.connection-properties}")
-    private String connectionProperties3;
-
-    @Bean
-    public DruidDataSource dataThreeSource() {
-        DruidDataSource datasource = new DruidDataSource();
-        datasource.setUrl(dbUrl3);
-        datasource.setUsername(username3);
-        datasource.setPassword(password3);
-        datasource.setDriverClassName(driverClassName3);
-        datasource.setInitialSize(initialSize3);
-        datasource.setMinIdle(minIdle3);
-        datasource.setMaxActive(maxActive3);
-        datasource.setMaxWait(maxWait3);
-        datasource.setTimeBetweenEvictionRunsMillis(timeBetweenEvictionRunsMillis3);
-        datasource.setMinEvictableIdleTimeMillis(minEvictableIdleTimeMillis3);
-        datasource.setMaxEvictableIdleTimeMillis(minEvictableIdleTimeMillis3);
-        datasource.setValidationQuery(validationQuery3);
-        datasource.setTestWhileIdle(testWhileIdle3);
-        datasource.setTestOnBorrow(testOnBorrow3);
-        datasource.setTestOnReturn(testOnReturn3);
-        datasource.setPoolPreparedStatements(poolPreparedStatements3);
-        datasource.setMaxPoolPreparedStatementPerConnectionSize(maxPoolPreparedStatementPerConnectionSize3);
-        datasource.setConnectionProperties(connectionProperties3);
-        return datasource;
-    }
-
-    @Value("${spring.datasource.dataFour.druid.url}")
-    private String dbUrl4;
-    @Value("${spring.datasource.dataFour.druid.username}")
-    private String username4;
-    @Value("${spring.datasource.dataFour.druid.password}")
-    private String password4;
-    @Value("${spring.datasource.dataFour.druid.driverClassName}")
-    private String driverClassName4;
-    @Value("${spring.datasource.dataFour.druid.initial-size}")
-    private int initialSize4;
-    @Value("${spring.datasource.dataFour.druid.max-active}")
-    private int maxActive4;
-    @Value("${spring.datasource.dataFour.druid.min-idle}")
-    private int minIdle4;
-    @Value("${spring.datasource.dataFour.druid.max-wait}")
-    private int maxWait4;
-    @Value("${spring.datasource.dataFour.druid.pool-prepared-statements}")
-    private boolean poolPreparedStatements4;
-    @Value("${spring.datasource.dataFour.druid.max-pool-prepared-statement-per-connection-size}")
-    private int maxPoolPreparedStatementPerConnectionSize4;
-    @Value("${spring.datasource.dataFour.druid.time-between-eviction-runs-millis}")
-    private int timeBetweenEvictionRunsMillis4;
-    @Value("${spring.datasource.dataFour.druid.min-evictable-idle-time-millis}")
-    private int minEvictableIdleTimeMillis4;
-    @Value("${spring.datasource.dataFour.druid.max-evictable-idle-time-millis}")
-    private int maxEvictableIdleTimeMillis4;
-    @Value("${spring.datasource.dataFour.druid.validation-query}")
-    private String validationQuery4;
-    @Value("${spring.datasource.dataFour.druid.test-while-idle}")
-    private boolean testWhileIdle4;
-    @Value("${spring.datasource.dataFour.druid.test-on-borrow}")
-    private boolean testOnBorrow4;
-    @Value("${spring.datasource.dataFour.druid.test-on-return}")
-    private boolean testOnReturn4;
-    @Value("{spring.datasource.dataFour.druid.connection-properties}")
-    private String connectionProperties4;
-
-    @Bean
-    public DruidDataSource dataFourSource() {
-        DruidDataSource datasource = new DruidDataSource();
-        datasource.setUrl(dbUrl4);
-        datasource.setUsername(username4);
-        datasource.setPassword(password4);
-        datasource.setDriverClassName(driverClassName4);
-        datasource.setInitialSize(initialSize4);
-        datasource.setMinIdle(minIdle4);
-        datasource.setMaxActive(maxActive4);
-        datasource.setMaxWait(maxWait4);
-        datasource.setTimeBetweenEvictionRunsMillis(timeBetweenEvictionRunsMillis4);
-        datasource.setMinEvictableIdleTimeMillis(minEvictableIdleTimeMillis4);
-        datasource.setMaxEvictableIdleTimeMillis(minEvictableIdleTimeMillis4);
-        datasource.setValidationQuery(validationQuery4);
-        datasource.setTestWhileIdle(testWhileIdle4);
-        datasource.setTestOnBorrow(testOnBorrow4);
-        datasource.setTestOnReturn(testOnReturn4);
-        datasource.setPoolPreparedStatements(poolPreparedStatements4);
-        datasource.setMaxPoolPreparedStatementPerConnectionSize(maxPoolPreparedStatementPerConnectionSize4);
-        datasource.setConnectionProperties(connectionProperties4);
-        return datasource;
-    }
-
     /**
      * JDBC操作配置
      */
     @Bean(name = "dataOneTemplate")
-    public JdbcTemplate dataOneTemplate(@Autowired DruidDataSource dataOneSource) {
+    public JdbcTemplate dataOneTemplate(@Qualifier("dataOneSource") DruidDataSource dataOneSource) {
         return new JdbcTemplate(dataOneSource);
     }
 
     @Bean(name = "dataTwoTemplate")
-    public JdbcTemplate dataTwoTemplate(@Autowired DruidDataSource dataTwoSource) {
+    public JdbcTemplate dataTwoTemplate(@Qualifier("dataTwoSource") DruidDataSource dataTwoSource) {
         return new JdbcTemplate(dataTwoSource);
     }
 
-    @Bean(name = "dataThreeTemplate")
-    public JdbcTemplate dataThreeTemplate(@Autowired DruidDataSource dataThreeSource) {
-        return new JdbcTemplate(dataThreeSource);
-    }
-
-    @Bean(name = "dataFourTemplate")
-    public JdbcTemplate dataFourTemplate(@Autowired DruidDataSource dataFourSource) {
-        return new JdbcTemplate(dataFourSource);
-    }
 
     /**
      * Shard-JDBC 分库配置
      */
     @Bean
-    public DataSource dataSource(@Autowired DruidDataSource dataOneSource,
-                                 @Autowired DruidDataSource dataTwoSource,
-                                 @Autowired DruidDataSource dataThreeSource,
-                                 @Autowired DruidDataSource dataFourSource) throws Exception {
+    public DataSource dataSource(@Qualifier("dataOneSource") DruidDataSource dataOneSource,
+                                 @Qualifier("dataTwoSource") DruidDataSource dataTwoSource) throws Exception {
         ShardingRuleConfiguration shardJdbcConfig = new ShardingRuleConfiguration();
         shardJdbcConfig.getTableRuleConfigs().add(getTableRule01());
-        shardJdbcConfig.getTableRuleConfigs().add(getTableRule02());
-        shardJdbcConfig.setDefaultDataSourceName("ds_0");
+//        shardJdbcConfig.getTableRuleConfigs().add(getTableRule02());
+        shardJdbcConfig.getTableRuleConfigs().add(getTableRule03());
+        shardJdbcConfig.setDefaultDataSourceName("ds_1");
         Map<String, DataSource> dataMap = new LinkedHashMap<>();
-        dataMap.put("ds_0", dataOneSource);
+        dataMap.put("ds_1", dataOneSource);
         dataMap.put("ds_2", dataTwoSource);
-        dataMap.put("ds_3", dataThreeSource);
-        dataMap.put("ds_4", dataFourSource);
         Properties prop = new Properties();
         return ShardingDataSourceFactory.createDataSource(dataMap, shardJdbcConfig, new HashMap<>(), prop);
     }
@@ -317,18 +186,26 @@ public class ShardJdbcConfig {
     private static TableRuleConfiguration getTableRule01() {
         TableRuleConfiguration result = new TableRuleConfiguration();
         result.setLogicTable("table_one");
-        result.setActualDataNodes("ds_${2..4}.table_one_${1..5}");
+        result.setActualDataNodes("ds_${1..2}.table_one_${1..3}");
         result.setDatabaseShardingStrategyConfig(new StandardShardingStrategyConfiguration("phone", new DataSourceAlg()));
         result.setTableShardingStrategyConfig(new StandardShardingStrategyConfiguration("phone", new TableOneAlg()));
         return result;
     }
-
     private static TableRuleConfiguration getTableRule02() {
         TableRuleConfiguration result = new TableRuleConfiguration();
         result.setLogicTable("table_two");
-        result.setActualDataNodes("ds_${2..4}.table_two_${1..5}");
+        result.setActualDataNodes("ds_${1..2}.table_two_${1..3}");
         result.setDatabaseShardingStrategyConfig(new StandardShardingStrategyConfiguration("phone", new DataSourceAlg()));
         result.setTableShardingStrategyConfig(new StandardShardingStrategyConfiguration("phone", new TableTwoAlg()));
+        return result;
+    }
+
+    private static TableRuleConfiguration getTableRule03() {
+        TableRuleConfiguration result = new TableRuleConfiguration();
+        result.setLogicTable("t_user");
+        result.setActualDataNodes("ds_${1..2}.t_user_${0..1}");
+        result.setDatabaseShardingStrategyConfig(new StandardShardingStrategyConfiguration("city_id", new DataSourceAlg()));
+        result.setTableShardingStrategyConfig(new StandardShardingStrategyConfiguration("city_id", new TableThreeAlg()));
         return result;
     }
 }

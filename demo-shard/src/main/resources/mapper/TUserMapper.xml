@@ -3,7 +3,7 @@
 <mapper namespace="com.algebra.demoshard.mapper.TUserMapper">
   <resultMap id="BaseResultMap" type="com.algebra.demoshard.entity.domain.TUser">
     <!--@mbg.generated-->
-    <!--@Table t_user0-->
+    <!--@Table t_user-->
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="city_id" jdbcType="INTEGER" property="cityId" />
@@ -21,17 +21,17 @@
     <!--@mbg.generated-->
     select 
     <include refid="Base_Column_List" />
-    from t_user0
+    from t_user
     where id = #{id,jdbcType=BIGINT}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     <!--@mbg.generated-->
-    delete from t_user0
+    delete from t_user
     where id = #{id,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="com.algebra.demoshard.entity.domain.TUser">
     <!--@mbg.generated-->
-    insert into t_user0 (id, `name`, city_id, 
+    insert into t_user (id, `name`, city_id, 
       sex, phone, email, 
       create_time, `password`)
     values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{cityId,jdbcType=INTEGER}, 
@@ -40,7 +40,7 @@
   </insert>
   <insert id="insertSelective" parameterType="com.algebra.demoshard.entity.domain.TUser">
     <!--@mbg.generated-->
-    insert into t_user0
+    insert into t_user
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
@@ -96,7 +96,7 @@
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.algebra.demoshard.entity.domain.TUser">
     <!--@mbg.generated-->
-    update t_user0
+    update t_user
     <set>
       <if test="name != null">
         `name` = #{name,jdbcType=VARCHAR},
@@ -124,7 +124,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.algebra.demoshard.entity.domain.TUser">
     <!--@mbg.generated-->
-    update t_user0
+    update t_user
     set `name` = #{name,jdbcType=VARCHAR},
       city_id = #{cityId,jdbcType=INTEGER},
       sex = #{sex,jdbcType=BOOLEAN},
