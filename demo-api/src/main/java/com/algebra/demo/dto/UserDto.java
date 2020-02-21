@@ -6,6 +6,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.Date;
 
 @Data
 @ApiModel("用户操作类")
@@ -36,5 +37,9 @@ public class UserDto implements Serializable {
 
     @ApiModelProperty(value = "备注",dataType = "String")
     private String remark;
+
+    private Date loginDate;
+
+    private int num;
 
 }
