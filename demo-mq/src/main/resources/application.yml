@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: demo-mq
+  profiles:
+    active: dev
+
+---
+server:
+  tomcat:
+    uri-encoding: UTF-8
+  port: 8083
+  servlet:
+    context-path: /mq/v1
+
