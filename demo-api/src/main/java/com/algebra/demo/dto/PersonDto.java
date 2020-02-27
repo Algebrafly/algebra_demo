@@ -2,6 +2,7 @@ package com.algebra.demo.dto;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Builder;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -13,6 +14,7 @@ import java.io.Serializable;
  */
 @Data
 @ApiModel("person | 用户")
+@Builder
 public class PersonDto implements Serializable {
 
     @ApiModelProperty(value="姓名")
