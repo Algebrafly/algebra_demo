@@ -1,9 +1,13 @@
 package com.algebra.demo.service;
 
 import com.algebra.demo.conf.mq.RabbitMqConfig;
+import com.rabbitmq.client.Channel;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Service;
+
+import java.io.IOException;
 
 /**
  * @author al
@@ -18,6 +22,11 @@ public class RabbitMqReceiver {
      * Direct 交换机模式
      */
     @RabbitListener(queues = RabbitMqConfig.QUEUE)
+    public void process(Message message, Channel channel) throws IOException {
+        channel.basicAck(message.getMessageProperties().getDeliveryTag(), true);
+        log.info("receive message : " + new String(message.getBody()));
+    }
+
     public void receive(String message){
         log.info("receive message" + message);
     }
