@@ -67,27 +67,16 @@ public class RabbitMqSender {
         amqpTemplate.convertAndSend(NormalRabbitMqConfig.HEADERS_EXCHANGE,"",obj);
     }
 
-    final RabbitTemplate.ConfirmCallback confirmCallback= new RabbitTemplate.ConfirmCallback() {
-
-        @Override
-        public void confirm(CorrelationData correlationData, boolean ack, String cause) {
-            System.out.println("correlationData: " + correlationData);
-            System.out.println("ack: " + ack);
-            if(!ack){
-                System.out.println("异常处理....");
-            }
-        }
-
-    };
-
-    final RabbitTemplate.ReturnCallback returnCallback = new RabbitTemplate.ReturnCallback() {
-
-        @Override
-        public void returnedMessage(Message message, int replyCode, String replyText, String exchange, String routingKey) {
-            System.out.println("return exchange: " + exchange + ", routingKey: "
-                    + routingKey + ", replyCode: " + replyCode + ", replyText: " + replyText);
+    final RabbitTemplate.ConfirmCallback confirmCallback= (correlationData, ack, cause) -> {
+        log.info("correlationData: " + correlationData);
+        log.info("ack: " + ack);
+        if(!ack){
+            log.info("异常处理....");
         }
     };
+
+    final RabbitTemplate.ReturnCallback returnCallback = (message, replyCode, replyText, exchange, routingKey) ->
+            log.info("return exchange: " + exchange + ", routingKey: " + routingKey + ", replyCode: " + replyCode + ", replyText: " + replyText);
 
     //发送消息方法调用: 构建Message消息
     public void send(Object message, Map<String, Object> properties) throws Exception {
@@ -111,15 +100,12 @@ public class RabbitMqSender {
 
         //发送消息时指定 header 延迟时间
         rabbitTemplate.convertAndSend(DelayRabbitMqConfig.LAZY_EXCHANGE, "lazy.boot", message,
-                new MessagePostProcessor() {
-                    @Override
-                    public Message postProcessMessage(Message message) throws AmqpException {
-                        //设置消息持久化
-                        message.getMessageProperties().setDeliveryMode(MessageDeliveryMode.PERSISTENT);
-                        //message.getMessageProperties().setHeader("x-delay", "6000");
-                        message.getMessageProperties().setDelay(60000);
-                        return message;
-                    }
+                message1 -> {
+                    //设置消息持久化
+                    message1.getMessageProperties().setDeliveryMode(MessageDeliveryMode.PERSISTENT);
+                    //message.getMessageProperties().setHeader("x-delay", "6000");
+                    message1.getMessageProperties().setDelay(60000);
+                    return message1;
                 }, correlationData);
     }
 
