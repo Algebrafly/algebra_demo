@@ -1,14 +1,19 @@
 package com.algebra.demo.service;
 
 import com.algebra.demo.conf.mq.NormalRabbitMqConfig;
+import com.algebra.demo.entity.User;
 import com.rabbitmq.client.Channel;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.amqp.support.AmqpHeaders;
+import org.springframework.messaging.handler.annotation.Headers;
+import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.Map;
 
 /**
  * @author al
@@ -70,9 +75,25 @@ public class RabbitMqReceiver {
     @RabbitHandler
     public void onLazyMessage(Message msg, Channel channel) throws IOException{
         long deliveryTag = msg.getMessageProperties().getDeliveryTag();
+        //手工ack
         channel.basicAck(deliveryTag, true);
         System.out.println("lazy receive " + new String(msg.getBody()));
 
+    }
+
+    @RabbitListener(queues = "test")
+    public void onUserMessage(@Payload User user, Channel channel, @Headers Map<String,Object> headers) throws IOException {
+
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        long deliveryTag = (Long)headers.get(AmqpHeaders.DELIVERY_TAG);
+        //手工ack
+        channel.basicAck(deliveryTag,true);
+        System.out.println("receive--11: " + user.toString());
     }
 
 }

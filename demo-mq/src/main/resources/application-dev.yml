@@ -15,6 +15,7 @@ spring:
     virtual-host: /
     # 消息发送到交换机确认机制,是否确认回调
     publisher-confirms: true
+    publisher-confirm-type: simple
     publisher-returns: true
     # 消费者数量
     listener:
@@ -39,3 +40,4 @@ spring:
         multiplier: 1.0
       #设置为 true 后 消费者在消息没有被路由到合适队列情况下会被return监听，而不会自动删除
       mandatory: true
+
