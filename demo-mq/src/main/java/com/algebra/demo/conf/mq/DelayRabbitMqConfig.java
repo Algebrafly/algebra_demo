@@ -4,6 +4,8 @@ import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.core.TopicExchange;
+import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
+import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -42,5 +44,19 @@ public class DelayRabbitMqConfig {
     public Binding lazyBinding(){
         return BindingBuilder.bind(lazyQueue()).to(lazyExchange()).with(LAZY_KEY);
     }
+
+    /**
+     * 消息序列化
+     * 要采用其他类型的消息转换器，我们可以对其进行设置
+     * @return
+     */
+//    @Bean
+//    public SimpleMessageListenerContainer simpleMessageListenerContainer(){
+//        SimpleMessageListenerContainer container = new SimpleMessageListenerContainer(connectionFactory());
+//        container.setMessageConverter(new Jackson2JsonMessageConverter());
+//        // 默认采用下面的这种转换器
+//        // container.setMessageConverter(new SimpleMessageConverter());
+//        return container;
+//    }
 
 }
