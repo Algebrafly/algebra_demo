@@ -17,7 +17,7 @@ import java.util.Map;
  */
 @Configuration
 @Slf4j
-public class RabbitMqConfig {
+public class NormalRabbitMqConfig {
 
     // 测试队列
     public static final String QUEUE = "queue";

@@ -20,7 +20,7 @@ public class MqTestController {
 
     @GetMapping("/mqTest01")
     public String mqTest01(String msg){
-        sender.send(msg);
+        sender.sendLazy(msg);
         return "successful";
     }
 

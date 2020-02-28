@@ -37,3 +37,5 @@ spring:
         max-attempts: 3
         max-interval: 10000ms
         multiplier: 1.0
+      #设置为 true 后 消费者在消息没有被路由到合适队列情况下会被return监听，而不会自动删除
+      mandatory: true
