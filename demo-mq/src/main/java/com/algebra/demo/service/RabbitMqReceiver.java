@@ -84,16 +84,10 @@ public class RabbitMqReceiver {
     @RabbitListener(queues = "test")
     public void onUserMessage(@Payload User user, Channel channel, @Headers Map<String,Object> headers) throws IOException {
 
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
         long deliveryTag = (Long)headers.get(AmqpHeaders.DELIVERY_TAG);
         //手工ack
         channel.basicAck(deliveryTag,true);
-        System.out.println("receive--11: " + user.toString());
+        System.out.println("object receive--11: " + user.toString());
     }
 
 }
