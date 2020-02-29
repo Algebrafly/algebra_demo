@@ -21,21 +21,21 @@ public class LogMqSender {
     private RabbitTemplate rabbitTemplate;
 
     public void info(Object message){
-        log.info("info--{}", message);
-        SysWebLog sysWebLog = new SysWebLog("info",String.valueOf(message));
+        log.debug("info:{}", message);
+        SysWebLog sysWebLog = new SysWebLog(String.valueOf(message));
         rabbitTemplate.convertAndSend(LogRabbitMqConfig.LOG_EXCHANGE,"log.info", sysWebLog);
     }
 
     public void debug(Object message){
-        log.info("debug:{}", message);
-        SysWebLog sysWebLog = new SysWebLog("debug",String.valueOf(message));
-        rabbitTemplate.convertAndSend(LogRabbitMqConfig.LOG_EXCHANGE,"log.debug", message);
+        log.debug("debug:{}", message);
+        SysWebLog sysWebLog = new SysWebLog(String.valueOf(message));
+        rabbitTemplate.convertAndSend(LogRabbitMqConfig.LOG_EXCHANGE,"log.debug", sysWebLog);
     }
 
     public void error(Object message){
-        log.info("error:{}", message);
-        SysWebLog sysWebLog = new SysWebLog("error",String.valueOf(message));
-        rabbitTemplate.convertAndSend(LogRabbitMqConfig.LOG_EXCHANGE,"log.error", message);
+        log.debug("error:{}", message);
+        SysWebLog sysWebLog = new SysWebLog(String.valueOf(message));
+        rabbitTemplate.convertAndSend(LogRabbitMqConfig.LOG_EXCHANGE,"log.error", sysWebLog);
     }
 
 }

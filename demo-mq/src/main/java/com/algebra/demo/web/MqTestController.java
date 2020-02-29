@@ -39,7 +39,8 @@ public class MqTestController {
     @GetMapping("/helloLog")
     public String logMqTest(@RequestParam("name") String name){
 
-        // 下一步实现占位符匹配
+        // 1.当前类名、方法名、线程号等信息
+        // 2.下一步实现占位符匹配（Appender实现）
         logMqSender.info("[测试类]请求信息："+name);
         log.info("[测试类]请求信息：{}",name);
         return "hello "+name;

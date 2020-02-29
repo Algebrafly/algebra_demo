@@ -1,7 +1,10 @@
 package com.algebra.demo.entity;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.Date;
+
+import com.alibaba.fastjson.JSONObject;
 import lombok.Data;
 
 /**
@@ -30,6 +33,11 @@ public class SysWebLog implements Serializable {
     * 线程号
     */
     private String logThread;
+
+    /**
+     * 全局ID
+     */
+    private String traceId;
 
     /**
     * 类名
@@ -66,29 +74,30 @@ public class SysWebLog implements Serializable {
     */
     private String serviceModel;
 
-    public SysWebLog() {
+    public SysWebLog() {}
 
-    }
-
-    public SysWebLog(String level,String logMsg){
+    public SysWebLog(String logMsg){
         this.logDate = new Date();
-        this.logLevel = level;
+        this.logLevel = Thread.currentThread().getStackTrace()[2].getMethodName().toUpperCase();
         this.logThread = Thread.currentThread().getName();
-        this.logClass = Thread.currentThread().getStackTrace()[1].getClassName();
-        this.logMethod = Thread.currentThread().getStackTrace()[1].getMethodName();
-        this.logMethodLine = Thread.currentThread().getStackTrace()[1].getLineNumber();
+        this.logClass = Thread.currentThread().getStackTrace()[3].getClassName();
+        this.logMethod = Thread.currentThread().getStackTrace()[3].getMethodName();
+        this.logMethodLine = Thread.currentThread().getStackTrace()[3].getLineNumber();
         this.logMsg = logMsg;
+//        System.out.println(JSONObject.toJSONString(Thread.currentThread().getStackTrace()));
     }
 
-    public SysWebLog(String level,String logMsg, String oprName){
+    public SysWebLog(String logMsg, String oprName, String oprId, String serviceModel){
         this.logDate = new Date();
-        this.logLevel = level;
+        this.logLevel = Thread.currentThread().getStackTrace()[2].getMethodName().toUpperCase();
         this.logThread = Thread.currentThread().getName();
-        this.logClass = Thread.currentThread().getStackTrace()[1].getClassName();
-        this.logMethod = Thread.currentThread().getStackTrace()[1].getMethodName();
-        this.logMethodLine = Thread.currentThread().getStackTrace()[1].getLineNumber();
+        this.logClass = Thread.currentThread().getStackTrace()[3].getClassName();
+        this.logMethod = Thread.currentThread().getStackTrace()[3].getMethodName();
+        this.logMethodLine = Thread.currentThread().getStackTrace()[3].getLineNumber();
         this.logMsg = logMsg;
         this.oprName = oprName;
+        this.oprId =  oprId;
+        this.serviceModel = serviceModel;
     }
 
     private static final long serialVersionUID = 1L;
