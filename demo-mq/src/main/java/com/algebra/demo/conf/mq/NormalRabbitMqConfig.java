@@ -3,6 +3,7 @@ package com.algebra.demo.conf.mq;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -21,6 +22,7 @@ public class NormalRabbitMqConfig {
 
     // 测试队列
     public static final String QUEUE = "queue";
+    public static final String TEST = "test";
     // Topic 交换机模式队列
     public static final String TOPIC_QUEUE1 = "topic.queue1";
     public static final String TOPIC_QUEUE2 = "topic.queue2";
@@ -50,6 +52,11 @@ public class NormalRabbitMqConfig {
     @Bean
     public Queue queue() {
         return new Queue(QUEUE,true);
+    }
+
+    @Bean
+    public Queue test() {
+        return new Queue(TEST,true);
     }
 
     /**
@@ -125,7 +132,7 @@ public class NormalRabbitMqConfig {
         return BindingBuilder.bind(headersQueue()).to(headersExchange()).whereAll(map).match();
     }
 
-    @Resource
+    @Autowired
     RabbitTemplate rabbitTemplate;
 
     /**
@@ -135,6 +142,7 @@ public class NormalRabbitMqConfig {
      * ReturnCallback接口用于实现消息发送到RabbitMQ 交换器，但无相应队列与交换器绑定时的回调  即消息发送不到任何一个队列中  ack
      * @return rabbitTemplate
      */
+//    @Bean
     public RabbitTemplate rabbitTemplate(){
         // 消息发送失败返回到队列中, yml需要配置 publisher-returns: true
         rabbitTemplate.setMandatory(true);

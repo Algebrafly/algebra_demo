@@ -1,9 +1,12 @@
 package com.algebra.demo.web;
 
+import com.algebra.demo.entity.User;
 import com.algebra.demo.util.RabbitMqSender;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -21,6 +24,12 @@ public class MqTestController {
     @GetMapping("/mqTest01")
     public String mqTest01(String msg){
         sender.sendLazy(msg);
+        return "successful";
+    }
+
+    @PostMapping("/mqTest02")
+    public String mqTest02(@RequestBody User msg){
+        sender.sendObj(msg);
         return "successful";
     }
 

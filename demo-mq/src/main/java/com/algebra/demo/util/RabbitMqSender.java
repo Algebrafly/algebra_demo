@@ -37,6 +37,11 @@ public class RabbitMqSender {
         amqpTemplate.convertAndSend(NormalRabbitMqConfig.QUEUE, message);
     }
 
+    public void sendObj(Object message){
+        log.info("send topic message-obj: " + message);
+        rabbitTemplate.convertAndSend(NormalRabbitMqConfig.TEST, message);
+    }
+
     /**
      * Topic 交换机模式
      */
@@ -79,7 +84,7 @@ public class RabbitMqSender {
             log.info("return exchange: " + exchange + ", routingKey: " + routingKey + ", replyCode: " + replyCode + ", replyText: " + replyText);
 
     //发送消息方法调用: 构建Message消息
-    public void send(Object message, Map<String, Object> properties) throws Exception {
+    public void sendMap(Object message, Map<String, Object> properties) throws Exception {
         MessageProperties mp = new MessageProperties();
         //在生产环境中这里不用Message，而是使用 fastJson 等工具将对象转换为 json 格式发送
         Message msg = new Message(message.toString().getBytes(),mp);
