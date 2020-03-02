@@ -1,12 +1,18 @@
 package com.algebra.demo.web;
 
+import com.algebra.demo.entity.CouponForm;
 import com.algebra.demo.entity.User;
 import com.algebra.demo.util.LogMqSender;
 import com.algebra.demo.util.RabbitMqSender;
+import com.alibaba.fastjson.JSONObject;
 import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 /**
  * @author al
@@ -31,7 +37,13 @@ public class MqTestController {
     }
 
     @PostMapping("/mqTest02")
-    public String mqTest02(@RequestBody User msg){
+    public String mqTest02(@Valid @RequestBody User msg, BindingResult bindingResult){
+        // 默认情况下，如果校验失败会抛javax.validation.ConstraintViolationException异常，可以用统一异常处理去对这些异常做处理
+        if(bindingResult.hasErrors()){
+            for (ObjectError allError : bindingResult.getAllErrors()) {
+                return allError.getDefaultMessage();
+            }
+        }
         sender.sendObj(msg);
         return "successful";
     }
@@ -51,6 +63,13 @@ public class MqTestController {
         logMqSender.info("[测试类]请求信息："+name);
         log.info("[测试类]请求信息：{}",name);
         return "hello "+name;
+    }
+
+    @PostMapping("/validatorTest")
+    public String validatorTest(@Valid @RequestBody CouponForm couponForm){
+
+        log.info("接收到参数：{}", JSONObject.toJSONString(couponForm));
+        return "";
     }
 
 
