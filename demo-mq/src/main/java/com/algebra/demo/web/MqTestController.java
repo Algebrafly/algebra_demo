@@ -36,6 +36,13 @@ public class MqTestController {
         return "successful";
     }
 
+    @GetMapping("/mqTestTopic")
+    public String mqTest03(@RequestParam String msg){
+        sender.sendTopic(msg);
+        return "successful";
+    }
+
+
     @GetMapping("/helloLog")
     public String logMqTest(@RequestParam("name") String name){
 
