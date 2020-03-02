@@ -1,8 +1,9 @@
-package com.algebra.demo.service;
+package com.algebra.demo.service.other;
 
 import com.algebra.demo.conf.mq.LogRabbitMqConfig;
 import com.algebra.demo.entity.SysWebLog;
 import com.algebra.demo.entity.User;
+import com.algebra.demo.service.SysWebLogService;
 import com.algebra.demo.util.LogMqSender;
 import com.alibaba.fastjson.JSONObject;
 import com.rabbitmq.client.Channel;

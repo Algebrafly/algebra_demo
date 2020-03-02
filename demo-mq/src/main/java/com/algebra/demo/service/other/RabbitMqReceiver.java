@@ -1,4 +1,4 @@
-package com.algebra.demo.service;
+package com.algebra.demo.service.other;
 
 import com.algebra.demo.conf.mq.NormalRabbitMqConfig;
 import com.algebra.demo.entity.User;
