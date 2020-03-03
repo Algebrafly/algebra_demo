@@ -43,8 +43,10 @@ public class StreamMqTestController {
                 properties.put("SERIAL_NUMBER", "12345");
                 properties.put("BANK_NUMBER", "abc");
                 properties.put("PLAT_SEND_TIME", DateUtils.formatDate(new Date(), "yyyy-MM-dd HH:mm:ss.SSS"));
+                // 正常分组
 //                streamMqSender.sendMessage("Hello, I am amqp sender num :" + i, properties);
                 // 测试消息分区：同一类消息只发送给同一个消费者(partitionKeyExpression=payload)
+                // partitionKeyExpression=myPartitionKeyStrategy自定义分区规则
                 streamMqSender.sendMessage("Hello, I am amqp sender num : 0", properties);
 
             } catch (Exception e) {
