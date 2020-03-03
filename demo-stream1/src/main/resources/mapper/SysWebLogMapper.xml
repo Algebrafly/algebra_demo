@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.algebra.demo.mapper.SysWebLogMapper">
+  <resultMap id="BaseResultMap" type="com.algebra.demo.entity.SysWebLog">
+    <!--@mbg.generated-->
+    <!--@Table sys_web_log-->
+    <id column="log_id" jdbcType="INTEGER" property="logId" />
+    <result column="log_date" jdbcType="TIMESTAMP" property="logDate" />
+    <result column="log_level" jdbcType="VARCHAR" property="logLevel" />
+    <result column="log_thread" jdbcType="VARCHAR" property="logThread" />
+    <result column="log_class" jdbcType="VARCHAR" property="logClass" />
+    <result column="log_method" jdbcType="VARCHAR" property="logMethod" />
+    <result column="log_method_line" jdbcType="INTEGER" property="logMethodLine" />
+    <result column="log_msg" jdbcType="VARCHAR" property="logMsg" />
+    <result column="opr_name" jdbcType="VARCHAR" property="oprName" />
+    <result column="opr_id" jdbcType="VARCHAR" property="oprId" />
+    <result column="service_model" jdbcType="VARCHAR" property="serviceModel" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    log_id, log_date, log_level, log_thread, log_class, log_method, log_method_line, 
+    log_msg, opr_name, opr_id, service_model
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from sys_web_log
+    where log_id = #{logId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--@mbg.generated-->
+    delete from sys_web_log
+    where log_id = #{logId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="log_id" keyProperty="logId" parameterType="com.algebra.demo.entity.SysWebLog" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into sys_web_log (log_date, log_level, log_thread, 
+      log_class, log_method, log_method_line, 
+      log_msg, opr_name, opr_id, 
+      service_model)
+    values (#{logDate,jdbcType=TIMESTAMP}, #{logLevel,jdbcType=VARCHAR}, #{logThread,jdbcType=VARCHAR}, 
+      #{logClass,jdbcType=VARCHAR}, #{logMethod,jdbcType=VARCHAR}, #{logMethodLine,jdbcType=INTEGER}, 
+      #{logMsg,jdbcType=VARCHAR}, #{oprName,jdbcType=VARCHAR}, #{oprId,jdbcType=VARCHAR}, 
+      #{serviceModel,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="log_id" keyProperty="logId" parameterType="com.algebra.demo.entity.SysWebLog" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into sys_web_log
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="logDate != null">
+        log_date,
+      </if>
+      <if test="logLevel != null">
+        log_level,
+      </if>
+      <if test="logThread != null">
+        log_thread,
+      </if>
+      <if test="logClass != null">
+        log_class,
+      </if>
+      <if test="logMethod != null">
+        log_method,
+      </if>
+      <if test="logMethodLine != null">
+        log_method_line,
+      </if>
+      <if test="logMsg != null">
+        log_msg,
+      </if>
+      <if test="oprName != null">
+        opr_name,
+      </if>
+      <if test="oprId != null">
+        opr_id,
+      </if>
+      <if test="serviceModel != null">
+        service_model,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="logDate != null">
+        #{logDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="logLevel != null">
+        #{logLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="logThread != null">
+        #{logThread,jdbcType=VARCHAR},
+      </if>
+      <if test="logClass != null">
+        #{logClass,jdbcType=VARCHAR},
+      </if>
+      <if test="logMethod != null">
+        #{logMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="logMethodLine != null">
+        #{logMethodLine,jdbcType=INTEGER},
+      </if>
+      <if test="logMsg != null">
+        #{logMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="oprName != null">
+        #{oprName,jdbcType=VARCHAR},
+      </if>
+      <if test="oprId != null">
+        #{oprId,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceModel != null">
+        #{serviceModel,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.algebra.demo.entity.SysWebLog">
+    <!--@mbg.generated-->
+    update sys_web_log
+    <set>
+      <if test="logDate != null">
+        log_date = #{logDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="logLevel != null">
+        log_level = #{logLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="logThread != null">
+        log_thread = #{logThread,jdbcType=VARCHAR},
+      </if>
+      <if test="logClass != null">
+        log_class = #{logClass,jdbcType=VARCHAR},
+      </if>
+      <if test="logMethod != null">
+        log_method = #{logMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="logMethodLine != null">
+        log_method_line = #{logMethodLine,jdbcType=INTEGER},
+      </if>
+      <if test="logMsg != null">
+        log_msg = #{logMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="oprName != null">
+        opr_name = #{oprName,jdbcType=VARCHAR},
+      </if>
+      <if test="oprId != null">
+        opr_id = #{oprId,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceModel != null">
+        service_model = #{serviceModel,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where log_id = #{logId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.algebra.demo.entity.SysWebLog">
+    <!--@mbg.generated-->
+    update sys_web_log
+    set log_date = #{logDate,jdbcType=TIMESTAMP},
+      log_level = #{logLevel,jdbcType=VARCHAR},
+      log_thread = #{logThread,jdbcType=VARCHAR},
+      log_class = #{logClass,jdbcType=VARCHAR},
+      log_method = #{logMethod,jdbcType=VARCHAR},
+      log_method_line = #{logMethodLine,jdbcType=INTEGER},
+      log_msg = #{logMsg,jdbcType=VARCHAR},
+      opr_name = #{oprName,jdbcType=VARCHAR},
+      opr_id = #{oprId,jdbcType=VARCHAR},
+      service_model = #{serviceModel,jdbcType=VARCHAR}
+    where log_id = #{logId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,56 @@
+server:
+  port: 8087
+
+spring:
+  # 数据源配置
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT
+    username: root
+    password: 123456
+    driverClassName: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+  # MQ-消费端定义
+  cloud:
+    stream:
+      binders:
+        local_rabbit:
+          type: rabbit
+          environment:
+            spring:
+              rabbitmq:
+                host: 49.233.146.198
+                port: 5672
+                username: algebra
+                password: algebra
+                virtual-host: /
+      bindings:
+        my_input:
+          destination: queue.my.test
+          group: myTest
+          binder: local_rabbit
+          consumer:
+            #默认监听数
+            concurrency: 1
+            #最大监听数
+            max-concurrency: 5
+            #是否持久化订阅
+            durable-subscription: true
+            #服务重连
+            recovery-interval: 3000
+            #是否支持签收，签收模式：手工签收
+#            acknowledge-mode: MANUAL
+            #针对消费端channel进行设置，是否支持requeue，重回队列
+            requeue-rejected: false
+            #开启消费者分区功能
+            partitioned: true
+
+      instance-count: 2
+      instance-index: 1
+
+---
+# mybatis
+mybatis:
+  # 注意通配符的配置
+  mapper-locations: classpath*:/mapper/**/**.xml
+  # 实体扫描，mybatis 驼峰命名映射
+  typeAliasesPackage: com.algebra.demo.entity

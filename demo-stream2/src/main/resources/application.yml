@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: demo-stream1
+  profiles:
+    active: stream1
+
+---
+server:
+  tomcat:
+    uri-encoding: UTF-8
+  servlet:
+    context-path: /stream2/v1
+

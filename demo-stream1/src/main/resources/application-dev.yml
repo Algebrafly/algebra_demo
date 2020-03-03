@@ -1,0 +1,50 @@
+spring:
+  # 数据源配置
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT
+    username: root
+    password: 123456
+    driverClassName: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+  # MQ
+  rabbitmq:
+    host: 49.233.146.198
+    port: 5672
+    username: algebra
+    password: algebra
+    virtual-host: /
+    # 消息发送到交换机确认机制,是否确认回调
+    publisher-confirms: true
+    publisher-confirm-type: simple
+    publisher-returns: true
+    # 消费者数量
+    listener:
+      simple:
+        concurrency: 10
+        max-concurrency: 10
+        # 消费者每次从队列获取的消息数量(限流（海量数据，同时只能过来一条）)
+        prefetch: 1
+        # 消费者自动启动
+        auto-startup: true
+        # 消费失败，自动重新入队
+        default-requeue-rejected: true
+        #自动签收auto  手动 manual
+        acknowledge-mode: manual
+    # 启用发送重试
+    template:
+      retry:
+        enabled: true
+        initial-interval: 1000ms
+        max-attempts: 3
+        max-interval: 10000ms
+        multiplier: 1.0
+      #设置为 true 后 消费者在消息没有被路由到合适队列情况下会被return监听，而不会自动删除
+      mandatory: true
+
+---
+# mybatis
+mybatis:
+  # 注意通配符的配置
+  mapper-locations: classpath*:/mapper/**/**.xml
+  # 实体扫描，mybatis 驼峰命名映射
+  typeAliasesPackage: com.algebra.demo.entity
