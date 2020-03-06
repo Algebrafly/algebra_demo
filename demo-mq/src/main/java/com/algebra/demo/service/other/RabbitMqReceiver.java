@@ -71,16 +71,6 @@ public class RabbitMqReceiver {
         log.info("receive headers queue message: " + new String(message));
     }
 
-    @RabbitListener(queues = "MQ.LazyQueue")
-    @RabbitHandler
-    public void onLazyMessage(Message msg, Channel channel) throws IOException{
-        long deliveryTag = msg.getMessageProperties().getDeliveryTag();
-        //手工ack
-        channel.basicAck(deliveryTag, true);
-        System.out.println("lazy receive " + new String(msg.getBody()));
-
-    }
-
     @RabbitListener(queues = "test")
     @RabbitHandler
     public void onUserMessage(@Payload User user, Channel channel, @Headers Map<String,Object> headers) throws IOException {
