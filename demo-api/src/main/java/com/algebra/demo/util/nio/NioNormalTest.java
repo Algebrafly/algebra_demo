@@ -87,15 +87,56 @@ public class NioNormalTest {
     }
 
 
-    public static void testReaderAndWriter() {
+    public static void testReaderAndWriter(String path) {
+        FileInputStream in = null;
+        FileOutputStream out = null;
 
+        try {
+            in = new FileInputStream(new File(path));
+            FileChannel inChannel = in.getChannel();
+
+            ByteBuffer buffer = ByteBuffer.allocate(1024);
+
+            out = new FileOutputStream(new File("./temp.txt"));
+            FileChannel outChannel = out.getChannel();
+
+            int inLen = -1;
+
+            while ((inLen = inChannel.read(buffer)) != -1) {
+                buffer.flip();
+
+                int outLen = 0;
+                while ((outLen = outChannel.write(buffer)) != 0) {
+
+                }
+
+                buffer.clear();
+
+            }
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        } finally {
+            try {
+                if (in != null) {
+                    in.close();
+                }
+                if (out != null) {
+                    out.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
 
 
     }
 
 
     public static void main(String[] args) {
-
+        testReaderAndWriter("E:\\MyProject\\algebra_demo\\demo-api\\src\\main\\resources\\normal_io_2.txt");
     }
 
 
