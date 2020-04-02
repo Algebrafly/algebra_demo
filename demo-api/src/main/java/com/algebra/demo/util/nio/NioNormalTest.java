@@ -105,10 +105,12 @@ public class NioNormalTest {
             while ((inLen = inChannel.read(buffer)) != -1) {
                 buffer.flip();
 
-                int outLen = 0;
-                while ((outLen = outChannel.write(buffer)) != 0) {
+//                int outLen = 0;
+//                while ((outLen = outChannel.write(buffer)) != 0) {
+//
+//                }
 
-                }
+                outChannel.write(buffer);
 
                 buffer.clear();
 
