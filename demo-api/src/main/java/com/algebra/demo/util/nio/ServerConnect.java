@@ -82,12 +82,15 @@ public class ServerConnect {
                 while(iterator.hasNext()){
                     SelectionKey key = iterator.next();
                     if(key.isAcceptable()){
+                        System.out.println("accept");
                         handleAccept(key);
                     }
                     if(key.isReadable()){
+                        System.out.println("read");
                         handleRead(key);
                     }
                     if(key.isWritable() && key.isValid()){
+                        System.out.println("write");
                         handleWrite(key);
                     }
                     if(key.isConnectable()){

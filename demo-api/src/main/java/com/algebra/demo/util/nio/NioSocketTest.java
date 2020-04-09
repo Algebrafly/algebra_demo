@@ -44,7 +44,7 @@ public class NioSocketTest {
                         System.out.println(buffer);
                         socketChannel.write(buffer);
                     }
-                } while (i < 5);
+                } while (i < 2);
             }
 
         } catch (Exception e) {
