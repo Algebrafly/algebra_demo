@@ -14,7 +14,7 @@ import java.util.Iterator;
  * @date 2020/4/3 10:30
  * @description
  */
-public class ServerConnect {
+public class NioSocketServerConnect {
 
     private static final int BUF_SIZE=1024;
     private static final int PORT = 8888;

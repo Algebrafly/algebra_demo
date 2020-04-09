@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit;
  * @date 2020/4/3 9:23
  * @description
  */
-public class NioSocketTest {
+public class NioSocketClientTest {
 
     public static void main(String[] args) {
 
