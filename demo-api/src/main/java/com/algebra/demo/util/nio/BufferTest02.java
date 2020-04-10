@@ -22,8 +22,6 @@ public class BufferTest02 {
         // 使用相对操作，position会根据目标数组大小改变
         buffer.put(chars);
 
-        buffer.position(3);
-
         System.out.println("capacity: "+ buffer.capacity()+"，limit: "+ buffer.limit() + "，position："+buffer.position());
 //        buffer.clear();
         buffer.flip();
