@@ -15,9 +15,11 @@ public class BufferTest02 {
         CharBuffer buffer = CharBuffer.allocate(1024);
         System.out.println("[initial] capacity: "+ buffer.capacity()+"，limit: "+ buffer.limit() + "，position："+buffer.position());
 
+        // 使用绝对位置的put操作，position不会变化， 等于0
 //        buffer.put(0,'A');
 //        buffer.put(1,'a');
 //        buffer.put(2,'1');
+        // 使用相对操作，position会根据目标数组大小改变
         buffer.put(chars);
 
         buffer.position(3);
