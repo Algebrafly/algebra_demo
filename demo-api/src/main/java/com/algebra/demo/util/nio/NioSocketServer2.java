@@ -4,6 +4,7 @@ import java.net.InetSocketAddress;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
 import java.nio.channels.ServerSocketChannel;
+import java.util.Iterator;
 
 /**
  * @author al
@@ -31,17 +32,56 @@ public class NioSocketServer2 {
             System.out.println("server start working ...");
 
             // 创建消息处理器
+            NioSocketServerConnect2 handler = new NioSocketServerConnect2(1024);
+
+            while (flag == 1) {
+                selector.select();
+                System.out.println("开始处理请求：");
+
+                // 获取selectionKeys并处理
+                Iterator<SelectionKey> iterator = selector.selectedKeys().iterator();
+
+                while (iterator.hasNext()) {
+                    SelectionKey key = iterator.next();
+                    try {
+                        if(key.isAcceptable()){
+                            handler.handleAccept(key);
+                        }
+
+                        if(key.isReadable()){
+                            System.out.println(handler.handleRead(key));
+                        }
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
 
 
+                    }
+                    iterator.remove();
+                }
+                System.out.println("请求处理完成！");
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
 
         }
+    }
 
 
+    public static void main(String[] args) {
 
-
+        NioSocketServer2 server = new NioSocketServer2();
+        new Thread(()->{
+            try {
+                Thread.sleep(10*60*1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }finally {
+                server.setFlag((byte) 0);
+            }
+        }).start();
+        server.start();
     }
 
 }
