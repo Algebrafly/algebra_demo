@@ -35,6 +35,7 @@ public class MyDbConnectionPool3 {
     private final int maxSize;
 
     public MyDbConnectionPool3(int maxSize) {
+        init();
         this.maxSize = maxSize;
     }
 
