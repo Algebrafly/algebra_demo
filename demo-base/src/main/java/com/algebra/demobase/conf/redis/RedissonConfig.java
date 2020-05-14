@@ -21,7 +21,7 @@ public class RedissonConfig {
         // 采用默认编码序列化模式，单节点
         config.setCodec(new JsonJacksonCodec())
                 .useSingleServer()
-                .setAddress("redis://49.233.146.198:6379");
+                .setAddress("redis://127.0.0.1:6379");
         return Redisson.create(config);
     }
 }
