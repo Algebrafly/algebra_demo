@@ -93,4 +93,23 @@ public class CollectionUtil {
         return list.toArray(result);
     }
 
+
+    public static void main(String[] args) {
+
+        String a = "1,2,3,4,5,";
+        String b = "4,5,6,7,8,";
+        String[] aAry = a.split(",");
+        String[] bAry = b.split(",");
+
+        String[] union = union(aAry, bAry);
+        System.out.println(Arrays.toString(union));
+
+        String[] minus = minus(aAry, bAry);
+        System.out.println(Arrays.toString(minus));
+
+        String[] intersect = intersect(aAry, bAry);
+        System.out.println(Arrays.toString(intersect));
+
+    }
+
 }
