@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.algebra.demobase.mapper.AccountMoneyMapper">
+  <resultMap id="BaseResultMap" type="com.algebra.demobase.entity.AccountMoney">
+    <!--@mbg.generated-->
+    <!--@Table test_account_money-->
+    <id column="biz_pk" jdbcType="VARCHAR" property="bizPk" />
+    <result column="acct_no" jdbcType="VARCHAR" property="acctNo" />
+    <result column="acct_name" jdbcType="VARCHAR" property="acctName" />
+    <result column="acct_balance" jdbcType="DECIMAL" property="acctBalance" />
+    <result column="change_amt" jdbcType="DECIMAL" property="changeAmt" />
+    <result column="trans_remark" jdbcType="VARCHAR" property="transRemark" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    biz_pk, acct_no, acct_name, acct_balance, change_amt, trans_remark
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from test_account_money
+    where biz_pk = #{bizPk,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    <!--@mbg.generated-->
+    delete from test_account_money
+    where biz_pk = #{bizPk,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.algebra.demobase.entity.AccountMoney">
+    <!--@mbg.generated-->
+    insert into test_account_money (biz_pk, acct_no, acct_name, 
+      acct_balance, trans_remark)
+    values (#{bizPk,jdbcType=VARCHAR}, #{acctNo,jdbcType=VARCHAR}, #{acctName,jdbcType=VARCHAR}, 
+      #{acctBalance,jdbcType=DECIMAL}, #{transRemark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.algebra.demobase.entity.AccountMoney">
+    <!--@mbg.generated-->
+    insert into test_account_money
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="bizPk != null">
+        biz_pk,
+      </if>
+      <if test="acctNo != null">
+        acct_no,
+      </if>
+      <if test="acctName != null">
+        acct_name,
+      </if>
+      <if test="acctBalance != null">
+        acct_balance,
+      </if>
+      <if test="transRemark != null">
+        trans_remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="bizPk != null">
+        #{bizPk,jdbcType=VARCHAR},
+      </if>
+      <if test="acctNo != null">
+        #{acctNo,jdbcType=VARCHAR},
+      </if>
+      <if test="acctName != null">
+        #{acctName,jdbcType=VARCHAR},
+      </if>
+      <if test="acctBalance != null">
+        #{acctBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="transRemark != null">
+        #{transRemark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.algebra.demobase.entity.AccountMoney">
+    <!--@mbg.generated-->
+    update test_account_money
+    <set>
+      <if test="acctNo != null">
+        acct_no = #{acctNo,jdbcType=VARCHAR},
+      </if>
+      <if test="acctName != null">
+        acct_name = #{acctName,jdbcType=VARCHAR},
+      </if>
+      <if test="acctBalance != null">
+        acct_balance = #{acctBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="changeAmt != null">
+        change_amt = #{changeAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="transRemark != null">
+        trans_remark = #{transRemark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where biz_pk = #{bizPk,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.algebra.demobase.entity.AccountMoney">
+    <!--@mbg.generated-->
+    update test_account_money
+    set acct_no = #{acctNo,jdbcType=VARCHAR},
+      acct_name = #{acctName,jdbcType=VARCHAR},
+      acct_balance = #{acctBalance,jdbcType=DECIMAL},
+      trans_remark = #{transRemark,jdbcType=VARCHAR}
+    where biz_pk = #{bizPk,jdbcType=VARCHAR}
+  </update>
+</mapper>

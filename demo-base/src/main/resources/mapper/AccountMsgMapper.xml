@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.algebra.demobase.mapper.AccountMsgMapper">
+  <resultMap id="BaseResultMap" type="com.algebra.demobase.entity.AccountMsg">
+    <!--@mbg.generated-->
+    <!--@Table test_account_msg-->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="biz_pk" jdbcType="VARCHAR" property="bizPk" />
+    <result column="change_date" jdbcType="TIMESTAMP" property="changeDate" />
+    <result column="change_remark" jdbcType="VARCHAR" property="changeRemark" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, biz_pk, change_date, change_remark
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from test_account_msg
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--@mbg.generated-->
+    delete from test_account_msg
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.algebra.demobase.entity.AccountMsg" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into test_account_msg (biz_pk, change_date, change_remark
+      )
+    values (#{bizPk,jdbcType=VARCHAR}, #{changeDate,jdbcType=TIMESTAMP}, #{changeRemark,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.algebra.demobase.entity.AccountMsg" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into test_account_msg
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="bizPk != null">
+        biz_pk,
+      </if>
+      <if test="changeDate != null">
+        change_date,
+      </if>
+      <if test="changeRemark != null">
+        change_remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="bizPk != null">
+        #{bizPk,jdbcType=VARCHAR},
+      </if>
+      <if test="changeDate != null">
+        #{changeDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="changeRemark != null">
+        #{changeRemark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.algebra.demobase.entity.AccountMsg">
+    <!--@mbg.generated-->
+    update test_account_msg
+    <set>
+      <if test="bizPk != null">
+        biz_pk = #{bizPk,jdbcType=VARCHAR},
+      </if>
+      <if test="changeDate != null">
+        change_date = #{changeDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="changeRemark != null">
+        change_remark = #{changeRemark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.algebra.demobase.entity.AccountMsg">
+    <!--@mbg.generated-->
+    update test_account_msg
+    set biz_pk = #{bizPk,jdbcType=VARCHAR},
+      change_date = #{changeDate,jdbcType=TIMESTAMP},
+      change_remark = #{changeRemark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
