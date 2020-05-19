@@ -8,7 +8,7 @@ import java.util.Arrays;
  * @description 筛选法求N以内的所以素数 --> 拆解方法 & 改方法名和缩减变量
  * @verson 2.0 --> 2.1
  */
-public class PrimesGenerator {
+public class PrimesGeneratorV2 {
 
     private static boolean[] isCrossed;
     private static int[] result;
