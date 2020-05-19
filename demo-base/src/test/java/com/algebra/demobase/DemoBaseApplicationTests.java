@@ -41,12 +41,12 @@ public class DemoBaseApplicationTests {
     public void transTest(){
         AccountMoney money = new AccountMoney();
         money.setBizPk("my_1001");
-        money.setAcctBalance(new BigDecimal(3000));
-        money.setChangeAmt(new BigDecimal(1001));
+        money.setAcctBalance(new BigDecimal(3001));
+        money.setChangeAmt(new BigDecimal(999));
         money.setAcctName("张三");
-        money.setTransRemark("取款1");
+        money.setTransRemark("取款2");
 
-        transactionalTest.updateAccountTest(money);
+        transactionalTest.updateAccountTest2(money);
     }
 
     @Test

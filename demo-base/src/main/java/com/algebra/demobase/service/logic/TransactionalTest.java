@@ -7,6 +7,7 @@ import com.algebra.demobase.service.AccountMsgService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
@@ -37,6 +38,30 @@ public class TransactionalTest {
         moneyService.updateByPrimaryKeySelective(accountMoney);
 
     }
+
+    @Transactional(rollbackFor = Exception.class)
+    public void updateAccountTest2(AccountMoney accountMoney) {
+
+        try {
+            AccountMsg msg = new AccountMsg();
+            msg.setBizPk(accountMoney.getBizPk());
+            msg.setChangeDate(new Date());
+            msg.setChangeRemark("修改用户："+accountMoney.getAcctName()+"，金额："+accountMoney.getChangeAmt()+"元");
+            try {
+                msgService.insertSelective(msg);
+            } catch (Exception e) {
+                log.error("insert service exception, msg : {}", e.getMessage());
+                moneyService.updateByPrimaryKeySelective(accountMoney);
+//                throw e;
+            }
+        } catch (Exception e) {
+            log.error("Transactional exception， msg :{}", e.getMessage());
+            throw e;
+        }
+
+    }
+
+
 
 
 

@@ -30,8 +30,10 @@ public class AccountMsgServiceImpl implements AccountMsgService{
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
+//    @Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
+    @Transactional(rollbackFor = Exception.class, propagation = Propagation.NESTED)
     public int insertSelective(AccountMsg record) {
+        int a = 1/0;
         return accountMsgMapper.insertSelective(record);
     }
 

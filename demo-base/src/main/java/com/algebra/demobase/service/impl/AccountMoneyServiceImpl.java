@@ -41,6 +41,7 @@ public class AccountMoneyServiceImpl implements AccountMoneyService{
 
     @Override
     @Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
+//    @Transactional(rollbackFor = Exception.class, propagation = Propagation.NESTED)
     public int updateByPrimaryKeySelective(AccountMoney record) {
 
 //        try {
@@ -50,7 +51,6 @@ public class AccountMoneyServiceImpl implements AccountMoneyService{
 //            System.err.println("类:AccountMoneyServiceImpl;方法:updateByPrimaryKeySelective;错误信息:"+e.getMessage());
 //
 //        }
-        int a = 1/0;
         return accountMoneyMapper.updateByPrimaryKeySelective(record);
     }
 
