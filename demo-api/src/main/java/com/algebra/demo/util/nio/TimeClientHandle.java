@@ -1,5 +1,7 @@
 package com.algebra.demo.util.nio;
 
+import com.algebra.demo.dto.PersonDto;
+
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
@@ -7,8 +9,8 @@ import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
 import java.nio.channels.SocketChannel;
 import java.nio.charset.StandardCharsets;
-import java.util.Iterator;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author al
@@ -145,5 +147,30 @@ public class TimeClientHandle implements Runnable {
             System.out.println("Send order 2 server succeed.");
         }
     }
+
+    public static void main(String[] args) {
+
+        // 测试-引用指向堆栈对象
+        PersonDto p1 = PersonDto.builder().name("tom").personAge(20).build();
+        PersonDto p2 = PersonDto.builder().name("jerry").personAge(20).build();
+        PersonDto p3 = PersonDto.builder().name("lily").personAge(21).build();
+        PersonDto p4 = PersonDto.builder().name("alone").personAge(20).build();
+        List<PersonDto> testList = new ArrayList<>();
+        Collections.addAll(testList,p1,p2,p3,p4);
+        List<PersonDto> personFilterList = testList.stream().filter(p -> p.getPersonAge() == 20).collect(Collectors.toList());
+
+        PersonDto personDto = personFilterList.get(0);
+        personDto.setPassword("1234568899");
+
+        System.out.println(testList.toString());
+
+
+
+    }
+
+
+
+
+
 
 }
