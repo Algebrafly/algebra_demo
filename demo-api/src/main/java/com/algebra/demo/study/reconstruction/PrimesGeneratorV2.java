@@ -1,4 +1,4 @@
-package com.algebra.demo.study;
+package com.algebra.demo.study.reconstruction;
 
 import java.util.Arrays;
 

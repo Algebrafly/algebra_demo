@@ -1,4 +1,4 @@
-package com.algebra.demo.study;
+package com.algebra.demo.study.reconstruction;
 
 import java.util.Arrays;
 
@@ -8,9 +8,9 @@ import java.util.Arrays;
  * @description 筛选法求N以内的所以素数
  * @verson 3.0 --> 3.1
  */
-public class PrimesGeneratorV4 {
+public class PrimesGeneratorV3 {
 
-    private static boolean[] crossedOut;
+    private static boolean[] isCrossed;
     private static int[] result;
 
     public static int[] generatorPrimes(int maxValue) {
@@ -18,7 +18,7 @@ public class PrimesGeneratorV4 {
             return new int[0];
         } else {
             // 初始化数据
-            uncrossIntegersUpTo(maxValue);
+            initializeArrayOfInteger(maxValue);
             // 筛选法
             crossOutMultiples();
             // 加载数据
@@ -27,11 +27,11 @@ public class PrimesGeneratorV4 {
         }
     }
 
-    public static void uncrossIntegersUpTo(int maxValue) {
-        crossedOut = new boolean[maxValue + 1];
+    public static void initializeArrayOfInteger(int maxValue) {
+        isCrossed = new boolean[maxValue + 1];
         // initialize array to true
-        for (int i = 2; i < crossedOut.length; i++) {
-            crossedOut[i] = false;
+        for (int i = 2; i < isCrossed.length; i++) {
+            isCrossed[i] = false;
         }
 //        isCrossed[0] = isCrossed[1] = true;
     }
@@ -48,17 +48,17 @@ public class PrimesGeneratorV4 {
     }
 
     private static int calcMaxPrimesFactor() {
-        double maxPrimesFactor = Math.sqrt(crossedOut.length) + 1;
+        double maxPrimesFactor = Math.sqrt(isCrossed.length) + 1;
         return (int) maxPrimesFactor;
     }
 
     private static boolean notCrossed(int i) {
-        return !crossedOut[i];
+        return !isCrossed[i];
     }
 
     private static void crossOutMultiplesOf(int i) {
-        for (int multiple = 2 * i; multiple < crossedOut.length; multiple += i) {
-            crossedOut[multiple] = true;
+        for (int multiple = 2 * i; multiple < isCrossed.length; multiple += i) {
+            isCrossed[multiple] = true;
         }
     }
 
@@ -66,7 +66,7 @@ public class PrimesGeneratorV4 {
 
     private static void putUncrossIntegerIntoResult() {
         result = new int[numberOfUncrossedIntegers()];
-        for (int i = 2, j = 0; i < crossedOut.length; i++) {
+        for (int i = 2, j = 0; i < isCrossed.length; i++) {
             if (notCrossed(i)) {
                 result[j++] = i;
             }
@@ -75,7 +75,7 @@ public class PrimesGeneratorV4 {
 
     private static int numberOfUncrossedIntegers() {
         int count = 0;
-        for (int i = 2; i < crossedOut.length; i++) {
+        for (int i = 2; i < isCrossed.length; i++) {
             if (notCrossed(i)) {
                 count++;
             }
@@ -86,23 +86,21 @@ public class PrimesGeneratorV4 {
 
     public static void main(String[] args) {
 
-        for(int i = 2; i < 500; i++){
-            verifyPrimesList(generatorPrimes(i));
-        }
+        int[] nullValue = generatorPrimes(0);
+        System.out.println(Arrays.toString(nullValue));
 
-    }
+        int[] minArray = generatorPrimes(1);
+        System.out.println(Arrays.toString(minArray));
 
-    private static void verifyPrimesList(int[] list){
-        for (int i : list) {
-            verifyPrimes(i);
-        }
-    }
 
-    private static void verifyPrimes(int n){
-        for(int factor = 2; factor < n; factor ++){
-            boolean b = n % factor != 0;
-            System.err.println(b);
-        }
+        int[] threeArray = generatorPrimes(3);
+        System.out.println(Arrays.toString(threeArray));
+
+
+        int[] centArray = generatorPrimes(100);
+        System.out.println(Arrays.toString(centArray));
+
+
     }
 
 
