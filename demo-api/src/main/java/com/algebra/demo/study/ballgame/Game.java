@@ -27,8 +27,15 @@ public class Game {
      */
     private boolean firstThrowInFrame = true;
 
+    private int ball;
+
+//    private int firstThrow;
+//
+//    private int secondThrow;
+
     /**
      * 获取游戏当前正在进行的轮次
+     *
      * @return 轮次数目
      */
     public int getItsCurrentFrame() {
@@ -82,34 +89,56 @@ public class Game {
      * @return 游戏分数
      */
     public int scoreForFrame(int frame) {
-        int ball = 0;
+        ball = 0;
         int score = 0;
         for (int currentFrame = 0; currentFrame < frame; currentFrame++) {
-            int firstThrow = itsThrows[ball++];
-            if (firstThrow == 10) {
+            if (strike()) {
                 // 全中
-                score += 10 + itsThrows[ball] + itsThrows[ball + 1];
+                score += 10 + this.nextTwoBallsForStrike();
+                ball++;
+            } else if (spare()) {
+                // 补中
+                score += 10 + this.nextBallForSpare();
+                ball += 2;
             } else {
-                int secondThrow = itsThrows[ball++];
-                int frameScore = firstThrow + secondThrow;
-                if (frameScore == 10) {
-                    // 补中
-                    score += frameScore + itsThrows[ball];
-                } else {
-                    score += frameScore;
-                }
+                score += this.twoBallsInFrame();
+                ball += 2;
             }
         }
         return score;
     }
 
-    private int handleSecondThrow(){
+    private boolean strike() {
+        return itsThrows[ball] == 10;
+    }
 
-        int score = 0;
+    private int nextTwoBallsForStrike() {
+        return itsThrows[ball + 1] + itsThrows[ball + 2];
+    }
 
+    private boolean spare() {
+        return (itsThrows[ball] + itsThrows[ball + 1]) == 10;
+    }
 
+    private int nextBallForSpare() {
+        return itsThrows[ball+2];
+    }
 
-        return score;
+//    private int handleSecondThrow() {
+//        int score = 0;
+//        if (spare()) {
+//            // 补中
+//            ball += 2;
+//            score += 10 + nextBall();
+//        } else {
+//            score += twoBallsInFrame();
+//            ball += 2;
+//        }
+//        return score;
+//    }
+
+    private int twoBallsInFrame() {
+        return itsThrows[ball] + itsThrows[ball + 1];
     }
 
 
