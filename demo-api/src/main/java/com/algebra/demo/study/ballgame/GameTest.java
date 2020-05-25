@@ -18,15 +18,7 @@ public class GameTest {
         System.out.println(g.getItsCurrentFrame());
     }
 
-    public static void testNormalSense(){
-        Game g = new Game();
-        g.add(3);
-        g.add(7);
-        g.add(3);
-        System.out.println(g.getItsScores());
-        System.out.println(g.scoreForFrame(1));
-        System.out.println(g.getItsCurrentFrame());
-    }
+
 
     public static void testPerfectGame(Game g){
         for (int i = 0; i < 12; i++) {
