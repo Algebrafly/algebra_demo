@@ -18,8 +18,6 @@ public class GameTest {
         System.out.println(g.getItsCurrentFrame());
     }
 
-
-
     public static void testPerfectGame(Game g){
         for (int i = 0; i < 12; i++) {
             g.add(10);
