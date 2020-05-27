@@ -1,6 +1,8 @@
 package com.algebra.demo.study.coursetemp;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
@@ -10,6 +12,8 @@ import java.util.Date;
  * @description
  */
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Apple extends Fruit {
 
     private String address;
