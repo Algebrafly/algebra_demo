@@ -8,13 +8,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.function.ServerResponse;
 
 import javax.annotation.Resource;
-import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * @author al
@@ -33,17 +32,17 @@ public class ThreadPoolTestController {
     @ApiOperation("开启线程池拼接字符串")
     public String testSimpleThreadPool(@RequestBody List<String> srcList) {
         log.info("接受到参数：{}", JSONObject.toJSONString(srcList));
-        StringBuilder strUrl = new StringBuilder("http://test.com");
+        StringBuilder strUrl = new StringBuilder("http://test.com?");
         try {
             List<List<String>> partition = Lists.partition(srcList, 5);
             CountDownLatch downLatch = new CountDownLatch(partition.size());
-            for (int i = 0; i < partition.size(); i++) {
-                List<String> strList = partition.get(i);
-
+            AtomicInteger count = new AtomicInteger();
+            for (List<String> strList : partition) {
                 threadPool.submit(() -> {
                     try {
-                        for (int e = 0; e < strList.size(); e++) {
-                            strUrl.append("?value[").append(e).append("]=").append(strList.get(e)).append("&");
+                        for (String s : strList) {
+                            strUrl.append("value[").append(count).append("]=").append(s).append("&");
+                            count.getAndIncrement();
                         }
                     } catch (Exception e) {
                         log.error("程序异常,{}", e.getMessage());
