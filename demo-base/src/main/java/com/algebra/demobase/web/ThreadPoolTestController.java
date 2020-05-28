@@ -28,7 +28,7 @@ public class ThreadPoolTestController {
     @Resource(name = "testFxbDrawExecutor")
     private ExecutorService threadPool;
 
-    @PostMapping
+    @PostMapping("/testSimpleThreadPool")
     @ApiOperation("开启线程池拼接字符串")
     public String testSimpleThreadPool(@RequestBody List<String> srcList) {
         log.info("接受到参数：{}", JSONObject.toJSONString(srcList));
