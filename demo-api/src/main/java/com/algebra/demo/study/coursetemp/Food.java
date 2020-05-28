@@ -4,12 +4,11 @@ import lombok.Data;
 
 /**
  * @author al
- * @date 2020/5/27 16:23
+ * @date 2020/5/28 10:46
  * @description
  */
 @Data
-public class Fruit extends Food{
+public class Food {
 
-    private String name;
 
 }
