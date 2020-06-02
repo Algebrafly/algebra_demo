@@ -17,8 +17,8 @@ public class ShapeComparer implements Comparator {
      * 定义图形优先级
      */
     static {
-        properties.put(Circle.class,1);
-        properties.put(Square.class,2);
+        properties.put(Circle.class,2);
+        properties.put(Square.class,1);
     }
 
     /**
