@@ -24,6 +24,8 @@ public class DrawAllShapes {
         shapes.add(new Square("B",2));
         shapes.add(new Square("C",2));
         shapes.add(new Circle("B",1));
+        shapes.add(new Triangle("A",3));
+        shapes.add(new Triangle("B",3));
 
         // 按照指定优先级排序
         shapes.sort(new ShapeComparer());

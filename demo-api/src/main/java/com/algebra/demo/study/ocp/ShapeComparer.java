@@ -19,6 +19,7 @@ public class ShapeComparer implements Comparator {
     static {
         properties.put(Circle.class,2);
         properties.put(Square.class,1);
+        properties.put(Triangle.class,3);
     }
 
     /**
