@@ -5,6 +5,9 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
 
 /**
@@ -15,6 +18,10 @@ import java.util.concurrent.Future;
 @Component
 @Slf4j
 public class TestTaskAsync {
+
+    @Resource(name = "testFxbDrawExecutor")
+    private ExecutorService threadPool;
+
     @Async
     public void testAsync01(){
         try {
@@ -37,4 +44,11 @@ public class TestTaskAsync {
         log.info("I love you, always!");
         return new AsyncResult<>("思考了"+seconds+"秒！");
     }
+
+    public void testTaskAsync() {
+        CompletableFuture.runAsync(() -> {
+            log.info("hello task async!");
+        }, threadPool);
+    }
+
 }
