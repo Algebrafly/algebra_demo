@@ -11,6 +11,13 @@ public class Point {
 
     private double yPosition;
 
+    public Point(){}
+
+    public Point(double xPosition, double yPosition){
+        this.xPosition = xPosition;
+        this.yPosition = yPosition;
+    }
+
     public void setxPosition(double xPosition) {
         this.xPosition = xPosition;
     }

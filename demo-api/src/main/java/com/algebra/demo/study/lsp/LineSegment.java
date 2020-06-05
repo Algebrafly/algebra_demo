@@ -13,6 +13,11 @@ public class LineSegment extends LinerObject {
 
     public LineSegment(){}
 
+    public LineSegment(double slope, double intercept){
+        super.setSlope(slope);
+        super.setIntercept(intercept);
+    }
+
     public void setStartPoint(Point startPoint) {
         this.startPoint = startPoint;
     }

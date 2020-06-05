@@ -17,6 +17,18 @@ public class BaseTest {
     }
 
 
+    public static void testLine(){
+
+        LinerObject linerObject = new Line(1,0);
+
+        Point point = new Point(1,1);
+
+        boolean on = linerObject.isOn(point);
+
+        System.out.println(on);
+
+    }
+
     public static void main(String[] args) {
 
         Rectangle r = new Square();
@@ -33,6 +45,7 @@ public class BaseTest {
 //        g(s);
 
 
+        testLine();
 
 
     }

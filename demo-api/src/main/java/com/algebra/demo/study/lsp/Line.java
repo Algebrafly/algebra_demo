@@ -9,6 +9,11 @@ public class Line extends LinerObject {
 
     public Line(){}
 
+    public Line(double slope, double intercept){
+        super.setSlope(slope);
+        super.setIntercept(intercept);
+    }
+
     @Override
     boolean isOn(Point point) {
         double y = point.getyPosition();
