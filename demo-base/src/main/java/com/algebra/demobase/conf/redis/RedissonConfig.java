@@ -15,7 +15,7 @@ import org.springframework.context.annotation.Configuration;
 //@Configuration
 public class RedissonConfig {
 
-    @Bean(destroyMethod="shutdown")
+//    @Bean(destroyMethod="shutdown")
     public RedissonClient redisson() {
         Config config = new Config();
         // 采用默认编码序列化模式，单节点

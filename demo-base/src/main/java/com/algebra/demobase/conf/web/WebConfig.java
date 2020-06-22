@@ -13,12 +13,18 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  */
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
+
+    private static final String[] excludePathPatterns  = {"/api/token/api_token", "/api/token/user_token"};
+
+    @Autowired
+    private TokenInterceptor tokenInterceptor;
     @Autowired
     private LimitRefreshInterceptor interceptor;
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(interceptor);
+        registry.addInterceptor(tokenInterceptor).addPathPatterns("/api/**").excludePathPatterns(excludePathPatterns);
     }
 
     @Override
