@@ -1,5 +1,6 @@
 package com.algebra.demobase.web;
 
+import cn.hutool.core.util.StrUtil;
 import com.algebra.demobase.entity.AccessToken;
 import com.algebra.demobase.entity.AppInfo;
 import com.algebra.demobase.entity.TokenInfo;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.UUID;
@@ -66,6 +68,9 @@ public class TokenController {
         // 3. 如果正确生成一个token保存到redis中，如果错误返回错误信息
         AccessToken accessToken = this.saveToken(0, appInfo, null);
 
+//        StrUtil.isNotBlank("asd");
+//        StrUtil.isNotEmpty("asd");
+
         return ApiResponse.success(accessToken);
     }
 
@@ -88,11 +93,15 @@ public class TokenController {
     }
 
     private AccessToken saveToken(int tokenType, AppInfo appInfo,  UserInfo userInfo) {
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
         String token = UUID.randomUUID().toString();
 
         // token有效期为2小时
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date());
+        log.info("当前时间：{}", sdf.format(calendar.getTime()));
         calendar.add(Calendar.SECOND, 7200);
         Date expireTime = calendar.getTime();
 
@@ -124,6 +133,11 @@ public class TokenController {
         signString = "password=123456&username=1&12345678954556" + "ff03e64b-427b-45a7-b78b-47d9e8597d3b1529815393153sdfsdfsfs" + timestamp + "A1scr6";
         sign = MD5Util.encode(signString);
         System.out.println(sign);
+
+        System.out.println("-------------------");
+        System.out.println(MD5Util.encode("123456"+"111111"));
+
+
     }
 
 }
