@@ -1,19 +1,19 @@
 package com.algebra.demobase.web;
 
 import com.algebra.demo.util.base.WebApiResult;
+import com.algebra.demobase.conf.CodeMessageConfiguration;
 import com.algebra.demobase.entity.domain.SysUser;
 import com.algebra.demobase.service.ISysUserService;
 import com.algebra.demobase.service.impl.TestAspectService;
 import com.alibaba.fastjson.JSONObject;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.models.auth.In;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -31,10 +31,17 @@ public class AspectTestController {
     @Autowired
     ISysUserService sysUserService;
 
+    @Autowired
+    CodeMessageConfiguration codeMessageConfiguration;
+
     @GetMapping("/test1")
     @ApiOperation(value = "测试-1")
-    public String test1(){
-        return "hello";
+    public String test1(@RequestParam("code") int code){
+        String msg;
+//        Map<Integer, String> codeMessage = codeMessageConfiguration.getCodeMessage();
+//        log.info(codeMessage.toString());
+        log.info(msg = CodeMessageConfiguration.getMessage(code));
+        return msg;
     }
 
     @GetMapping("/test2")

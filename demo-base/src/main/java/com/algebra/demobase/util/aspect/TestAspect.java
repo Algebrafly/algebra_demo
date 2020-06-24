@@ -24,7 +24,7 @@ public class TestAspect {
     /**
      * 声明一个切入点,指定包下指定类的指定方法（aspectj表达式）
      */
-    @Pointcut("execution(public * com.algebra.demobase.web.AspectTestController.test1(..))")
+    @Pointcut("execution(public * com.algebra.demobase.web.AspectTestController.test2(..))")
     public void testPointCut(){}
     /**
      * 声明一个切入点,带有注解参数
