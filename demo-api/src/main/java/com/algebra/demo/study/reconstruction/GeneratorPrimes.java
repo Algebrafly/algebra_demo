@@ -12,17 +12,18 @@ public class GeneratorPrimes {
 
     /**
      * 判断是个数是否是素数
+     *
      * @param num number
      * @return 是-否
      */
-    public static boolean isPrimes(int num){
-        if(num <= 3){
+    public static boolean isPrimes(int num) {
+        if (num <= 3) {
             return num > 1;
         }
-        double sqrt = Math.sqrt(num)+1;
+        double sqrt = Math.sqrt(num) + 1;
         System.out.println(sqrt);
-        for(int i = 2; i<= Math.sqrt(num)+1; i++){
-            if(num % i == 0){
+        for (int i = 2; i <= Math.sqrt(num) + 1; i++) {
+            if (num % i == 0) {
                 return false;
             }
         }
@@ -30,20 +31,20 @@ public class GeneratorPrimes {
     }
 
     public static int[] generatorPrimes(int maxValue) {
-        if (maxValue > 2) {
+        if (maxValue >= 2) {
 
             int s = maxValue + 1;
             boolean[] f = new boolean[s];
             int i;
 
-            // initialize array to true
+            // 1. initialize array to true
             for (i = 0; i < s; i++) {
                 f[i] = true;
             }
 
             f[0] = f[1] = false;
 
-            // sieve (过滤)
+            // 2. sieve (过滤)
             int j;
             for (i = 2; i < Math.sqrt(s) + 1; i++) {
                 // 使用筛法求N以内的素数，从2开始，不断剔除2的倍数，然后从剩下的数字中，选择最小的数3（这个数一定会是素数），然后剔除所有3的倍数，
@@ -53,7 +54,7 @@ public class GeneratorPrimes {
                 }
             }
 
-            // how many primes are there?
+            // 3. how many primes are there?
             int count = 0;
             for (i = 0; i < s; i++) {
                 if (f[i]) {
@@ -61,7 +62,7 @@ public class GeneratorPrimes {
                 }
             }
 
-            // move the primes into the result
+            // 4. move the primes into the result
             int[] primes = new int[count];
             for (i = 0, j = 0; i < s; i++) {
                 if (f[i]) {
@@ -77,10 +78,10 @@ public class GeneratorPrimes {
 
     public static void main(String[] args) {
 
-        int[] nullValue = generatorPrimes(0);
+        int[] nullValue = generatorPrimes(1);
         System.out.println(Arrays.toString(nullValue));
 
-        int[] minArray = generatorPrimes(1);
+        int[] minArray = generatorPrimes(2);
         System.out.println(Arrays.toString(minArray));
 
 
