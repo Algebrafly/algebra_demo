@@ -5,7 +5,7 @@ import java.util.Arrays;
 /**
  * @author al
  * @date 2020/5/19 15:53
- * @description 筛选法求N以内的所以素数
+ * @description 筛选法求N以内的所以素数 - 提炼条件分支
  * @verson 3.0 --> 3.1
  */
 public class PrimesGeneratorV3 {

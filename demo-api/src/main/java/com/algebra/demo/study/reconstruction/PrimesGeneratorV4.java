@@ -3,8 +3,8 @@ package com.algebra.demo.study.reconstruction;
 /**
  * @author al
  * @date 2020/5/19 15:53
- * @description 筛选法求N以内的所以素数
- * @verson 3.0 --> 3.1
+ * @description 筛选法求N以内的所以素数 - 函数重命名
+ * @verson 4.0
  */
 public class PrimesGeneratorV4 {
 
