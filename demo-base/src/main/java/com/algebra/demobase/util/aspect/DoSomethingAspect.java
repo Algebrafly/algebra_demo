@@ -3,7 +3,6 @@ package com.algebra.demobase.util.aspect;
 import com.algebra.demo.annotation.DoSomething;
 import com.algebra.demo.util.SpelParser;
 import com.algebra.demobase.entity.domain.SysUser;
-import com.algebra.demobase.entity.domain.User;
 import com.algebra.demobase.service.ICacheService;
 import com.algebra.demobase.service.ILogService;
 import com.alibaba.fastjson.JSONObject;
@@ -62,7 +61,7 @@ public class DoSomethingAspect {
         logService.infoLog(this.getClass().getName(),"getUserInfoOne","successful",new Date());
         if(ret != null){
             log.info("查询数据库成功，缓存数据！");
-            cacheService.cachePut(key,"user", (SysUser) ret);
+            cacheService.cachePut(key, "views/user", (SysUser) ret);
         }
         return ret;
     }

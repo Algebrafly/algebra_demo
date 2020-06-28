@@ -11,6 +11,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
@@ -26,6 +27,15 @@ public class LoginController {
 
     @Autowired
     PersonService personService;
+
+    /**
+     * 登陆页面
+     */
+    @GetMapping("/")
+    public ModelAndView index() {
+        return new ModelAndView("user/login");
+    }
+
 
     @GetMapping("/login")
     @ApiOperation(value = "登录")
