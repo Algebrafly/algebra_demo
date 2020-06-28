@@ -13,6 +13,11 @@ public class PrimesGeneratorV3 {
     private static boolean[] isCrossed;
     private static int[] result;
 
+    /**
+     * 主方法
+     * @param maxValue 最大限定值
+     * @return 素数集合
+     */
     public static int[] generatorPrimes(int maxValue) {
         if (maxValue < 2) {
             return new int[0];
@@ -27,6 +32,10 @@ public class PrimesGeneratorV3 {
         }
     }
 
+    /**
+     * 初始化素数集合
+     * @param maxValue 界限值
+     */
     public static void initializeArrayOfInteger(int maxValue) {
         isCrossed = new boolean[maxValue + 1];
         // initialize array to true
@@ -38,6 +47,9 @@ public class PrimesGeneratorV3 {
 
     // ------------------------------------------------------------------
 
+    /**
+     * 筛选素数
+     */
     public static void crossOutMultiples() {
         int maxPrimesFactor = calcMaxPrimesFactor();
         for (int i = 2; i <= maxPrimesFactor; i++) {
@@ -47,6 +59,10 @@ public class PrimesGeneratorV3 {
         }
     }
 
+    /**
+     * 计算素数因子
+     * @return 正数
+     */
     private static int calcMaxPrimesFactor() {
         double maxPrimesFactor = Math.sqrt(isCrossed.length) + 1;
         return (int) maxPrimesFactor;
@@ -64,6 +80,9 @@ public class PrimesGeneratorV3 {
 
     // ------------------------------------------------------------------
 
+    /**
+     * 输出结果
+     */
     private static void putUncrossIntegerIntoResult() {
         result = new int[numberOfUncrossedIntegers()];
         for (int i = 2, j = 0; i < isCrossed.length; i++) {
@@ -86,10 +105,10 @@ public class PrimesGeneratorV3 {
 
     public static void main(String[] args) {
 
-        int[] nullValue = generatorPrimes(0);
+        int[] nullValue = generatorPrimes(1);
         System.out.println(Arrays.toString(nullValue));
 
-        int[] minArray = generatorPrimes(1);
+        int[] minArray = generatorPrimes(2);
         System.out.println(Arrays.toString(minArray));
 
 

@@ -11,6 +11,11 @@ public class PrimesGeneratorV4 {
     private static boolean[] crossedOut;
     private static int[] result;
 
+    /**
+     * 主方法
+     * @param maxValue 最大限定值
+     * @return 素数集合
+     */
     public static int[] generatorPrimes(int maxValue) {
         if (maxValue < 2) {
             return new int[0];
@@ -25,6 +30,10 @@ public class PrimesGeneratorV4 {
         }
     }
 
+    /**
+     * 初始化素数集合
+     * @param maxValue 界限值
+     */
     public static void uncrossIntegersUpTo(int maxValue) {
         crossedOut = new boolean[maxValue + 1];
         // initialize array to true
@@ -36,6 +45,9 @@ public class PrimesGeneratorV4 {
 
     // ------------------------------------------------------------------
 
+    /**
+     * 筛选素数
+     */
     public static void crossOutMultiples() {
         int maxPrimesFactor = calcMaxPrimesFactor();
         for (int i = 2; i <= maxPrimesFactor; i++) {
@@ -62,6 +74,9 @@ public class PrimesGeneratorV4 {
 
     // ------------------------------------------------------------------
 
+    /**
+     * 输出结果
+     */
     private static void putUncrossIntegerIntoResult() {
         result = new int[numberOfUncrossedIntegers()];
         for (int i = 2, j = 0; i < crossedOut.length; i++) {
@@ -81,6 +96,8 @@ public class PrimesGeneratorV4 {
         return count;
     }
 
+
+    // --------------------------------测试环境---------------------------------
 
     public static void main(String[] args) {
 
