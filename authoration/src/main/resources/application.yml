@@ -1,0 +1,35 @@
+spring:
+  profiles:
+    active: dev
+  application:
+    name: auth-demo
+
+---
+server:
+  tomcat:
+    uri-encoding: UTF-8
+  port: 8083
+  servlet:
+    context-path: /auth/v1
+
+---
+spring:
+  thymeleaf:
+    cache: false #\u5173\u95ED\u9875\u9762\u7F13\u5B58
+    prefix: classpath:/views/ #\u9875\u9762\u62FC\u63A5\u8DEF\u5F84
+
+---
+jwtp:
+  ## 0\u662F redisTokenStore \uFF0C1\u662F jdbcTokenStore \uFF0C\u9ED8\u8BA4\u662F0
+  store-type: 1
+  ## \u62E6\u622A\u8DEF\u5F84\uFF0C\u9ED8\u8BA4\u662F/**
+  path: /**
+  ## \u6392\u9664\u62E6\u622A\u8DEF\u5F84\uFF0C\u9ED8\u8BA4\u65E0(\u591A\u4E2A\u7528\u9017\u53F7\u9694\u5F00)
+  exclude-path: /login,/swagger-ui.html/**,/swagger-resources/**,/webjars/**,/v2/**,/swagger-ui.html#!/**,/csrf,/error
+  ## \u5355\u4E2A\u7528\u6237\u6700\u5927token\u6570\uFF0C\u9ED8\u8BA4-1\u4E0D\u9650\u5236
+  max-token: 1
+
+---
+logging:
+  level:
+    org.wf.jwtp.TokenInterceptor.preHandle: debug

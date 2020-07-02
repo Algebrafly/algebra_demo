@@ -1,4 +1,4 @@
-package com.algebra.demo.util.base;
+package com.algebra.authentication.util;
 
 import lombok.Data;
 
