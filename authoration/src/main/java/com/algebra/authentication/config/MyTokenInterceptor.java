@@ -40,7 +40,7 @@ public class  MyTokenInterceptor extends HandlerInterceptorAdapter {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
-        String token = request.getHeader("token");
+        String token = request.getHeader("Authorization");
         log.info("[preHandle]接受到token：{}", token);
 
         if (!(handler instanceof HandlerMethod)) {
