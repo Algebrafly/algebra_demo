@@ -52,6 +52,9 @@ public class LoginController {
     }
 
     public static void main(String[] args) {
+        String header = "eyJhbGciOiJIUzI1NiJ9";
+
+
         String uid = TokenUtil.parseToken("eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzdHJpbmciLCJleHAiOjE1OTYyNzA0MTJ9.04hgTQOF_nkYOEjsyNaBkX8iMuUHEOVdRMnZuaFzWiI",
                 "c5b8410c16d987baf503efffb5131b7317c0a1212a043a387748223995780349");
         System.out.println(uid);
