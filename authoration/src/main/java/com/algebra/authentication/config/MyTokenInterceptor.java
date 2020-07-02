@@ -1,6 +1,5 @@
 package com.algebra.authentication.config;
 
-import cn.hutool.system.UserInfo;
 import com.algebra.authentication.domain.UserInfoVo;
 import com.algebra.authentication.util.PassToken;
 import com.algebra.authentication.util.UserLoginToken;
@@ -11,14 +10,12 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpOutputMessage;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.http.server.ServletServerHttpResponse;
 import org.springframework.stereotype.Component;
-import org.springframework.util.Assert;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
@@ -26,7 +23,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.lang.reflect.Method;
-import java.util.concurrent.TimeUnit;
 
 /**
  * @author al
@@ -35,7 +31,7 @@ import java.util.concurrent.TimeUnit;
  */
 @Component
 @Slf4j
-public class TokenInterceptor extends HandlerInterceptorAdapter {
+public class  MyTokenInterceptor extends HandlerInterceptorAdapter {
 
 
     @Autowired

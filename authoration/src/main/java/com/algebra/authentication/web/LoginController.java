@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.wf.jwtp.provider.Token;
 import org.wf.jwtp.provider.TokenStore;
+import org.wf.jwtp.util.TokenUtil;
 
 /**
  * @author al
@@ -48,6 +49,12 @@ public class LoginController {
         Token token = tokenStore.refreshToken(refresh_token);
         System.out.println("access_token：" + token.getAccessToken());
         return WebApiResult.ok(token);
+    }
+
+    public static void main(String[] args) {
+        String uid = TokenUtil.parseToken("eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzdHJpbmciLCJleHAiOjE1OTYyNzA0MTJ9.04hgTQOF_nkYOEjsyNaBkX8iMuUHEOVdRMnZuaFzWiI",
+                "c5b8410c16d987baf503efffb5131b7317c0a1212a043a387748223995780349");
+        System.out.println(uid);
     }
 
 }

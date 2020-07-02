@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.wf.jwtp.TokenInterceptor;
 
 /**
  * @author al
@@ -14,16 +15,19 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 
-    private static final String[] EXCLUDE_PATH_PATTERNS = {"/api/token/user_token"};
+    private static final String[] EXCLUDE_PATH_PATTERNS = {"/swagger-resources/**", "/webjars/**"
+            , "/v2/**", "/swagger-ui.html/**"
+            , "/swagger-ui.html#!/**"
+            ,"/csrf", "/error","/","/login"};
 
     @Autowired
-    TokenInterceptor tokenInterceptor;
+    MyTokenInterceptor tokenInterceptor;
 
 //    org.wf.jwtp.TokenInterceptor
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(tokenInterceptor).addPathPatterns("/api/**").excludePathPatterns(EXCLUDE_PATH_PATTERNS);
+        registry.addInterceptor(tokenInterceptor).addPathPatterns("/**").excludePathPatterns(EXCLUDE_PATH_PATTERNS);
     }
 
     @Override
