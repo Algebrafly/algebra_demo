@@ -4,15 +4,18 @@ import com.algebra.authentication.domain.UserInfoVo;
 import com.algebra.authentication.util.WebApiResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.wf.jwtp.annotation.RequiresPermissions;
 
 /**
  * @author al
  * @date 2020/7/2 10:01
  * @description
  */
+@Slf4j
 @RestController
 @Api(value = "Test", tags = "测试接口")
 public class TestController {
@@ -21,11 +24,22 @@ public class TestController {
     @ApiOperation("测试鉴权")
     public WebApiResult<UserInfoVo> loginTest(String msg){
         
-
+        log.info("登录即可访问！");
 
 
         return WebApiResult.ok(msg);
     }
 
+
+    @PostMapping("/loginTest2")
+    @ApiOperation("测试鉴权-2")
+    @RequiresPermissions("1")
+    public WebApiResult<UserInfoVo> loginTest2(String msg){
+
+        log.info("登录&拥有system权限可访问！");
+
+
+        return WebApiResult.ok(msg);
+    }
 
 }

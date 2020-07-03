@@ -1,8 +1,6 @@
 package com.algebra.authentication.domain;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
@@ -12,15 +10,10 @@ import java.io.Serializable;
  * @description
  */
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class UserInfoVo implements Serializable {
 
-    private String userId;
+    private UserInfo userInfo;
 
-    private String userName;
-
-    private String password;
-
+    private String accessToken;
 
 }

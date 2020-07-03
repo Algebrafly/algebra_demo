@@ -1,5 +1,8 @@
 package com.algebra.authentication.web;
 
+import cn.hutool.json.JSONUtil;
+import com.algebra.authentication.domain.LoginModel;
+import com.algebra.authentication.domain.UserInfo;
 import com.algebra.authentication.domain.UserInfoVo;
 import com.algebra.authentication.util.WebApiResult;
 import io.swagger.annotations.Api;
@@ -12,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.wf.jwtp.provider.Token;
 import org.wf.jwtp.provider.TokenStore;
-import org.wf.jwtp.util.TokenUtil;
 
 /**
  * @author al
@@ -21,7 +23,7 @@ import org.wf.jwtp.util.TokenUtil;
  */
 @Slf4j
 @RestController
-@Api(value = "login", tags = "登陆")
+@Api(value = "login", tags = "用户登录")
 public class LoginController {
 
     @Qualifier("jdbcTokenStore")
@@ -29,17 +31,30 @@ public class LoginController {
     private TokenStore tokenStore;
 
     @PostMapping("/login")
-    @ApiOperation("登陆")
-    public WebApiResult<UserInfoVo> login(@RequestBody UserInfoVo userInfoVo){
+    @ApiOperation("登录")
+    public WebApiResult<UserInfoVo> login(@RequestBody LoginModel loginModel){
+        log.info("登录-接收到请求参数：{}", JSONUtil.toJsonStr(loginModel));
+        UserInfoVo userInfoVo = new UserInfoVo();
+        try {
+            // 获取用户信息
+            UserInfo userInfo = new UserInfo();
+            userInfo.setUserId("admin");
+            // 校验密码
 
+            // 获取部门-角色-菜单信息
+            String[] permissions = new String[]{"system","front","menuList-1"};
+            String[] roles = new String[]{"admin","customer","user"};
 
-        // 你的验证逻辑
-        // ......
-        // 签发token
-        String[] permissions = new String[]{};
-        String[] roles = new String[]{};
-        Token token = tokenStore.createNewToken(userInfoVo.getUserId(), permissions, roles, 60*60*24*30);
-        log.info("生成的Token："+"access_"+token.getAccessToken());
+            // 签发token（过期时间2小时）
+            Token token = tokenStore.createNewToken(userInfo.getUserId(), permissions, roles, 60*60*2);
+            String tokenString = "access_"+token.getAccessToken();
+            log.info("登录生成的Token："+tokenString);
+            userInfoVo.setAccessToken(tokenString);
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.error("登录异常，异常信息：{}", e.getMessage());
+            return WebApiResult.error(e);
+        }
         return WebApiResult.ok(userInfoVo);
     }
 
@@ -49,15 +64,6 @@ public class LoginController {
         Token token = tokenStore.refreshToken(refreshToken);
         System.out.println("access_token：" +"access_"+ token.getAccessToken());
         return WebApiResult.ok(token);
-    }
-
-    public static void main(String[] args) {
-        String header = "eyJhbGciOiJIUzI1NiJ9";
-
-
-        String uid = TokenUtil.parseToken("eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzdHJpbmciLCJleHAiOjE1OTYyNzA0MTJ9.04hgTQOF_nkYOEjsyNaBkX8iMuUHEOVdRMnZuaFzWiI",
-                "c5b8410c16d987baf503efffb5131b7317c0a1212a043a387748223995780349");
-        System.out.println(uid);
     }
 
 }

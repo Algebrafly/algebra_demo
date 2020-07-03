@@ -1,5 +1,6 @@
 package com.algebra.authentication.config;
 
+import com.algebra.authentication.domain.UserInfo;
 import com.algebra.authentication.domain.UserInfoVo;
 import com.algebra.authentication.util.PassToken;
 import com.algebra.authentication.util.UserLoginToken;
@@ -84,7 +85,7 @@ public class  MyTokenInterceptor extends HandlerInterceptorAdapter {
 
                 // 查询用户信息
 //                UserInfoVo userInfo = userService.getUserByPrimaryKey(userId);
-                UserInfoVo userInfo = new UserInfoVo("id001","admin","123456");
+                UserInfo userInfo = new UserInfo("id001","admin","123456");
 
                 if(userInfo == null){
                     this.responseRst(response, WebApiResult.error("用户不存在，请重新登陆！"));
