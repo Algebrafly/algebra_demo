@@ -6,8 +6,8 @@ spring:
 
 ---
 server:
-  tomcat:
-    uri-encoding: UTF-8
+#  tomcat:
+#    uri-encoding: UTF-8
   port: 8083
   servlet:
     context-path: /auth/v1

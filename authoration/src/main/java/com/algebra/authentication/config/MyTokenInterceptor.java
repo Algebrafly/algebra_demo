@@ -42,6 +42,14 @@ public class  MyTokenInterceptor extends HandlerInterceptorAdapter {
 
         String token = request.getHeader("Authorization");
         log.info("[preHandle]接受到token：{}", token);
+//        if(token != null){
+//            String s = token.substring(7,27);
+//            log.info(s);
+//            Decoder<String, byte[]> base64url = Decoders.BASE64URL;
+//            byte[] bytes = (byte[])base64url.decode(s);
+//            String payload = new String(bytes, Strings.UTF_8);
+//            log.info(payload);
+//        }
 
         if (!(handler instanceof HandlerMethod)) {
             // 如果不是映射到方法直接通过
@@ -92,6 +100,7 @@ public class  MyTokenInterceptor extends HandlerInterceptorAdapter {
                     this.responseRst(response, WebApiResult.error(e));
                     return false;
                 }
+                log.info("[preHandle]Token校验通过！");
                 return true;
             }
         }

@@ -39,15 +39,15 @@ public class LoginController {
         String[] permissions = new String[]{};
         String[] roles = new String[]{};
         Token token = tokenStore.createNewToken(userInfoVo.getUserId(), permissions, roles, 60*60*24*30);
-        log.info("生成的Token："+token.getAccessToken());
+        log.info("生成的Token："+"access_"+token.getAccessToken());
         return WebApiResult.ok(userInfoVo);
     }
 
 
     @PostMapping("/token/refresh")
-    public WebApiResult<Token> login(String refresh_token) {
-        Token token = tokenStore.refreshToken(refresh_token);
-        System.out.println("access_token：" + token.getAccessToken());
+    public WebApiResult<Token> login(String refreshToken) {
+        Token token = tokenStore.refreshToken(refreshToken);
+        System.out.println("access_token：" +"access_"+ token.getAccessToken());
         return WebApiResult.ok(token);
     }
 
