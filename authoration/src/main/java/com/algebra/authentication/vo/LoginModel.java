@@ -1,4 +1,4 @@
-package com.algebra.authentication.domain;
+package com.algebra.authentication.vo;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -24,7 +24,7 @@ public class LoginModel implements Serializable {
     @ApiModelProperty("验证码")
     private String verifyCode;
 
-    @ApiModelProperty("记住我")
+    @ApiModelProperty("记住我(1-是，0-否)")
     private String rememberMe;
 
 }

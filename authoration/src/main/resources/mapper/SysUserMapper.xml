@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.algebra.authentication.mapper.SysUserMapper">
+  <resultMap id="BaseResultMap" type="com.algebra.authentication.domain.SysUser">
+    <!--@mbg.generated-->
+    <!--@Table sys_user-->
+    <id column="usr_id" jdbcType="CHAR" property="usrId" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="real_name" jdbcType="VARCHAR" property="realName" />
+    <result column="portrait" jdbcType="VARCHAR" property="portrait" />
+    <result column="idcard_typ" jdbcType="CHAR" property="idcardTyp" />
+    <result column="idcard_no" jdbcType="VARCHAR" property="idcardNo" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="usr_branch" jdbcType="CHAR" property="usrBranch" />
+    <result column="usr_organization" jdbcType="CHAR" property="usrOrganization" />
+    <result column="usr_status" jdbcType="CHAR" property="usrStatus" />
+    <result column="usr_super" jdbcType="CHAR" property="usrSuper" />
+    <result column="special_role_id" jdbcType="INTEGER" property="specialRoleId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="login_time" jdbcType="TIMESTAMP" property="loginTime" />
+    <result column="login_ip" jdbcType="VARCHAR" property="loginIp" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    usr_id, username, `password`, real_name, portrait, idcard_typ, idcard_no, phone, 
+    email, usr_branch, usr_organization, usr_status, usr_super, special_role_id, create_time, 
+    login_time, login_ip, remark
+  </sql>
+</mapper>

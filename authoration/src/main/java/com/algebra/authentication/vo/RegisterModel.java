@@ -1,4 +1,4 @@
-package com.algebra.authentication.domain;
+package com.algebra.authentication.vo;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -21,13 +21,22 @@ public class RegisterModel implements Serializable {
     @ApiModelProperty("密码")
     private String password;
 
-    @ApiModelProperty("图片验证码")
+    @ApiModelProperty("确认密码")
+    private String confirmPassword;
+
+    @ApiModelProperty("图片验证码（非必传）")
     private String verifyCode;
 
     @ApiModelProperty("手机号")
     private String mobile;
 
-    @ApiModelProperty("邮箱")
+    @ApiModelProperty("邮箱（非必传）")
     private String email;
+
+    @ApiModelProperty("客户真实姓名（非必传）")
+    private String realName;
+
+    @ApiModelProperty("是否需要图片验证码（默认不传为false）")
+    private boolean needVerifyCode = false;
 
 }

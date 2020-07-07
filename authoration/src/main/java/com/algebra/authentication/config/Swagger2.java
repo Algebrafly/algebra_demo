@@ -68,15 +68,6 @@ public class Swagger2 {
     private List<SecurityScheme> securityScheme2(DemoSwaggerProperties swagger) {
 
         List<SecurityScheme> schemes = new ArrayList<>();
-        // 用户名密码登录
-//        GrantType grantType = new ResourceOwnerPasswordCredentialsGrant(swagger.getGrantUrl());
-//        OAuth oAuth1 = new OAuthBuilder()
-//                .name(swagger.getName())
-//                .grantTypes(Collections.singletonList(grantType))
-//                .scopes(Arrays.asList(scopes(swagger)))
-//                .build();
-//        schemes.add(oAuth1);
-
         // 全局Token
         ApiKey token = new ApiKey(swagger.getHeader(), swagger.getHeader(),"header");
         schemes.add(token);
@@ -92,12 +83,6 @@ public class Swagger2 {
 
     private List<SecurityContext> securityContext2(DemoSwaggerProperties swagger) {
         List<SecurityContext> contexts = new ArrayList<>();
-//        SecurityContext context1 = SecurityContext.builder()
-//                .securityReferences(Collections.singletonList(new SecurityReference(swagger.getName(), scopes(swagger))))
-//                .forPaths(PathSelectors.regex("^(?!auth).*$"))
-//                .build();
-//        contexts.add(context1);
-
         SecurityContext context2 = SecurityContext.builder()
                 .securityReferences(defaultAuth(swagger))
                 .forPaths(PathSelectors.any())

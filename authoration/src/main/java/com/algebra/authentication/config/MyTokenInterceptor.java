@@ -1,7 +1,6 @@
 package com.algebra.authentication.config;
 
-import com.algebra.authentication.domain.UserInfo;
-import com.algebra.authentication.domain.UserInfoVo;
+import com.algebra.authentication.vo.UserInfoDto;
 import com.algebra.authentication.util.PassToken;
 import com.algebra.authentication.util.UserLoginToken;
 import com.algebra.authentication.util.WebApiResult;
@@ -85,15 +84,15 @@ public class  MyTokenInterceptor extends HandlerInterceptorAdapter {
 
                 // 查询用户信息
 //                UserInfoVo userInfo = userService.getUserByPrimaryKey(userId);
-                UserInfo userInfo = new UserInfo("id001","admin","123456");
+                UserInfoDto userInfoDto = new UserInfoDto();
 
-                if(userInfo == null){
+                if(userInfoDto == null){
                     this.responseRst(response, WebApiResult.error("用户不存在，请重新登陆！"));
                     return false;
                 }
 
                 // 验证token
-                JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC256(userInfo.getPassword())).build();
+                JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC256(userInfoDto.getPassword())).build();
                 try {
                     jwtVerifier.verify(token);
                 } catch (JWTVerificationException e) {
