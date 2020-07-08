@@ -26,6 +26,10 @@ jwtp:
   max-token: 1
 
 ---
-logging:
-  level:
-    org.wf.jwtp.TokenInterceptor.preHandle: DEBUG
+# 分页插件
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true
+  params: count=sountSql
+  page-size-zero: true

@@ -29,4 +29,13 @@
     email, usr_branch, usr_organization, usr_status, usr_super, special_role_id, create_time, 
     login_time, login_ip, remark
   </sql>
+  <select id="getUserInfoPage" resultMap="BaseResultMap">
+    select
+    *
+    from sys_user
+    where 1=1
+    <if test="username != null">
+      and username = #{username,jdbcType=VARCHAR}
+    </if>
+  </select>
 </mapper>

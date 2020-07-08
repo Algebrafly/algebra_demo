@@ -41,6 +41,14 @@ public class WebApiResult<T> implements Serializable {
         return new WebApiResult<>(200, true, "success", 1, data);
     }
 
+    public static <T> WebApiResult<T> ok(T data, String message) {
+        return new WebApiResult<>(200, true, message, 1, data);
+    }
+
+    public static <T> WebApiResult<T> ok(T data, int count) {
+        return new WebApiResult<>(200, true, "查询成功！", count, data);
+    }
+
     public static <T> WebApiResult<T> ok() {
         return new WebApiResult<>(200, true, "success", 0, null);
     }

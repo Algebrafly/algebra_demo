@@ -4,6 +4,8 @@ import com.algebra.authentication.domain.SysUser;
 import com.algebra.authentication.vo.UserInfoDto;
 import org.mapstruct.Mapper;
 
+import java.util.List;
+
 /**
  * @author al
  * @date 2020/7/7 17:24
@@ -12,6 +14,12 @@ import org.mapstruct.Mapper;
 @Mapper(componentModel = "spring")
 public interface UserInfoConvert {
 
-    SysUser userDtoToDo(UserInfoDto dto);
+    SysUser userDtoToDo(UserInfoDto userDto);
+
+    List<SysUser> userDtoToDos(List<UserInfoDto> userDtos);
+
+    UserInfoDto userDoToDto(SysUser userDo);
+
+    List<UserInfoDto> userDoToDto(List<SysUser> userDo);
 
 }
