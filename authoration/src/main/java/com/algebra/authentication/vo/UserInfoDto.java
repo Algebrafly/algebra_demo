@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * @author al
@@ -12,8 +13,6 @@ import java.io.Serializable;
  * @description
  */
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class UserInfoDto implements Serializable {
 
     private String usrId;
@@ -43,5 +42,7 @@ public class UserInfoDto implements Serializable {
     private Integer specialRoleId;
 
     private String remark;
+
+    private List<String> roleIds;
 
 }
