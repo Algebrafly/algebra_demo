@@ -17,4 +17,15 @@
     <!--@mbg.generated-->
     bran_id, bran_name, bran_code, org_id, description, create_at, create_by, remark
   </sql>
+  <select id="selectList" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" /> from sys_branch
+  </select>
+  <select id="getUserInfoPage" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" /> from sys_branch
+    where 1=1
+    <if test="branName != null">
+      and bran_name = #{branName,jdbcType=VARCHAR}
+    </if>
+  </select>
+
 </mapper>

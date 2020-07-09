@@ -6,10 +6,11 @@
     <!--@Table sys_user_role-->
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="usr_id" jdbcType="CHAR" property="usrId" />
-    <result column="role_id" jdbcType="INTEGER" property="roleId" />
+    <result column="role_id" jdbcType="CHAR" property="roleId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
   </resultMap>
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
-    id, usr_id, role_id
+    id, usr_id, role_id, create_time
   </sql>
 </mapper>

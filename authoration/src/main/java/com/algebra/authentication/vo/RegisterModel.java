@@ -30,13 +30,14 @@ public class RegisterModel implements Serializable {
     @ApiModelProperty("手机号")
     private String mobile;
 
+    @ApiModelProperty("手机验证码")
+    private String mobileCode;
+
     @ApiModelProperty("邮箱（非必传）")
     private String email;
 
-    @ApiModelProperty("客户真实姓名（非必传）")
+    @ApiModelProperty("客户真实姓名/昵称（非必传）")
     private String realName;
 
-    @ApiModelProperty("是否需要图片验证码（默认不传为false）")
-    private boolean needVerifyCode = false;
 
 }

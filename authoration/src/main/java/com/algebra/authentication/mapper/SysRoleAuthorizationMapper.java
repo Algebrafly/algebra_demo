@@ -1,6 +1,6 @@
 package com.algebra.authentication.mapper;
 
-import com.algebra.authentication.domain.SysRolePermission;
+import com.algebra.authentication.domain.SysRoleAuthorization;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
@@ -8,5 +8,5 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @date 2020/7/9 10:40
  * @description
  */
-public interface SysRolePermissionMapper extends BaseMapper<SysRolePermission> {
+public interface SysRoleAuthorizationMapper extends BaseMapper<SysRoleAuthorization> {
 }

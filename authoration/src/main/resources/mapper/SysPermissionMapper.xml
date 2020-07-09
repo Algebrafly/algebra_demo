@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="com.algebra.authentication.domain.SysPermission">
     <!--@mbg.generated-->
     <!--@Table sys_permission-->
-    <id column="id" jdbcType="INTEGER" property="id" />
+    <id column="perm_id" jdbcType="CHAR" property="permId" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="perm_name" jdbcType="VARCHAR" property="permName" />
     <result column="perm_type" jdbcType="CHAR" property="permType" />
@@ -20,7 +20,17 @@
   </resultMap>
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
-    id, `name`, perm_name, perm_type, perm_code, `path`, redirect_url, component, icon, 
-    active_menu, parent_id, sort_order, create_time
+    perm_id, `name`, perm_name, perm_type, perm_code, `path`, redirect_url, component, 
+    icon, active_menu, parent_id, sort_order, create_time
   </sql>
+  <select id="selectList" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" /> from sys_permission
+  </select>
+  <select id="selectListByRole" resultMap="BaseResultMap" parameterType="String">
+    select
+    <include refid="Base_Column_List" />
+    from sys_permission a
+    left join sys_role_permission b
+    on a.perm_id = b.perm_id where b.role_id = #{roleId,jdbcType=VARCHAR}
+  </select>
 </mapper>

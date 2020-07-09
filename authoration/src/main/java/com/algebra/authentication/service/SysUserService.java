@@ -5,14 +5,12 @@ import com.algebra.authentication.util.PageRequestParam;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.github.pagehelper.PageInfo;
 
-import java.util.Map;
-
 /**
   * @author al
   * @date 2020/7/7 11:01
   * @description 
   */
-public interface SysUserService extends IService<SysUser>{
+public interface SysUserService extends IService<SysUser> {
 
     SysUser getUserInfoByName(String name);
 

@@ -15,28 +15,28 @@ import java.util.Date;
   * @description 
   */
 @Data
-@TableName(value = "sys_organization")
-public class SysOrganization implements Serializable {
+@TableName(value = "sys_authorization")
+public class SysAuthorization implements Serializable {
     /**
-     * 机构ID
+     * 权限ID
      */
-    @TableId(value = "org_id", type = IdType.INPUT)
-    private String orgId;
+    @TableId(value = "auth_id", type = IdType.INPUT)
+    private String authId;
 
     /**
-     * 机构名称
+     * 权限名称
      */
-    @TableField(value = "org_name")
-    private String orgName;
+    @TableField(value = "auth_name")
+    private String authName;
 
     /**
-     * 机构代码
+     * 权限代码
      */
-    @TableField(value = "org_code")
-    private String orgCode;
+    @TableField(value = "auth_code")
+    private String authCode;
 
     /**
-     * 机构描述
+     * 权限描述
      */
     @TableField(value = "description")
     private String description;
@@ -61,11 +61,11 @@ public class SysOrganization implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public static final String COL_ORG_ID = "org_id";
+    public static final String COL_AUTH_ID = "auth_id";
 
-    public static final String COL_ORG_NAME = "org_name";
+    public static final String COL_AUTH_NAME = "auth_name";
 
-    public static final String COL_ORG_CODE = "org_code";
+    public static final String COL_AUTH_CODE = "auth_code";
 
     public static final String COL_DESCRIPTION = "description";
 

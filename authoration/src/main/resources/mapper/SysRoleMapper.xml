@@ -4,10 +4,11 @@
   <resultMap id="BaseResultMap" type="com.algebra.authentication.domain.SysRole">
     <!--@mbg.generated-->
     <!--@Table sys_role-->
-    <id column="id" jdbcType="INTEGER" property="id" />
+    <id column="role_id" jdbcType="CHAR" property="roleId" />
     <result column="role_name" jdbcType="VARCHAR" property="roleName" />
     <result column="role_level" jdbcType="CHAR" property="roleLevel" />
     <result column="icon" jdbcType="VARCHAR" property="icon" />
+    <result column="role_code" jdbcType="VARCHAR" property="roleCode" />
     <result column="org_id" jdbcType="CHAR" property="orgId" />
     <result column="description" jdbcType="VARCHAR" property="description" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
@@ -17,7 +18,10 @@
   </resultMap>
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
-    id, role_name, role_level, icon, org_id, description, create_time, create_by, update_time, 
-    update_by
+    role_id, role_name, role_level, icon, role_code, org_id, description, create_time, 
+    create_by, update_time, update_by
   </sql>
+    <select id="getAllRoleInfos" resultMap="BaseResultMap">
+      select * from sys_role
+    </select>
 </mapper>

@@ -1,6 +1,6 @@
 package com.algebra.authentication.vo;
 
-import com.algebra.authentication.domain.SysAuthrozation;
+import com.algebra.authentication.domain.SysAuthorization;
 import com.algebra.authentication.domain.SysPermission;
 import com.algebra.authentication.domain.SysRole;
 import com.algebra.authentication.domain.SysUser;
@@ -30,7 +30,7 @@ public class UserInfoVo implements Serializable {
     private List<SysPermission> permissions;
 
     @ApiModelProperty("用户角色拥有的权限信息")
-    private List<SysAuthrozation> authorizations;
+    private List<SysAuthorization> authorizations;
 
     @ApiModelProperty("access_token")
     private String accessToken;

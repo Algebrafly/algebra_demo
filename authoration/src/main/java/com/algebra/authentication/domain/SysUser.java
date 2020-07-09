@@ -4,9 +4,10 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Data;
+
 import java.io.Serializable;
 import java.util.Date;
-import lombok.Data;
 
 /**
   * @author al
@@ -93,6 +94,12 @@ public class SysUser implements Serializable {
      */
     @TableField(value = "usr_super")
     private String usrSuper;
+
+    /**
+     * 用户类型（1-后台管理者，2-C端用户）
+     */
+    @TableField(value = "user_typ")
+    private String userTyp;
 
     /**
      * 特殊角色ID

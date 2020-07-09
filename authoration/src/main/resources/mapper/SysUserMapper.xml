@@ -17,6 +17,7 @@
     <result column="usr_organization" jdbcType="CHAR" property="usrOrganization" />
     <result column="usr_status" jdbcType="CHAR" property="usrStatus" />
     <result column="usr_super" jdbcType="CHAR" property="usrSuper" />
+    <result column="user_typ" jdbcType="CHAR" property="userTyp" />
     <result column="special_role_id" jdbcType="INTEGER" property="specialRoleId" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="login_time" jdbcType="TIMESTAMP" property="loginTime" />
@@ -26,7 +27,7 @@
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
     usr_id, username, `password`, real_name, portrait, idcard_typ, idcard_no, phone, 
-    email, usr_branch, usr_organization, usr_status, usr_super, special_role_id, create_time, 
+    email, usr_branch, usr_organization, usr_status, user_typ, usr_super, special_role_id, create_time,
     login_time, login_ip, remark
   </sql>
   <select id="getUserInfoPage" resultMap="BaseResultMap">

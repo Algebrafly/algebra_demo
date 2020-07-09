@@ -10,7 +10,6 @@ import com.algebra.authentication.util.PageRequestParam;
 import com.algebra.authentication.util.WebApiResult;
 import com.algebra.authentication.util.struct.UserInfoConvert;
 import com.algebra.authentication.vo.UserInfoDto;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -58,7 +57,7 @@ public class UserController {
                 List<SysUserRole> sysUserRoles = new ArrayList<>();
                 for (String roleId : roleIds) {
                     SysUserRole userRole = new SysUserRole();
-                    userRole.setRoleId(Integer.valueOf(roleId));
+                    userRole.setRoleId(roleId);
                     userRole.setUsrId(usrId);
                     sysUserRoles.add(userRole);
                 }
@@ -129,7 +128,7 @@ public class UserController {
 
     // ----------------列表操作-------------
 
-    @ApiOperation("获取用户列表")
+    @ApiOperation("获取用户列表（分页）")
     @PostMapping("getUserInfoList")
     public WebApiResult<List<UserInfoDto>> getUserInfoList(@RequestBody PageRequestParam param) {
         log.info("获取用户列表（分页查询），接收到请求参数:{}", JSONUtil.toJsonStr(param));
@@ -157,7 +156,7 @@ public class UserController {
                 List<SysUserRole> sysUserRoles = new ArrayList<>();
                 for (String roleId : roleIds) {
                     SysUserRole userRole = new SysUserRole();
-                    userRole.setRoleId(Integer.valueOf(roleId));
+                    userRole.setRoleId(roleId);
                     userRole.setUsrId(userInfoDto.getUsrId());
                     sysUserRoles.add(userRole);
                 }

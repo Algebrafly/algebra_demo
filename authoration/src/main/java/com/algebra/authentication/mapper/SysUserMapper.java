@@ -13,6 +13,6 @@ import java.util.Map;
   */
 public interface SysUserMapper extends BaseMapper<SysUser> {
 
-    List<SysUser> getUserInfoPage(Map<String,Object> param);
+    List<SysUser> getUserInfoPage(Map<String, Object> param);
 
 }

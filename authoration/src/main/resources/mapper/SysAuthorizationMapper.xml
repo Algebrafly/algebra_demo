@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.algebra.authentication.mapper.SysAuthorizationMapper">
+  <resultMap id="BaseResultMap" type="com.algebra.authentication.domain.SysAuthorization">
+    <!--@mbg.generated-->
+    <!--@Table sys_authrozation-->
+    <id column="auth_id" jdbcType="CHAR" property="authId" />
+    <result column="auth_name" jdbcType="VARCHAR" property="authName" />
+    <result column="auth_code" jdbcType="VARCHAR" property="authCode" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="create_at" jdbcType="TIMESTAMP" property="createAt" />
+    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    auth_id, auth_name, auth_code, description, create_at, create_by, remark
+  </sql>
+    <select id="selectList" resultMap="BaseResultMap">
+      select * from sys_authorization
+    </select>
+</mapper>

@@ -16,4 +16,14 @@
     <!--@mbg.generated-->
     org_id, org_name, org_code, description, create_at, create_by, remark
   </sql>
+  <select id="selectList" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/> from sys_organization
+  </select>
+  <select id="getUserInfoPage" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/> from sys_organization
+    where 1=1
+    <if test="orgName != null" >
+      and org_name = #{orgName,jdbcType=VARCHAR}
+    </if>
+  </select>
 </mapper>

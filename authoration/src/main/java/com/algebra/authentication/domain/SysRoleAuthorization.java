@@ -15,8 +15,8 @@ import java.util.Date;
  * @description
  */
 @Data
-@TableName(value = "sys_role_permission")
-public class SysRolePermission implements Serializable {
+@TableName(value = "sys_role_authorization")
+public class SysRoleAuthorization implements Serializable {
     /**
      * 主键
      */
@@ -32,8 +32,8 @@ public class SysRolePermission implements Serializable {
     /**
      * 权限id
      */
-    @TableField(value = "perm_id")
-    private String permId;
+    @TableField(value = "auth_id")
+    private String authId;
 
     /**
      * 创建时间
@@ -47,7 +47,7 @@ public class SysRolePermission implements Serializable {
 
     public static final String COL_ROLE_ID = "role_id";
 
-    public static final String COL_PERM_ID = "perm_id";
+    public static final String COL_AUTH_ID = "auth_id";
 
     public static final String COL_CREATE_TIME = "create_time";
 }

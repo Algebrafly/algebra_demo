@@ -4,23 +4,24 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import java.io.Serializable;
-import java.util.Date;
 import lombok.Data;
 
+import java.io.Serializable;
+import java.util.Date;
+
 /**
-  * @author al
-  * @date 2020/7/7 11:02
-  * @description 
-  */
+ * @author al
+ * @date 2020/7/9 10:37
+ * @description
+ */
 @Data
 @TableName(value = "sys_permission")
 public class SysPermission implements Serializable {
     /**
      * 主键
      */
-    @TableId(value = "id", type = IdType.AUTO)
-    private Integer id;
+    @TableId(value = "perm_id", type = IdType.INPUT)
+    private String permId;
 
     /**
      * 名称
@@ -93,7 +94,7 @@ public class SysPermission implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public static final String COL_ID = "id";
+    public static final String COL_PERM_ID = "perm_id";
 
     public static final String COL_NAME = "name";
 

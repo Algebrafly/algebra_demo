@@ -1,7 +1,7 @@
 package com.algebra.authentication.web;
 
-import com.algebra.authentication.vo.UserInfoVo;
 import com.algebra.authentication.util.WebApiResult;
+import com.algebra.authentication.vo.UserInfoVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
