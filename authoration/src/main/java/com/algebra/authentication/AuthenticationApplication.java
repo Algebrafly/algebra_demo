@@ -11,7 +11,7 @@ import org.wf.jwtp.configuration.EnableJwtPermission;
  */
 @SpringBootApplication
 @EnableJwtPermission
-//@MapperScan(basePackages = "com.algebra.authentication.mapper")
+@MapperScan(basePackages = "com.algebra.authentication.mapper")
 public class AuthenticationApplication {
 
     public static void main(String[] args) {
