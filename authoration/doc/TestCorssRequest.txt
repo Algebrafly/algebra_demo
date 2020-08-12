@@ -8,3 +8,15 @@ xhr.onload = function(e) {
     var xhr = e.target;
     console.log(xhr.responseText);
 }
+
+3. 带token测试
+
+var token= "73c59303-7117-4dee-b399-2eedd17c90e5";
+var xhr = new XMLHttpRequest();
+xhr.open('GET', 'http://192.168.6.63:7777/v1/api/sys/getMenuForView');
+xhr.setRequestHeader("token",token);
+xhr.send(null);
+xhr.onload = function(e) {
+    var xhr = e.target;
+    console.log(xhr.responseText);
+}
