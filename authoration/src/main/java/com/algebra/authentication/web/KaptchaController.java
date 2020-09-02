@@ -3,11 +3,14 @@ package com.algebra.authentication.web;
 import com.google.code.kaptcha.Constants;
 import com.google.code.kaptcha.Producer;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
+import org.wf.jwtp.annotation.Ignore;
 
 import javax.imageio.ImageIO;
 import javax.servlet.ServletOutputStream;
@@ -39,7 +42,9 @@ public class KaptchaController {
      * @return the captcha code
      * @throws IOException the io exception
      */
-    @RequestMapping("/verificationCode")
+    @GetMapping("/verificationCode")
+    @ApiOperation("图片验证码")
+    @Ignore
     public ModelAndView getCaptchaCode(HttpServletRequest request, HttpServletResponse response) throws IOException {
         HttpSession session = request.getSession();
         response.setDateHeader("Expires", 0);

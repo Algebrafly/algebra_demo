@@ -1,12 +1,15 @@
 package com.algebra.authentication.config;
 
+import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import springfox.documentation.builders.OAuthBuilder;
-import springfox.documentation.builders.PathSelectors;
-import springfox.documentation.builders.RequestHandlerSelectors;
+import org.springframework.http.HttpMethod;
+import springfox.documentation.builders.*;
+import springfox.documentation.oas.annotations.EnableOpenApi;
+import springfox.documentation.schema.Example;
+import springfox.documentation.schema.ScalarType;
 import springfox.documentation.service.*;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spi.service.contexts.SecurityContext;
@@ -20,10 +23,11 @@ import java.util.List;
 
 /**
  * @author al
+ * @desc swagger3接口访问地址： http://[IP]:[port]/swagger-ui/index.html
  */
-//@Configuration
-//@EnableSwagger2
-public class Swagger2 {
+@Configuration
+@EnableOpenApi
+public class Swagger3 {
 
     @Autowired
     private DemoServerSystemProperties properties;
@@ -31,15 +35,16 @@ public class Swagger2 {
     @Bean
     public Docket swaggerApi() {
         DemoSwaggerProperties swagger = properties.getSwagger();
-        return new Docket(DocumentationType.SWAGGER_2)
+        return new Docket(DocumentationType.OAS_30)
+                .apiInfo(apiInfo(swagger))
                 .select()
-                .apis(RequestHandlerSelectors.basePackage(swagger.getBasePackage()))
+                .apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))
                 .paths(PathSelectors.any())
                 .build()
-                .apiInfo(apiInfo(swagger))
-//                .securitySchemes(Collections.singletonList(securityScheme(swagger)))
+                .globalRequestParameters(getGlobalRequestParameters())
+                .globalResponses(HttpMethod.GET, getGlobalResponseMessage())
+                .globalResponses(HttpMethod.POST, getGlobalResponseMessage())
                 .securitySchemes(securityScheme2(swagger))
-//                .securityContexts(Collections.singletonList(securityContext(swagger)));
                 .securityContexts(securityContext2(swagger));
     }
 
@@ -51,6 +56,45 @@ public class Swagger2 {
                 null,
                 new Contact(swagger.getAuthor(), swagger.getUrl(), swagger.getEmail()),
                 swagger.getLicense(), swagger.getLicenseUrl(), Collections.emptyList());
+    }
+
+    //生成全局通用参数
+    private List<RequestParameter> getGlobalRequestParameters() {
+        List<RequestParameter> parameters = new ArrayList<>();
+        parameters.add(new RequestParameterBuilder()
+                .name("token")
+                .description("Token")
+                .required(false)
+                .in(ParameterType.HEADER)
+                .query(q -> q.model(m -> m.scalarModel(ScalarType.STRING)))
+                .required(false)
+//                .example(new ExampleBuilder().value("123").build())
+                .build());
+        /*parameters.add(new RequestParameterBuilder()
+                .name("appId")
+                .description("唯一id")
+                .required(false)
+                .in(ParameterType.QUERY)
+                .query(q -> q.model(m -> m.scalarModel(ScalarType.STRING)))
+                .required(false)
+                .build());
+        parameters.add(new RequestParameterBuilder()
+                .name("lang")
+                .description("语言")
+                .required(false)
+                .in(ParameterType.PATH)
+                .query(q -> q.model(m -> m.scalarModel(ScalarType.STRING)))
+                .required(false)
+                .build());*/
+        // ... ...
+        return parameters;
+    }
+
+    //生成通用响应信息
+    private List<Response> getGlobalResponseMessage() {
+        List<Response> responseList = new ArrayList<>();
+        responseList.add(new ResponseBuilder().code("404").description("找不到资源").build());
+        return responseList;
     }
 
     // --------------------------------以下为安全配置项----------------------------------------

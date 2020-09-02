@@ -22,7 +22,7 @@ spring:
 jwtp:
   store-type: 1
   path: /**
-  exclude-path: /login,/swagger-ui.html/**,/swagger-resources/**,/webjars/**,/v2/**,/swagger-ui.html#!/**,/csrf,/error
+  exclude-path: /login,/swagger-ui.html/**,/swagger-resources/**,/webjars/**,/v3/**,/swagger-ui.html#!/**,/csrf,/error,/swagger-ui/index.html#/
   max-token: 1
 
 ---
@@ -33,3 +33,9 @@ pagehelper:
   support-methods-arguments: true
   params: count=sountSql
   page-size-zero: true
+---
+# swagger3配置
+springfox:
+  documentation:
+    swagger-ui:
+      enabled: true

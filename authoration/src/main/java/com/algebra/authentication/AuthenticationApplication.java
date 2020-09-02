@@ -4,6 +4,7 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.wf.jwtp.configuration.EnableJwtPermission;
+import springfox.documentation.oas.annotations.EnableOpenApi;
 
 /**
  * @author algebra
@@ -12,6 +13,7 @@ import org.wf.jwtp.configuration.EnableJwtPermission;
 @SpringBootApplication
 @EnableJwtPermission
 @MapperScan(basePackages = "com.algebra.authentication.mapper")
+@EnableOpenApi
 public class AuthenticationApplication {
 
     public static void main(String[] args) {

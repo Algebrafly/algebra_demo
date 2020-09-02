@@ -91,7 +91,7 @@ public class RegisterController {
 
             // TODO 赋予默认权限
 
-
+            userService.save(sysUser);
 
         } catch (Exception e) {
             e.printStackTrace();

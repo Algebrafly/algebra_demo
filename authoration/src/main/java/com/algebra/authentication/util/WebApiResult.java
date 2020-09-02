@@ -1,5 +1,7 @@
 package com.algebra.authentication.util;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -10,20 +12,27 @@ import java.io.Serializable;
  * @description
  */
 @Data
+@ApiModel("API通用相应信息实体")
 public class WebApiResult<T> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @ApiModelProperty(value = "接口相应状态：true - 成功， false - 失败")
     private Boolean success = true;
 
+    @ApiModelProperty(value = "返回的数据实体")
     private T data;
 
+    @ApiModelProperty(value = "接口提示信息")
     private String message;
 
+    @ApiModelProperty(value = "接口提示异常信息")
     private String errorMessage;
 
+    @ApiModelProperty(value = "列表分页查询的总条数")
     private int count;
 
+    @ApiModelProperty(value = "特殊相应编码，ex: 401-授权失败")
     private int code;
 
     public WebApiResult() {}
@@ -34,7 +43,6 @@ public class WebApiResult<T> implements Serializable {
         this.message = message;
         this.data = data;
         this.count = count;
-        this.code = 200;
     }
 
     public static <T> WebApiResult<T> ok(T data) {
