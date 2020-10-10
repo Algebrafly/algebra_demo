@@ -12,5 +12,7 @@ import java.util.List;
  */
 public interface SysModelHeaderService extends IService<SysModelHeader> {
 
+    List<SysModelHeader> getModelHeaderByModel(String modelId);
+
 }
 

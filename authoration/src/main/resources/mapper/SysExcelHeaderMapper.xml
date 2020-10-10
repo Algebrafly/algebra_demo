@@ -31,4 +31,19 @@
       a.deleted = 0
       AND b.model_id = #{modelId,jdbcType=VARCHAR}
   </select>
+  <select id="getHeadersPage" resultType="com.algebra.authentication.domain.SysExcelHeader">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM
+    `sys_excel_header`
+    WHERE
+    deleted = 0
+    <if test="name != null">
+      and name LIKE CONCAT('%',#{name,jdbcType=VARCHAR},'%')
+    </if>
+    <if test="alias != null">
+      and alias LIKE CONCAT('%',#{alias,jdbcType=VARCHAR},'%')
+    </if>
+
+  </select>
 </mapper>

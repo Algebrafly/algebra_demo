@@ -17,4 +17,24 @@
     <!--@mbg.generated-->
     id, `name`, code, business_key, app_key, store_type, oss_url, deleted
   </sql>
+  <select id="getModelsPage" resultType="com.algebra.authentication.domain.SysExcelModel">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM
+      `sys_excel_model`
+    WHERE
+      deleted = 0
+    <if test="name != null">
+      AND name like CONCAT('%',#{name,jdbcType=VARCHAR},'%')
+    </if>
+    <if test="appKey != null">
+      AND app_key like CONCAT('%',#{appKey,jdbcType=VARCHAR},'%')
+    </if>
+    <if test="businessKey != null">
+      AND business_key like CONCAT('%',#{businessKey,jdbcType=VARCHAR},'%')
+    </if>
+    <if test="code != null">
+      AND code like CONCAT('%',#{code,jdbcType=VARCHAR},'%')
+    </if>
+  </select>
 </mapper>
