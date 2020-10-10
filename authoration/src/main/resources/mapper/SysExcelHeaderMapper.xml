@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.algebra.authentication.mapper.excel.SysExcelHeaderMapper">
+  <resultMap id="BaseResultMap" type="com.algebra.authentication.domain.SysExcelHeader">
+    <!--@mbg.generated-->
+    <!--@Table sys_excel_header-->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="alias" jdbcType="VARCHAR" property="alias" />
+    <result column="type" jdbcType="CHAR" property="type" />
+    <result column="sort_order" jdbcType="INTEGER" property="sortOrder" />
+    <result column="column_width" jdbcType="INTEGER" property="columnWidth" />
+    <result column="column_color" jdbcType="VARCHAR" property="columnColor" />
+    <result column="check_none_value" jdbcType="BOOLEAN" property="checkNoneValue" />
+    <result column="example_value" jdbcType="VARCHAR" property="exampleValue" />
+    <result column="deleted" jdbcType="BOOLEAN" property="deleted" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, `name`, `alias`, `type`, sort_order, column_width, column_color, check_none_value, 
+    example_value, deleted
+  </sql>
+  <select id="getHeadersByModel" resultType="com.algebra.authentication.domain.SysExcelHeader">
+    SELECT
+      a.*,
+      b.column_index
+    FROM
+      `sys_excel_header` a
+        LEFT JOIN `sys_model_header` b ON a.id = b.header_id
+    WHERE
+      a.deleted = 0
+      AND b.model_id = #{modelId,jdbcType=VARCHAR}
+  </select>
+</mapper>

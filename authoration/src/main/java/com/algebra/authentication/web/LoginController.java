@@ -2,7 +2,7 @@ package com.algebra.authentication.web;
 
 import cn.hutool.json.JSONUtil;
 import com.algebra.authentication.domain.SysUser;
-import com.algebra.authentication.service.SysUserService;
+import com.algebra.authentication.service.rbac.SysUserService;
 import com.algebra.authentication.util.WebApiResult;
 import com.algebra.authentication.vo.LoginModel;
 import com.algebra.authentication.vo.UserInfoVo;

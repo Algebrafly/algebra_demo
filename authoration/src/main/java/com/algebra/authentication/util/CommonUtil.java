@@ -1,5 +1,7 @@
 package com.algebra.authentication.util;
 
+import org.slf4j.MDC;
+
 import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -34,6 +36,18 @@ public class CommonUtil {
      */
     public static String createPrimaryKey(String remark){
         return remark +"_"+UUID.randomUUID().toString().replaceAll("-","");
+    }
+
+    public static boolean isNullOrBlank(String str) {
+        return str == null || "".equals(str);
+    }
+
+    public static String getMdcKey(String mdcKey){
+        String mdcValue = MDC.get(mdcKey);
+        if(mdcValue == null){
+            mdcValue = "default";
+        }
+        return mdcValue;
     }
 
     public static void main(String[] args) {
