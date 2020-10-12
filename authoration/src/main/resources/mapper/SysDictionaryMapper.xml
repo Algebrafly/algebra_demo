@@ -8,13 +8,29 @@
     <result column="type" jdbcType="VARCHAR" property="type" />
     <result column="code" jdbcType="VARCHAR" property="code" />
     <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="content_en" jdbcType="VARCHAR" property="contentEn" />
+    <result column="content_jp" jdbcType="VARCHAR" property="contentJp" />
     <result column="pattern" jdbcType="VARCHAR" property="pattern" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
-    <result column="app_key" jdbcType="CHAR" property="appKey" />
+    <result column="app_key" jdbcType="VARCHAR" property="appKey" />
     <result column="deleted" jdbcType="BOOLEAN" property="deleted" />
   </resultMap>
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
-    id, `type`, code, content, pattern, remark, app_key, deleted
+    id, `type`, code, content, content_en, content_jp, pattern, remark, app_key, deleted
   </sql>
+  <select id="getReturnMsg" resultType="java.lang.String">
+    SELECT
+    <if test="languageType == 'zh_CN'">
+      content
+    </if>
+    <if test="languageType == 'en_US'">
+      content_en
+    </if>
+    <if test="languageType == 'ja_JP'">
+      content_jp
+    </if>
+    FROM test.`sys_dictionary`
+    WHERE `code` = #{code,jdbcType=VARCHAR} AND `type` = 'returnMsg'
+  </select>
 </mapper>
