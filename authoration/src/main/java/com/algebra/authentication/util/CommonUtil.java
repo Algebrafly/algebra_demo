@@ -2,8 +2,12 @@ package com.algebra.authentication.util;
 
 import org.slf4j.MDC;
 
+import java.util.Set;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.function.Function;
+import java.util.function.Predicate;
 
 /**
  * @author al
@@ -49,6 +53,24 @@ public class CommonUtil {
         }
         return mdcValue;
     }
+
+    /**
+     * 函数
+     * @param keyExtractor
+     * @param <T>
+     * @return
+     */
+    public static <T> Predicate<T> distinctByKey(Function<? super T, ?> keyExtractor) {
+        Set<Object> seen = ConcurrentHashMap.newKeySet();
+//        Predicate<T> p = new Predicate<T>() {
+//            @Override
+//            public boolean test(T t) {
+//                return seen.add(keyExtractor.apply(t));
+//            }
+//        };
+        return t -> seen.add(keyExtractor.apply(t));
+    }
+
 
     public static void main(String[] args) {
         System.out.println(generateSerialNumber("asd"));
