@@ -5,6 +5,7 @@ import com.algebra.authentication.domain.SysUser;
 import com.algebra.authentication.service.config.OauthTokenService;
 import com.algebra.authentication.service.rbac.SysUserService;
 import com.algebra.authentication.util.MdcConstant;
+import com.algebra.authentication.util.UserLoginToken;
 import com.algebra.authentication.util.WebApiResult;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
@@ -59,10 +60,6 @@ public class MyTokenInterceptor extends HandlerInterceptorAdapter {
             return true;
         }
 
-        if(uri.contains("/v3/api-docs")){
-            return true;
-        }
-
         HandlerMethod handlerMethod = (HandlerMethod) handler;
         Method method = handlerMethod.getMethod();
         //检查是否有Ignore注释，有则跳过认证
@@ -70,51 +67,56 @@ public class MyTokenInterceptor extends HandlerInterceptorAdapter {
             return true;
         }
 
-        if(token == null){
-            log.error("[preHandle] Token 不存在！");
-            this.responseRst(response, WebApiResult.error(401, "token无效！"));
-            return false;
-        }
+        if (method.isAnnotationPresent(UserLoginToken.class)) {
+            UserLoginToken userLoginToken = method.getAnnotation(UserLoginToken.class);
+            if (userLoginToken.required()) {
+                if(token == null){
+                    log.error("[preHandle] Token 不存在！");
+                    this.responseRst(response, WebApiResult.error(401, "token无效！"));
+                    return false;
+                }
 
-        String userId = "";
-        try {
-            String tokenKey = tokenService.getTokenKey();
-            log.debug("ACCESS_TOKEN: " + token + "   TOKEN_KEY: " + tokenKey);
-            userId = TokenUtil.parseToken(token, tokenKey);
+                String userId = "";
+                try {
+                    String tokenKey = tokenService.getTokenKey();
+                    log.debug("ACCESS_TOKEN: " + token + "   TOKEN_KEY: " + tokenKey);
+                    userId = TokenUtil.parseToken(token, tokenKey);
+                } catch (Exception e) {
+                    log.error("JWT解析token异常，异常信息：{}", e.getMessage());
+                    this.responseRst(response, WebApiResult.error(401, e.getMessage()));
+                    return false;
+                }
 
-        } catch (Exception e) {
-            log.error("JWT解析token异常，异常信息：{}", e.getMessage());
-            this.responseRst(response, WebApiResult.error(401, e.getMessage()));
-            return false;
-        }
+                // 查询用户信息
+                SysUser userInfo = userService.getById(userId);
+                if(userInfo == null){
+                    this.responseRst(response, WebApiResult.error("用户不存在，请检查用户名！"));
+                    return false;
+                }
 
-        // 查询用户信息
-        SysUser userInfo = userService.getById(userId);
-        if(userInfo == null){
-            this.responseRst(response, WebApiResult.error("用户不存在，请检查用户名！"));
-            return false;
-        }
-
-        // 验证token
+                // 验证token
 //        JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC256(userInfo.getPassword())).build();
-        try {
+                try {
 //            jwtVerifier.verify(token);
-            boolean b = tokenService.validTokenByDb(token);
-            if(!b){
-                this.responseRst(response, WebApiResult.error(401, "token已失效，请重新登录！"));
-                return false;
+                    boolean b = tokenService.validTokenByDb(token);
+                    if(!b){
+                        this.responseRst(response, WebApiResult.error(401, "token已失效，请重新登录！"));
+                        return false;
+                    }
+                    // 携带用户相关信息
+                    request.setAttribute("userInfo", JSONUtil.toJsonStr(userInfo));
+                    MDC.put(MdcConstant.USER_INFO, JSONUtil.toJsonStr(userInfo));
+                    MDC.put(MdcConstant.USER_ID, userId);
+                    MDC.put(MdcConstant.TOKEN, token);
+                } catch (JWTVerificationException e) {
+                    log.error("JWT解析token异常，异常信息：{}", e.getMessage());
+                    this.responseRst(response, WebApiResult.error(401, e.getMessage()));
+                    return false;
+                }
+                log.info("[preHandle]Token校验通过！");
+                return true;
             }
-            // 携带用户相关信息
-            request.setAttribute("userInfo", JSONUtil.toJsonStr(userInfo));
-            MDC.put(MdcConstant.USER_INFO, JSONUtil.toJsonStr(userInfo));
-            MDC.put(MdcConstant.USER_ID, userId);
-            MDC.put(MdcConstant.TOKEN, token);
-        } catch (JWTVerificationException e) {
-            log.error("JWT解析token异常，异常信息：{}", e.getMessage());
-            this.responseRst(response, WebApiResult.error(401, e.getMessage()));
-            return false;
         }
-        log.info("[preHandle]Token校验通过！");
         return true;
     }
 
