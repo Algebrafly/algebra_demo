@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.algebra.authentication.mapper.config.OauthTokenMapper">
+  <resultMap id="BaseResultMap" type="com.algebra.authentication.domain.OauthToken">
+    <!--@mbg.generated-->
+    <!--@Table oauth_token-->
+    <id column="token_id" jdbcType="INTEGER" property="tokenId" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="access_token" jdbcType="VARCHAR" property="accessToken" />
+    <result column="refresh_token" jdbcType="VARCHAR" property="refreshToken" />
+    <result column="expire_time" jdbcType="TIMESTAMP" property="expireTime" />
+    <result column="refresh_token_expire_time" jdbcType="TIMESTAMP" property="refreshTokenExpireTime" />
+    <result column="roles" jdbcType="VARCHAR" property="roles" />
+    <result column="permissions" jdbcType="VARCHAR" property="permissions" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    token_id, user_id, access_token, refresh_token, expire_time, refresh_token_expire_time, 
+    roles, permissions, create_time, update_time
+  </sql>
+  <select id="getTokenKey" resultType="java.lang.String">
+    SELECT token_key FROM `oauth_token_key`
+  </select>
+</mapper>

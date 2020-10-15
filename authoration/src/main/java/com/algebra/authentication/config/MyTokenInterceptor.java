@@ -1,15 +1,17 @@
 package com.algebra.authentication.config;
 
-import com.algebra.authentication.vo.UserInfoDto;
-import com.algebra.authentication.util.PassToken;
-import com.algebra.authentication.util.UserLoginToken;
+import cn.hutool.json.JSONUtil;
+import com.algebra.authentication.domain.SysUser;
+import com.algebra.authentication.service.config.OauthTokenService;
+import com.algebra.authentication.service.rbac.SysUserService;
+import com.algebra.authentication.util.MdcConstant;
 import com.algebra.authentication.util.WebApiResult;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
-import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpOutputMessage;
 import org.springframework.http.MediaType;
@@ -18,6 +20,8 @@ import org.springframework.http.server.ServletServerHttpResponse;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
+import org.wf.jwtp.annotation.Ignore;
+import org.wf.jwtp.util.TokenUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -31,8 +35,13 @@ import java.lang.reflect.Method;
  */
 @Component
 @Slf4j
-public class  MyTokenInterceptor extends HandlerInterceptorAdapter {
+public class MyTokenInterceptor extends HandlerInterceptorAdapter {
 
+    @Autowired
+    SysUserService userService;
+
+    @Autowired
+    OauthTokenService tokenService;
 
     @Autowired
     private MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter;
@@ -40,16 +49,8 @@ public class  MyTokenInterceptor extends HandlerInterceptorAdapter {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
-        String token = request.getHeader("Authorization");
+        String token = this.getToken(request);
         log.info("[preHandle]接受到token：{}", token);
-//        if(token != null){
-//            String s = token.substring(7,27);
-//            log.info(s);
-//            Decoder<String, byte[]> base64url = Decoders.BASE64URL;
-//            byte[] bytes = (byte[])base64url.decode(s);
-//            String payload = new String(bytes, Strings.UTF_8);
-//            log.info(payload);
-//        }
 
         if (!(handler instanceof HandlerMethod)) {
             // 如果不是映射到方法直接通过
@@ -58,52 +59,56 @@ public class  MyTokenInterceptor extends HandlerInterceptorAdapter {
 
         HandlerMethod handlerMethod = (HandlerMethod) handler;
         Method method = handlerMethod.getMethod();
-        //检查是否有passToken注释，有则跳过认证
-        if (method.isAnnotationPresent(PassToken.class)) {
-            PassToken passToken = method.getAnnotation(PassToken.class);
-            return passToken.required();
+        //检查是否有Ignore注释，有则跳过认证
+        if (method.isAnnotationPresent(Ignore.class)) {
+            return true;
         }
 
-        if (method.isAnnotationPresent(UserLoginToken.class)) {
-            UserLoginToken userLoginToken = method.getAnnotation(UserLoginToken.class);
-            if (userLoginToken.required()) {
-                if(token == null){
-                    log.error("[preHandle] Token 不存在！");
-                    this.responseRst(response, WebApiResult.error("token不存在！"));
-                    return false;
-                }
+        if(token == null){
+            log.error("[preHandle] Token 不存在！");
+            this.responseRst(response, WebApiResult.error(401, "token无效！"));
+            return false;
+        }
 
-                String userId = "";
-                try {
-                    userId = JWT.decode(token).getAudience().get(0);
-                } catch (JWTDecodeException e) {
-                    log.error("JWT解析token异常，异常信息：{}", e.getMessage());
-                    this.responseRst(response, WebApiResult.error(e));
-                    return false;
-                }
+        String userId = "";
+        try {
+            String tokenKey = tokenService.getTokenKey();
+            log.debug("ACCESS_TOKEN: " + token + "   TOKEN_KEY: " + tokenKey);
+            userId = TokenUtil.parseToken(token, tokenKey);
 
-                // 查询用户信息
-//                UserInfoVo userInfo = userService.getUserByPrimaryKey(userId);
-                UserInfoDto userInfoDto = new UserInfoDto();
+        } catch (Exception e) {
+            log.error("JWT解析token异常，异常信息：{}", e.getMessage());
+            this.responseRst(response, WebApiResult.error(401, e.getMessage()));
+            return false;
+        }
 
-                if(userInfoDto == null){
-                    this.responseRst(response, WebApiResult.error("用户不存在，请重新登陆！"));
-                    return false;
-                }
+        // 查询用户信息
+        SysUser userInfo = userService.getById(userId);
+        if(userInfo == null){
+            this.responseRst(response, WebApiResult.error("用户不存在，请检查用户名！"));
+            return false;
+        }
 
-                // 验证token
-                JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC256(userInfoDto.getPassword())).build();
-                try {
-                    jwtVerifier.verify(token);
-                } catch (JWTVerificationException e) {
-                    log.error("JWT解析token异常，异常信息：{}", e.getMessage());
-                    this.responseRst(response, WebApiResult.error(e));
-                    return false;
-                }
-                log.info("[preHandle]Token校验通过！");
-                return true;
+        // 验证token
+        JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC256(userInfo.getPassword())).build();
+        try {
+//            jwtVerifier.verify(token);
+            boolean b = tokenService.validTokenByDb(token);
+            if(!b){
+                this.responseRst(response, WebApiResult.error(401, "token已失效，请重新登录！"));
+                return false;
             }
+            // 携带用户相关信息
+            request.setAttribute("userInfo", JSONUtil.toJsonStr(userInfo));
+            MDC.put(MdcConstant.USER_INFO, JSONUtil.toJsonStr(userInfo));
+            MDC.put(MdcConstant.USER_ID, userId);
+            MDC.put(MdcConstant.TOKEN, token);
+        } catch (JWTVerificationException e) {
+            log.error("JWT解析token异常，异常信息：{}", e.getMessage());
+            this.responseRst(response, WebApiResult.error(401, e.getMessage()));
+            return false;
         }
+        log.info("[preHandle]Token校验通过！");
         return true;
     }
 
@@ -120,6 +125,18 @@ public class  MyTokenInterceptor extends HandlerInterceptorAdapter {
         HttpOutputMessage httpOutputMessage = new ServletServerHttpResponse(response);
         mappingJackson2HttpMessageConverter.write(result,
                 MediaType.APPLICATION_JSON, httpOutputMessage);
+    }
+
+    private String getToken(HttpServletRequest request) {
+        String accessToken = request.getParameter("access_token");
+        if (accessToken == null || accessToken.trim().isEmpty()) {
+            accessToken = request.getHeader("Authorization");
+            if (accessToken != null && accessToken.length() >= 7) {
+                accessToken = accessToken.substring(7);
+            }
+        }
+
+        return accessToken;
     }
 
 }
