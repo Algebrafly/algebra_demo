@@ -2,6 +2,7 @@ package com.algebra.authentication.util.userlog;
 
 import com.algebra.authentication.domain.SysUserLog;
 import com.algebra.authentication.util.userlog.all.HomeLog;
+import com.algebra.authentication.util.userlog.all.UserOprLog;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.stereotype.Component;
 
@@ -24,6 +25,7 @@ public class LogHelper {
     private void init() {
         logAbles.add(new HomeLog());
         // ... 以菜单为依据新增要记录log的controller
+        logAbles.add(new UserOprLog());
 
         logAbles.forEach(LogAble::init);
     }
