@@ -3,20 +3,25 @@ package com.algebra.authentication.web;
 import cn.hutool.json.JSONUtil;
 import com.algebra.authentication.domain.SysUser;
 import com.algebra.authentication.service.rbac.SysUserService;
+import com.algebra.authentication.util.MdcConstant;
 import com.algebra.authentication.util.WebApiResult;
+import com.algebra.authentication.util.userlog.SysLogAsp;
 import com.algebra.authentication.vo.LoginModel;
 import com.algebra.authentication.vo.UserInfoVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.*;
+import org.wf.jwtp.annotation.Ignore;
 import org.wf.jwtp.provider.Token;
 import org.wf.jwtp.provider.TokenStore;
 
 import java.nio.charset.StandardCharsets;
+import java.util.Collections;
 
 /**
  * @author al
@@ -25,7 +30,7 @@ import java.nio.charset.StandardCharsets;
  */
 @Slf4j
 @RestController
-@Api(value = "login", tags = "用户登录")
+@Api(value = "Login", tags = "用户登录")
 public class LoginController {
 
     @Qualifier("jdbcTokenStore")
@@ -37,6 +42,8 @@ public class LoginController {
 
     @PostMapping("/login")
     @ApiOperation("登录")
+    @SysLogAsp
+    @Ignore
     public WebApiResult<UserInfoVo> login(@RequestBody LoginModel loginModel) {
         log.info("登录-接收到请求参数：{}", JSONUtil.toJsonStr(loginModel));
         UserInfoVo userInfoVo = new UserInfoVo();
@@ -69,6 +76,8 @@ public class LoginController {
             String tokenString = "access_" + token.getAccessToken();
             log.info("登录生成的Token：{}", tokenString);
             userInfoVo.setAccessToken(tokenString);
+            userInfoVo.setUser(userInfo);
+            MDC.put(MdcConstant.USER_INFO, JSONUtil.toJsonStr(userInfo));
         } catch (Exception e) {
             e.printStackTrace();
             log.error("登录异常，异常信息：{}", e.getMessage());

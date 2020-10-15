@@ -12,7 +12,7 @@ import java.io.Serializable;
  * @description
  */
 @Data
-@ApiModel("登录参数")
+@ApiModel("注册参数")
 public class RegisterModel implements Serializable {
 
     @ApiModelProperty("用户名")

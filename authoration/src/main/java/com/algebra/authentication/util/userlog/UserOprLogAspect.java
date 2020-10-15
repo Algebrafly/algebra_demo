@@ -38,8 +38,7 @@ public class UserOprLogAspect {
     LogHelper logHelper;
 
     @Pointcut("@annotation(com.algebra.authentication.util.userlog.SysLogAsp)")
-    public void userOpr() {
-    }
+    public void userOpr() {}
 
 
     @AfterReturning(returning = "ret", pointcut = "userOpr()")

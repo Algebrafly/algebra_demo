@@ -22,7 +22,7 @@ spring:
 jwtp:
   store-type: 1
   path: /**
-  exclude-path: /login,/swagger-ui.html/**,/swagger-resources/**,/webjars/**,/v3/**,/swagger-ui.html#!/**,/csrf,/error,/swagger-ui/index.html#/
+  exclude-path: /login,/swagger-ui.html/**,/swagger-resources/**,/webjars/**,/v3/**,/swagger-ui.html#!/**,/csrf,/error,/v3/api-docs,/swagger-ui/index.html
   max-token: 1
 
 ---

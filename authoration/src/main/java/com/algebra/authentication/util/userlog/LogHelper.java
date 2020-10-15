@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author zouooh<wanglong @ zhongruigroup.com>
+ * @author al
  * @date 2020/8/21 11:13
  * @Desc
  */
@@ -24,6 +24,7 @@ public class LogHelper {
     private void init() {
         logAbles.add(new HomeLog());
         // ... 以菜单为依据新增要记录log的controller
+
         logAbles.forEach(LogAble::init);
     }
 

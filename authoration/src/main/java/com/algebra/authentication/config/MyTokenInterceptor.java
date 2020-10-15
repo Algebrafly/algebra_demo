@@ -49,11 +49,17 @@ public class MyTokenInterceptor extends HandlerInterceptorAdapter {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
+        String uri = request.getRequestURI();
+
         String token = this.getToken(request);
-        log.info("[preHandle]接受到token：{}", token);
+        log.info("[preHandle]-{}接受到token：{}", uri, token);
 
         if (!(handler instanceof HandlerMethod)) {
             // 如果不是映射到方法直接通过
+            return true;
+        }
+
+        if(uri.contains("/v3/api-docs")){
             return true;
         }
 
@@ -90,7 +96,7 @@ public class MyTokenInterceptor extends HandlerInterceptorAdapter {
         }
 
         // 验证token
-        JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC256(userInfo.getPassword())).build();
+//        JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC256(userInfo.getPassword())).build();
         try {
 //            jwtVerifier.verify(token);
             boolean b = tokenService.validTokenByDb(token);
