@@ -53,7 +53,7 @@ public class MyTokenInterceptor extends HandlerInterceptorAdapter {
         String uri = request.getRequestURI();
 
         String token = this.getToken(request);
-        log.info("[preHandle]-{}接受到token：{}", uri, token);
+        log.info("[preHandle] uri:{}，接受到token：{}", uri, token);
 
         if (!(handler instanceof HandlerMethod)) {
             // 如果不是映射到方法直接通过
