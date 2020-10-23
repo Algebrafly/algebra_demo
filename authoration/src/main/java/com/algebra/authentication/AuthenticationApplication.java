@@ -6,6 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.wf.jwtp.configuration.EnableJwtPermission;
 import springfox.documentation.oas.annotations.EnableOpenApi;
 
+import java.util.TimeZone;
+
 /**
  * @author algebra
  * @desc 鉴权Demo
@@ -15,6 +17,10 @@ import springfox.documentation.oas.annotations.EnableOpenApi;
 @MapperScan(basePackages = "com.algebra.authentication.mapper")
 @EnableOpenApi
 public class AuthenticationApplication {
+
+    static {
+        TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
+    }
 
     public static void main(String[] args) {
         SpringApplication.run(AuthenticationApplication.class, args);
