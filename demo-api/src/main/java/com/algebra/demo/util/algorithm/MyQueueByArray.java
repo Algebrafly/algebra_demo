@@ -3,7 +3,7 @@ package com.algebra.demo.util.algorithm;
 /**
  * @author al
  * @date 2020/10/26 16:12
- * @description 【小灰的算法之旅-java版实现】- 队列结构的数组实现
+ * @description 【小灰的算法之旅-java版实现】- （循环）队列结构的数组实现
  */
 public class MyQueueByArray<E> {
 
