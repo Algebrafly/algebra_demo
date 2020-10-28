@@ -2,6 +2,7 @@ package com.algebra.demo.util.algorithm;
 
 import java.util.Arrays;
 import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Stack;
 
 /**
@@ -9,6 +10,8 @@ import java.util.Stack;
  * @date 2020/10/26 16:35
  * @description 【小灰的算法之旅-java版实现】- 二叉树的遍历-1
  * 参考： https://www.cnblogs.com/ysocean/p/8032642.html
+ *       https://www.cnblogs.com/morethink/p/7265817.html
+ *       https://www.cnblogs.com/liuyang0/p/6271324.html
  */
 public class BinaryTreeOpr {
 
@@ -27,10 +30,13 @@ public class BinaryTreeOpr {
         System.out.println("\n非递归先序遍历：");
         preOrderTraverseWithStack(treeNode);
 
-        System.out.println("\n非递归后续遍历");
+        System.out.println("\n非递归后续遍历：");
         postOrderTraverseWithStack(treeNode);
         System.out.println();
         postOrderTraverseWithStack2(treeNode);
+
+        System.out.println("\n队列层序遍历：");
+        levelOrderTraverse(treeNode);
     }
 
 
@@ -117,7 +123,7 @@ public class BinaryTreeOpr {
      *
      * @param root 二叉树
      */
-    public static void postOrderTraverseWithStack2(TreeNode root){
+    public static void postOrderTraverseWithStack2(TreeNode root) {
         Stack<TreeNode> stack = new Stack<>();
         Stack<TreeNode> temp = new Stack<>();
         TreeNode treeNode = root;
@@ -132,7 +138,7 @@ public class BinaryTreeOpr {
             treeNode = treeNode.leftChild;
         }
         while (!temp.isEmpty()) {
-            System.out.print(temp.pop().data+"->");
+            System.out.print(temp.pop().data + "->");
         }
     }
 
@@ -163,6 +169,26 @@ public class BinaryTreeOpr {
         postOrderTraverse(treeNode.leftChild);
         postOrderTraverse(treeNode.rightChild);
         System.out.print(treeNode.data + " ");
+    }
+
+    /**
+     * 层序遍历-队列方式实现
+     *
+     * @param treeNode 二叉树
+     */
+    public static void levelOrderTraverse(TreeNode treeNode) {
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(treeNode);
+        while (!queue.isEmpty()) {
+            TreeNode node = queue.poll();
+            System.out.print(node.data + "->");
+            if (node.leftChild != null) {
+                queue.offer(node.leftChild);
+            }
+            if (node.rightChild != null) {
+                queue.offer(node.rightChild);
+            }
+        }
     }
 
 
