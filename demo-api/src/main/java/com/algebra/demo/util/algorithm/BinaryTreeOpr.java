@@ -1,17 +1,14 @@
 package com.algebra.demo.util.algorithm;
 
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Stack;
+import java.util.*;
 
 /**
  * @author al
  * @date 2020/10/26 16:35
  * @description 【小灰的算法之旅-java版实现】- 二叉树的遍历-1
  * 参考： https://www.cnblogs.com/ysocean/p/8032642.html
- *       https://www.cnblogs.com/morethink/p/7265817.html
- *       https://www.cnblogs.com/liuyang0/p/6271324.html
+ * https://www.cnblogs.com/morethink/p/7265817.html
+ * https://www.cnblogs.com/liuyang0/p/6271324.html
  */
 public class BinaryTreeOpr {
 
@@ -37,6 +34,10 @@ public class BinaryTreeOpr {
 
         System.out.println("\n队列层序遍历：");
         levelOrderTraverse(treeNode);
+
+
+        System.out.println("\n番外篇输出结果：------------------------->>>>");
+        preOrderTraversal(treeNode);
     }
 
 
@@ -223,5 +224,148 @@ public class BinaryTreeOpr {
         return node;
     }
 
+    // <---------------------------------番外版本--------------------------------/>
+
+    public static List<Integer> preOrderTraversal(TreeNode root) {
+        List<Integer> list = new ArrayList<>();
+        if (root == null) {
+            return list;
+        }
+        Stack<TreeNode> stack = new Stack<>();
+        stack.push(root);
+        while (!stack.isEmpty()) {
+            root = stack.pop();
+            list.add(root.data);
+            System.out.print(root.data + " ");
+            if (root.rightChild != null) {
+                stack.push(root.rightChild);
+            }
+            if (root.leftChild != null) {
+                stack.push(root.leftChild);
+            }
+        }
+        return list;
+    }
+
+    public List<Integer> preOrderTraversalSimple(TreeNode root) {
+        List<Integer> list = new ArrayList<>();
+        Deque<TreeNode> stack = new ArrayDeque<>();
+        TreeNode node = root;
+        while (node != null || !stack.isEmpty()) {
+            if (node != null) {
+                stack.push(node);
+                list.add(node.data);
+                node = node.leftChild;
+            } else {
+                node = stack.pop();
+                node = node.rightChild;
+            }
+        }
+        return list;
+    }
+
+
+    public List<Integer> inOrderTraversal(TreeNode root) {
+        List<Integer> list = new ArrayList<>();
+        Map<TreeNode, Integer> map = new HashMap<>();
+        Stack<TreeNode> stack = new Stack<>();
+        if (root == null) {
+            return list;
+        }
+        stack.push(root);
+        while (!stack.isEmpty()) {
+            root = stack.peek();
+            while (root.leftChild != null) {
+                if (map.containsKey(root.leftChild)) {
+                    break;
+                }
+                stack.push(root.leftChild);
+                root = root.leftChild;
+            }
+            root = stack.pop();
+            list.add(root.data);
+            map.put(root, 1);
+            if (root.rightChild != null) {
+                stack.push(root.rightChild);
+            }
+
+        }
+        return list;
+    }
+
+    public List<Integer> inOrderTraversalSimple(TreeNode root) {
+        List<Integer> list = new ArrayList<>();
+        Deque<TreeNode> stack = new ArrayDeque<>();
+        TreeNode node = root;
+        while (node != null || !stack.isEmpty()) {
+            if (node != null) {
+                stack.push(node);
+                node = node.leftChild;
+            } else {
+                node = stack.pop();
+                list.add(node.data);
+                node = node.rightChild;
+            }
+        }
+        return list;
+    }
+
+    public List<Integer> postOrderTraversal(TreeNode root) {
+        List<Integer> list = new ArrayList<>();
+        Map<TreeNode, Integer> map = new HashMap<>();
+        Stack<TreeNode> stack = new Stack<>();
+        if (root == null) {
+            return list;
+        }
+        stack.push(root);
+        while (!stack.isEmpty()) {
+            root = stack.peek();
+            if (root.leftChild == null && root.rightChild == null) {//不含左右结点时，出栈
+                root = stack.pop();
+                list.add(root.data);
+                map.put(root, 1);
+            } else if ((root.leftChild != null && root.rightChild == null && map.containsKey(root.leftChild))
+                    || (root.rightChild != null && root.leftChild == null && map.containsKey(root.rightChild))
+                    || (root.leftChild != null && root.rightChild != null && map.containsKey(root.leftChild)
+                    && map.containsKey(root.rightChild))) {
+                //包含子节点，但是子节点被访问过，出栈
+                root = stack.pop();
+                list.add(root.data);
+                map.put(root, 1);
+            } else {
+                while (root.leftChild != null) {
+                    if (map.containsKey(root.leftChild)) {
+                        break;
+                    }
+                    stack.push(root.leftChild);
+                    root = root.leftChild;
+                }
+                if (root.rightChild != null) {
+                    if (map.containsKey(root.rightChild)) {
+                        break;
+                    }
+                    stack.push(root.rightChild);
+                }
+            }
+        }
+        return list;
+    }
+
+    public List<Integer> postOrderTraversalSimple(TreeNode root) {
+        List<Integer> list = new ArrayList<>();
+        Deque<TreeNode> stack = new ArrayDeque<>();
+        TreeNode node = root;
+        while (node != null || !stack.isEmpty()) {
+            if (node != null) {
+                stack.push(node);
+                list.add(0, node.data);
+                node = node.rightChild;
+            } else {
+                node = stack.pop();
+                node = node.leftChild;
+            }
+        }
+        return list;
+    }
 
 }
