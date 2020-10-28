@@ -26,6 +26,11 @@ public class BinaryTreeOpr {
 
         System.out.println("\n非递归先序遍历：");
         preOrderTraverseWithStack(treeNode);
+
+        System.out.println("\n非递归后续遍历");
+        postOrderTraverseWithStack(treeNode);
+        System.out.println();
+        postOrderTraverseWithStack2(treeNode);
     }
 
 
@@ -44,27 +49,91 @@ public class BinaryTreeOpr {
     }
 
     /**
-     * 前序遍历-栈实现
+     * 前/中序遍历-栈实现
      *
      * @param root 二叉树
      */
-    public static void preOrderTraverseWithStack(TreeNode root){
+    public static void preOrderTraverseWithStack(TreeNode root) {
         Stack<TreeNode> stack = new Stack<>();
         TreeNode treeNode = root;
         while (treeNode != null || !stack.isEmpty()) {
             // 迭代访问节点的左孩子，放入栈
             while (treeNode != null) {
-                System.out.print(treeNode.data+" ");
+                // [前序遍历]
+//                System.out.print(treeNode.data+"->");
                 stack.push(treeNode);
                 treeNode = treeNode.leftChild;
             }
             // 如果节点没有左孩子，则弹出栈顶节点，访问节点右孩子
-            if(!stack.isEmpty()){
+            if (!stack.isEmpty()) {
                 treeNode = stack.pop();
+                // [中序遍历]
+                System.out.print(treeNode.data + "->");
                 treeNode = treeNode.rightChild;
             }
         }
 
+    }
+
+    /**
+     * 后序遍历-栈实现 (辅助标志栈)
+     *
+     * @param root 二叉树
+     */
+    public static void postOrderTraverseWithStack(TreeNode root) {
+        Stack<TreeNode> stack = new Stack<>();
+        // 辅助栈
+        Stack<Integer> temp = new Stack<>();
+        // 在辅助栈里面表示左节点
+        int left = 1;
+        // 在辅助栈里面表示右节点
+        int right = 2;
+        TreeNode treeNode = root;
+        while (treeNode != null || !stack.isEmpty()) {
+            // 迭代访问节点的左孩子，放入栈，并在辅助栈中标记为左节点
+            while (treeNode != null) {
+                stack.push(treeNode);
+                temp.push(left);
+                treeNode = treeNode.leftChild;
+            }
+            // 如果是从右子节点返回父节点，则任务完成，将两个栈的栈顶弹出
+            if (!stack.isEmpty() && temp.peek() == right) {
+                temp.pop();
+                System.out.print(stack.pop().data + "->");
+            }
+
+            // 如果是从左子节点返回父节点，则将其标记改为右子节点
+            if (!stack.empty() && temp.peek() == left) {
+                temp.pop();
+                temp.push(right);
+                treeNode = stack.peek().rightChild;
+            }
+        }
+
+    }
+
+    /**
+     * 后序遍历-栈实现 (双栈)
+     *
+     * @param root 二叉树
+     */
+    public static void postOrderTraverseWithStack2(TreeNode root){
+        Stack<TreeNode> stack = new Stack<>();
+        Stack<TreeNode> temp = new Stack<>();
+        TreeNode treeNode = root;
+        while (treeNode != null || !stack.isEmpty()) {
+            // 迭代访问节点的左孩子，放入栈，并在辅助栈中标记为左节点
+            while (treeNode != null) {
+                stack.push(treeNode);
+                temp.push(treeNode);
+                treeNode = treeNode.rightChild;
+            }
+            treeNode = stack.pop();
+            treeNode = treeNode.leftChild;
+        }
+        while (!temp.isEmpty()) {
+            System.out.print(temp.pop().data+"->");
+        }
     }
 
 
