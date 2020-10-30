@@ -28,7 +28,17 @@ public class OddJudging {
 
         System.out.println(isOdd(14));
 
-        System.out.println( 9 >> 1);
+        // 高位补0，右移1位
+        System.out.println( 17 >> 1);
+
+        // 高位补1，右移1位
+        System.out.println( -17 >> 1);
+
+        // 高位补0,（无符号）右移1位
+        System.out.println( 17 >>> 1);
+
+        // 高位补0,（无符号）右移1位  （32位二进制要写全）
+        System.out.println( -17 >>> 1);
 
         // 两个操作数中位都为1，结果才为1，否则结果为0
 //        1010
