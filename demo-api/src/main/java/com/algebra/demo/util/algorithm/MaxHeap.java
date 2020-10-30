@@ -37,6 +37,7 @@ public class MaxHeap<T extends Comparable<? super T>> {
 
     /**
      * 插入元素
+     *
      * @param item 元素
      */
     public void insert(T item) {
@@ -47,6 +48,7 @@ public class MaxHeap<T extends Comparable<? super T>> {
 
     /**
      * 删除元素
+     *
      * @return 删除的元素
      */
     public T popMax() {
