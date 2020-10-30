@@ -97,9 +97,12 @@ public class PriorityQueueOpr {
         PriorityQueueOpr opr = new PriorityQueueOpr();
         opr.enQueue(3);
         opr.enQueue(5);
-        opr.enQueue(10);
+        opr.enQueue(8);
         opr.enQueue(2);
         opr.enQueue(7);
+        opr.enQueue(1);
+        System.out.println(Arrays.toString(opr.array));
+
         opr.printAsTree();
 
 //        System.out.println(opr.deQueue());
