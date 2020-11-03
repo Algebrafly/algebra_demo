@@ -139,6 +139,28 @@ public class BubbleSort {
 
     }
 
+    /**
+     * 每一遍大循环，会将最小的数字筛选到数组前边
+     *
+     * @param array 原数组
+     */
+    public static void sortV5(int[] array) {
+        int count = 0;
+        for (int i = 0; i < array.length; i++) {
+            System.out.println(Arrays.toString(array));
+            for (int j = i + 1; j < array.length; j++) {
+                count++;
+                // 挑选最小的数字放在头部
+                if (array[i] > array[j]) {
+                    int tmp = array[i];
+                    array[i] = array[j];
+                    array[j] = tmp;
+                }
+            }
+        }
+        System.out.println(count);
+    }
+
 
     public static void main(String[] args) {
         int[] array = new int[]{9, 2, 5, 3, 1, 4, 6, 7, 0, 8};
@@ -157,6 +179,11 @@ public class BubbleSort {
         int[] array4 = new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 0};
         sortV4(array4);
         System.out.println(Arrays.toString(array4));
+
+        System.out.println("---------------------");
+        int[] array5 = new int[]{9, 2, 5, 3, 1, 4, 6, 7, 0, 8};
+        sortV5(array5);
+        System.out.println(Arrays.toString(array5));
     }
 
 }
