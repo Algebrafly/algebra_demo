@@ -1,6 +1,7 @@
 package com.algebra.demo.util.sort;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Stack;
 
@@ -41,11 +42,37 @@ public class QuickSort {
     public static void quickSortNoRecursion(int[] array, int startIndex, int endIndex) {
 
         // 用一个集合栈来代替递归的函数栈
-        Stack<Map<String, Integer>> quickSortStack = new Stack<Map<String, Integer>>();
+        Stack<Map<String, Integer>> quickSortStack = new Stack<>();
 
         // 整个数列的起止下标，以哈希的形式入栈
+        Map<String, Integer> rootMap = new HashMap<>();
+        rootMap.put("startIndex", startIndex);
+        rootMap.put("endIndex", endIndex);
+        quickSortStack.push(rootMap);
 
+        // 循环条件结束：当栈为空时候
+        while (!quickSortStack.isEmpty()) {
+            // 栈顶元素出栈，得到起止下标
+            Map<String, Integer> param = quickSortStack.pop();
 
+            // 得到基准元素位置
+            int pivotIndex = partition2(array, param.get("startIndex"), param.get("endIndex"));
+
+            // 根据基准元素分成两部分，把每一部分的起止下标入栈
+            if (param.get("startIndex") < pivotIndex - 1) {
+                Map<String, Integer> leftParam = new HashMap<>();
+                leftParam.put("startIndex", param.get("startIndex"));
+                leftParam.put("endIndex", pivotIndex-1);
+                quickSortStack.push(leftParam);
+            }
+
+            if(pivotIndex + 1 < param.get("endIndex")){
+                Map<String, Integer> rightParam = new HashMap<>();
+                rightParam.put("startIndex", pivotIndex + 1);
+                rightParam.put("endIndex", param.get("endIndex"));
+                quickSortStack.push(rightParam);
+            }
+        }
     }
 
     /**
@@ -118,6 +145,10 @@ public class QuickSort {
         int[] arr = new int[]{4, 4, 6, 5, 3, 2, 8, 1};
         quickSort(arr, 0, arr.length - 1);
         System.out.println(Arrays.toString(arr));
+
+        int[] arr2 = new int[]{7, 9, 6, 5, 3, 2, 8, 1};
+        quickSortNoRecursion(arr2, 0, arr.length - 1);
+        System.out.println(Arrays.toString(arr2));
     }
 
 }
