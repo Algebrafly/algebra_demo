@@ -4,6 +4,7 @@ package com.algebra.demo.util.interview;
  * @author al
  * @date 2020/11/5 9:58
  * @description 【小灰的算法之旅-java版实现】- 判断链表是否有环
+ * 检测一个链表是否有环，如果有环，则计算出环的长度以及入环的节点
  */
 public class LinkedIsCycle {
 

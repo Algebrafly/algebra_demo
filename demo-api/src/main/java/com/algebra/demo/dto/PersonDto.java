@@ -15,7 +15,7 @@ import java.io.Serializable;
 @Data
 @ApiModel("person | 用户")
 @Builder
-public class PersonDto implements Serializable {
+public class PersonDto implements Serializable, Cloneable {
 
     @ApiModelProperty(value="姓名")
     private String name;
@@ -29,4 +29,8 @@ public class PersonDto implements Serializable {
     @ApiModelProperty(value="生日")
     private String personBirthday;
 
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
 }
