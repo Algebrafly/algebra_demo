@@ -29,8 +29,17 @@ public class NearestNumber {
         return numberCopy;
     }
 
+    /**
+     * 反转逆序序列
+     * 1 2 3 4 (9 8 7 6 5)  - 逆序为 9 8 7 6 5，head交换值为 5
+     * 9 <-> 5, 8 <-> 6
+     *
+     * @param numbers 数组
+     * @param index   逆序位置
+     * @return 数组
+     */
     private static int[] reverse(int[] numbers, int index) {
-        for (int i = index, j = numbers.length - 1; i < j; i++, j++) {
+        for (int i = index, j = numbers.length - 1; i < j; i++, j--) {
             int temp = numbers[i];
             numbers[i] = numbers[j];
             numbers[j] = temp;
@@ -38,6 +47,13 @@ public class NearestNumber {
         return numbers;
     }
 
+    /**
+     * 找index 右边大于head的最小的值
+     *
+     * @param numbers 数组
+     * @param index   逆序位置
+     * @return 数组
+     */
     private static int[] exchangeHead(int[] numbers, int index) {
         int head = numbers[index - 1];
         for (int i = numbers.length - 1; i > 0; i--) {
@@ -50,6 +66,17 @@ public class NearestNumber {
         return numbers;
     }
 
+    /**
+     * 获取逆序位置
+     * ps.
+     * 1 2 3 4 (9 8 7 6 5)  - 逆序为 9 8 7 6 5，head交换值为 5
+     * 1 2 3 4 9 5 6 7 (8)  - 逆序为 8，虽然后面还有 （9 5），head交换值为 8
+     * 1 2 3 4 9 8 6 (7 5)  - 逆序为 7 5，head交换值为 7
+     * 1 2 3 6 （9 8 7 5 4） - 逆序为 9 8 7 5 4，head交换值为 7
+     *
+     * @param numbers 数组
+     * @return 逆序开始位置
+     */
     private static int findTransferPoint(int[] numbers) {
         for (int i = numbers.length - 1; i > 0; i--) {
             if (numbers[i] > numbers[i - 1]) {
@@ -59,8 +86,8 @@ public class NearestNumber {
         return 0;
     }
 
-    public static void printNumber(int[] numbers){
-        if(numbers == null){
+    public static void printNumber(int[] numbers) {
+        if (numbers == null) {
             return;
         }
         for (int number : numbers) {
@@ -71,7 +98,7 @@ public class NearestNumber {
 
 
     public static void main(String[] args) {
-        int[] numbers = {1, 2, 3, 4, 5};
+        int[] numbers = {1, 2, 3, 4, 9, 8, 7, 6, 5};
         int[] nearestNumber = findNearestNumber(numbers);
         printNumber(nearestNumber);
     }
