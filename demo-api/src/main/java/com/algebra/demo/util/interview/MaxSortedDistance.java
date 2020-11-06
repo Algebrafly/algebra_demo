@@ -7,6 +7,14 @@ package com.algebra.demo.util.interview;
  */
 public class MaxSortedDistance {
 
+    /**
+     * 利用桶排序进行
+     * ps.不需要像桶排序那样在每一个桶内部进行排序，只需要记录桶内部最大值和最小值即可
+     * 时间复杂度稳定在O(n)
+     *
+     * @param array 无序数组
+     * @return 最大相邻差
+     */
     public static int getMaxSortedDistance(int[] array) {
 
         //1.得到数列的最大值和最小值
@@ -59,7 +67,6 @@ public class MaxSortedDistance {
             }
             leftMax = buckets[i].max;
         }
-
 
         return maxDistance;
     }
