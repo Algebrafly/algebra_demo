@@ -32,7 +32,8 @@ public class NearestNumber {
     /**
      * 反转逆序序列
      * 1 2 3 4 (9 8 7 6 5)  - 逆序为 9 8 7 6 5，head交换值为 5
-     * 9 <-> 5, 8 <-> 6
+     * 交换后 - 1 2 3 5 (9 8 7 6 4)
+     * 9 <-> 4, 8 <-> 6
      *
      * @param numbers 数组
      * @param index   逆序位置
