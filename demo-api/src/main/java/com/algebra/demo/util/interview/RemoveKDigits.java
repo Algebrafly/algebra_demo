@@ -5,6 +5,7 @@ package com.algebra.demo.util.interview;
  * @date 2020/11/9 8:58
  * @description 【小灰的算法之旅-java版实现】- 删除K个数字后的最小值
  * 依次求得局部最优解，最终得到全局最优解 —— 贪心算法
+ * 先考虑k=1(即先删除一个数字后)的最小值，然后依次删除到K个值
  */
 public class RemoveKDigits {
 
