@@ -6,6 +6,7 @@ import java.util.Arrays;
  * @author al
  * @date 2020/11/10 11:11
  * @description 【小灰的算法之旅-java版实现】- 动态规划问题：1.金矿 2.背包
+ * w个工人，开采n个黄金矿，每个矿的黄金含量不一样，需要的人力也不一样，怎样分配人力开采能获取最大黄金量？
  * 将复杂问题转化成子问题：1.确定问题边界；2.确定状态转移方程
  */
 public class DynamicProgramming {

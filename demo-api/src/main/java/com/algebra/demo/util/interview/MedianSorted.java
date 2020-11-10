@@ -1,11 +1,10 @@
 package com.algebra.demo.util.interview;
 
-import java.util.Arrays;
-
 /**
  * @author al
  * @date 2020/11/9 18:00
  * @description 【小灰的算法之旅-java版实现】- 找到两个数组的中位数
+ * 两个有序数组合并后，找出合并数组的中位数
  * 二分法查找和调整位置
  */
 public class MedianSorted {
