@@ -14,6 +14,7 @@ import java.util.List;
  * ps. 很多游戏特别是rts，rpg类游戏，都需要用到寻路。寻路算法有深度优先搜索（DFS），广度优先搜索(BFS)，A星算法等，
  * 而A星算法是一种具备启发性策略的算法，效率是几种算法中最高的，因此也成为游戏中最常用的寻路算法。
  * (零基础)https://www.cnblogs.com/zhoug2020/p/3468167.html
+ * https://zhuanlan.zhihu.com/p/99195511
  */
 public class AStarSearch {
 
