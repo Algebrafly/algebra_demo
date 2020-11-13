@@ -7,6 +7,11 @@ import java.util.LinkedHashMap;
  * @author al
  * @date 2020/11/12 17:42
  * @description 【小灰的算法之旅-java版实现】- LRU算法
+ * Least Recently Used
+ * 1. 有一个Hash：k-v的基础数据结构
+ * 2. Hash长度是一定的
+ * 3. 当Hash缓存满时，自动清除最早（最少）缓存
+ * 4. 每当访问一次k缓存，缓存就被刷新到最前面
  * java中LinkedHashMap的实现
  * Redis 缓存刷新机制
  */
