@@ -1,3 +1,29 @@
+# curl 'https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=5b8d7c40-9e80-4f25-910b-32455f47f78a'
+#	-H 'Content-Type: application/json'
+#        -d '
+#	{
+#		"msgtype":"text",
+#		"text":{
+#			"content":"请各位小主及时维护禅道工时\n[友情链接]: https://chandao.lunz.cn/index.php?m=project&f=task&root=1066&type=byModule&param=8560",
+#			"mentioned_list":["@all"]
+#		}
+#
+#	}'
+POST https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=5b8d7c40-9e80-4f25-910b-32455f47f78a
+Content-Type: application/json
+
+
+	{
+		"msgtype":"text",
+		"text":{
+			"content":"请各位小主及时维护禅道工时n[友情链接]: https://chandao.lunz.cn/index.php?m=project&f=task&root=1066&type=byModule&param=8560",
+			"mentioned_list":["@all"]
+		}
+
+	}
+
+###
+
 ### 图片验证码
 GET {{host}}/verificationCode
 Accept: */*
