@@ -24,7 +24,7 @@ public class PowerOfTwo {
 
     public static void main(String[] args) {
 
-        System.out.println(isPowerOfTwoV2(88));
+        System.out.println(isPowerOfTwoV2(89));
 
         System.out.println(isPowerOfTwoV2(64));
     }
