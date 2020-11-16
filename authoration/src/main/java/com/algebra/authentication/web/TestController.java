@@ -6,6 +6,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.v3.oas.annotations.Parameter;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,7 +22,7 @@ import org.wf.jwtp.annotation.RequiresPermissions;
 @Api(value = "Test", tags = "测试接口")
 public class TestController {
 
-    @PostMapping("/loginTest")
+    @GetMapping("/loginTest")
     @ApiOperation("测试鉴权")
     public WebApiResult<UserInfoVo> loginTest(@Parameter(description = "信息") @RequestParam(value = "msg",defaultValue = "hello") String msg){
         
@@ -31,7 +32,7 @@ public class TestController {
     }
 
 
-    @PostMapping("/loginTest2")
+    @GetMapping("/loginTest2")
     @ApiOperation("测试鉴权-2")
     @RequiresPermissions("1")
     public WebApiResult<UserInfoVo> loginTest2(String msg){

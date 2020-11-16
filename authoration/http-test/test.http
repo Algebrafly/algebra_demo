@@ -1,0 +1,26 @@
+### 图片验证码
+GET {{host}}/verificationCode
+Accept: */*
+Content-Type: image/jpeg
+
+### 登录
+POST {{host}}/login
+Accept: */*
+Content-Type: application/json
+
+{
+  "password":"123456",
+  "userName":"hello",
+  "verifyCode":"3acx"
+}
+
+> {% client.global.set("Authorization",response.body.data.accessToken); %}
+
+### 测试鉴权
+GET {{host}}/loginTest?msg=哈哈哈
+Accept: */*
+Content-Type: application/json
+Authorization: {{Authorization}}
+
+###
+
