@@ -174,6 +174,20 @@ public class DynamicProgramming {
     }
 
 
+    /**
+     * 最大子序和
+     * @param nums 数组
+     * @return
+     */
+    public int maxSubArray(int[] nums) {
+        int pre = 0, maxAns = nums[0];
+        for (int x : nums) {
+            pre = Math.max(pre + x, x);
+            maxAns = Math.max(maxAns, pre);
+        }
+        return maxAns;
+    }
+
     public static void main(String[] args) {
 
         System.out.println("金矿问题Test");
