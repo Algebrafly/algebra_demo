@@ -179,7 +179,7 @@ public class DynamicProgramming {
      * @param nums 数组
      * @return
      */
-    public int maxSubArray(int[] nums) {
+    public static int maxSubArray(int[] nums) {
         int pre = 0, maxAns = nums[0];
         for (int x : nums) {
             pre = Math.max(pre + x, x);
@@ -202,6 +202,11 @@ public class DynamicProgramming {
         int[] values = {3, 4, 5, 6};
         int[] sizes = {2, 3, 4, 5};
         System.out.println("最优收益：" + getBestPackageValueV1(capacity, values, sizes));
+
+        System.out.println("最大子序和Test");
+        int[] nums = new int[]{-2,1,-3,4,-1,2,1,-5,4};
+        int i = maxSubArray(nums);
+        System.out.println("最大子序和:"+i);
 
     }
 
