@@ -38,6 +38,10 @@ public class StockProfit {
     public static void main(String[] args) {
         int[] prices = {9, 2, 7, 4, 3, 1, 8, 4};
         System.out.println(maxProfitForOneTime(prices));
+
+        System.out.println(Integer.toString(28,3));
+        System.out.println(Integer.toString(27,3).matches("^10*$"));
+
     }
 
 }
