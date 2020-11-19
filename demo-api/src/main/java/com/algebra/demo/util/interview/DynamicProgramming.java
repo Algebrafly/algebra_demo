@@ -236,6 +236,76 @@ public class DynamicProgramming {
         return second;
     }
 
+    /**
+     * 爬楼梯方案数【leetCode】
+     * 时间复杂度为 O(n), 滚动数组空间复杂度：O(1)
+     * 方程：f(x)=f(x−1)+f(x−2)
+     * f(0) = 1; f(1) = 1; f(2) = 2; f(3) = 3; f(4) = 5; ... ...
+     *
+     * @param n 楼梯数
+     * @return
+     */
+    public static int climbStairs(int n) {
+        int p = 0;
+        int q = 0;
+        int r = 1;
+
+        for (int i = 1; i <= n; ++i) {
+            p = q;
+            q = r;
+            r = p + q;
+        }
+        return r;
+    }
+
+    /**
+     * 爬楼梯方案--矩阵快速幂 ???
+     *
+     * @param n 楼梯数
+     * @return
+     */
+    public int climbStairsV2(int n) {
+        int[][] q = {{1, 1}, {1, 0}};
+        int[][] res = pow(q, n);
+        return res[0][0];
+    }
+
+
+    /**
+     * 矩阵幂
+     *
+     * @param a 矩阵A
+     * @param n 幂次
+     * @return
+     */
+    public int[][] pow(int[][] a, int n) {
+        int[][] ret = {{1, 0}, {0, 1}};
+        while (n > 0) {
+            if ((n & 1) == 1) {
+                ret = multiply(ret, a);
+            }
+            n >>= 1;
+            a = multiply(a, a);
+        }
+        return ret;
+    }
+
+    /**
+     * 矩阵乘法
+     *
+     * @param a 矩阵A
+     * @param b 矩阵B
+     * @return
+     */
+    public int[][] multiply(int[][] a, int[][] b) {
+        int[][] c = new int[2][2];
+        for (int i = 0; i < 2; i++) {
+            for (int j = 0; j < 2; j++) {
+                c[i][j] = a[i][0] * b[0][j] + a[i][1] * b[1][j];
+            }
+        }
+        return c;
+    }
 
     public static void main(String[] args) {
 
@@ -258,7 +328,7 @@ public class DynamicProgramming {
         System.out.println("最大子序和:" + i);
 
         System.out.println("打家劫舍Test");
-        int[] nums2 = new int[]{2,7,9,3,1};
+        int[] nums2 = new int[]{2, 7, 9, 3, 1};
         int j = rob(nums2);
         System.out.println("最优收益：" + j);
 
