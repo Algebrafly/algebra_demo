@@ -101,7 +101,7 @@ public class DynamicProgramming {
         getBestPackageWhat(values.length, capacity, values, sizes, resultTable, item);
         System.out.println("最优组合解：" + Arrays.toString(item));
 
-        getBestPackageWhatV2(path,sizes);
+        getBestPackageWhatV2(path, sizes);
 
         return resultTable[values.length][capacity];
     }
@@ -131,13 +131,13 @@ public class DynamicProgramming {
         }
     }
 
-    public static void getBestPackageWhatV2(int[][] path, int[] sizes){
-        int i = path.length-1;
-        int j = path[0].length-1;
+    public static void getBestPackageWhatV2(int[][] path, int[] sizes) {
+        int i = path.length - 1;
+        int j = path[0].length - 1;
         while (i > 0 && j > 0) {
-            if(path[i][j] == 1){
-                System.out.printf("第%d个商品放入背包；\n",i);
-                j -= sizes[i-1];
+            if (path[i][j] == 1) {
+                System.out.printf("第%d个商品放入背包；\n", i);
+                j -= sizes[i - 1];
             }
             i--;
         }
@@ -175,7 +175,8 @@ public class DynamicProgramming {
 
 
     /**
-     * 最大子序和
+     * 最大子序和 【leetCode】
+     *
      * @param nums 数组
      * @return
      */
@@ -187,6 +188,54 @@ public class DynamicProgramming {
         }
         return maxAns;
     }
+
+
+    /**
+     * 【leetCode】 打家劫舍
+     * 状态转移方程： dp[i]=max(dp[i−2]+nums[i],dp[i−1])
+     * 边界：
+     * dp[0]=nums[0] 只有一间房屋，则偷窃该房屋
+     * dp[1]=max(nums[0],nums[1])   只有两间房屋，选择其中金额较高的房屋进行偷窃
+     * ​
+     *
+     * @param nums 数组
+     * @return
+     */
+    public static int rob(int[] nums) {
+        if (nums == null || nums.length == 0) {
+            return 0;
+        }
+        int length = nums.length;
+        if (length == 1) {
+            return nums[0];
+        }
+
+        int[] dp = new int[length];
+        dp[0] = nums[0];
+        dp[1] = Math.max(nums[0], nums[1]);
+        for (int i = 2; i < length; i++) {
+            dp[i] = Math.max(dp[i - 2] + nums[i], dp[i - 1]);
+        }
+        return dp[length - 1];
+    }
+
+    public int robV2(int[] nums) {
+        if (nums == null || nums.length == 0) {
+            return 0;
+        }
+        int length = nums.length;
+        if (length == 1) {
+            return nums[0];
+        }
+        int first = nums[0], second = Math.max(nums[0], nums[1]);
+        for (int i = 2; i < length; i++) {
+            int temp = second;
+            second = Math.max(first + nums[i], second);
+            first = temp;
+        }
+        return second;
+    }
+
 
     public static void main(String[] args) {
 
@@ -204,9 +253,14 @@ public class DynamicProgramming {
         System.out.println("最优收益：" + getBestPackageValueV1(capacity, values, sizes));
 
         System.out.println("最大子序和Test");
-        int[] nums = new int[]{-2,1,-3,4,-1,2,1,-5,4};
+        int[] nums = new int[]{-2, 1, -3, 4, -1, 2, 1, -5, 4};
         int i = maxSubArray(nums);
-        System.out.println("最大子序和:"+i);
+        System.out.println("最大子序和:" + i);
+
+        System.out.println("打家劫舍Test");
+        int[] nums2 = new int[]{2,7,9,3,1};
+        int j = rob(nums2);
+        System.out.println("最优收益：" + j);
 
     }
 
