@@ -111,6 +111,22 @@ public class LinkedIsCycle {
         }
     }
 
+    public static boolean hasCycle(Node head) {
+        if (head == null || head.next == null) {
+            return false;
+        }
+        Node slow = head;
+        Node fast = head.next;
+        while (slow != fast) {
+            if (fast == null || fast.next == null) {
+                return false;
+            }
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        return true;
+    }
+
     public static void main(String[] args) {
         Node node1 = new Node(1);
         Node node2 = new Node(2);
@@ -141,6 +157,9 @@ public class LinkedIsCycle {
         System.out.println("环长度：" + linkedRingLen + "，第一次入环距离：" + linkedMeetLen);
         Node cycleNode = getCycleNode(node1, linkedMeetLen);
         System.out.println(cycleNode == null ? null : cycleNode.toString());
+
+
+        System.out.println(hasCycle(node1));
 
     }
 
