@@ -242,5 +242,21 @@ public class LeetCodeUtility {
         return b == 0 ? a : greatestCommonDivisor(b, a % b);
     }
 
+    /**
+     * 水壶问题
+     * @param x 水壶1容积
+     * @param y 水壶2容积
+     * @param z 要计算出来的水
+     * @return 是否可以
+     */
+    public boolean canMeasureWater(int x, int y, int z){
+        int g = greatestCommonDivisor(x, y);
+        if (z == 0 || (g != 0 && z % g == 0)) {
+            return z <= x + y;
+        } else {
+            return false;
+        }
+    }
+
 
 }
