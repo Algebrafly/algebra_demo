@@ -10,7 +10,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.wf.jwtp.annotation.Ignore;
 import org.wf.jwtp.annotation.RequiresPermissions;
+import springfox.documentation.annotations.ApiIgnore;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author al
@@ -21,6 +26,17 @@ import org.wf.jwtp.annotation.RequiresPermissions;
 @RestController
 @Api(value = "Test", tags = "测试接口")
 public class TestController {
+
+    @GetMapping("/todoList")
+    @ApiIgnore
+    @Ignore
+    public List<String> getTodoList(){
+        List<String> al = new ArrayList<>();
+        al.add("Hello");
+        al.add("react");
+        return al;
+    }
+
 
     @GetMapping("/loginTest")
     @ApiOperation("测试鉴权")
