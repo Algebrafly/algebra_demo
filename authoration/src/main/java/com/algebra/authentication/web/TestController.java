@@ -1,5 +1,6 @@
 package com.algebra.authentication.web;
 
+import com.algebra.authentication.domain.TestDomain;
 import com.algebra.authentication.util.WebApiResult;
 import com.algebra.authentication.vo.UserInfoVo;
 import io.swagger.annotations.Api;
@@ -15,6 +16,7 @@ import org.wf.jwtp.annotation.RequiresPermissions;
 import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -26,6 +28,16 @@ import java.util.List;
 @RestController
 @Api(value = "Test", tags = "测试接口")
 public class TestController {
+
+    @ApiOperation("测试接口-1")
+    @GetMapping("/getTestDomain")
+    @Ignore
+    public WebApiResult<TestDomain> getTestDomain(){
+        TestDomain domain = new TestDomain("tom",new Date());
+        domain.setTimeZone("GTM");
+        return WebApiResult.ok(domain);
+    }
+
 
     @GetMapping("/todoList")
     @ApiIgnore

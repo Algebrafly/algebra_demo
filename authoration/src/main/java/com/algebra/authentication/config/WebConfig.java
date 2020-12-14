@@ -17,16 +17,23 @@ public class WebConfig implements WebMvcConfigurer {
     private static final String[] EXCLUDE_PATH_PATTERNS = {"/swagger-resources/**", "/webjars/**"
             , "/v2/**", "/swagger-ui.html/**"
             , "/swagger-ui.html#!/**"
-            ,"/csrf", "/error","/","/login"};
+            ,"/csrf", "/error","/","/login"
+            ,"/swagger-ui/index.html","/v3/api-docs","/swagger-ui/favicon-32x32.png"};
 
     @Autowired
     MyTokenInterceptor tokenInterceptor;
+
+    @Autowired
+    LogHeaderInterceptor logHeaderInterceptor;
 
 //    org.wf.jwtp.TokenInterceptor
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(tokenInterceptor).addPathPatterns("/**").excludePathPatterns(EXCLUDE_PATH_PATTERNS);
+        registry.addInterceptor(tokenInterceptor)
+                .addPathPatterns("/**").excludePathPatterns(EXCLUDE_PATH_PATTERNS);
+        registry.addInterceptor(logHeaderInterceptor)
+                .addPathPatterns("/**").excludePathPatterns(EXCLUDE_PATH_PATTERNS);
     }
 
     @Override

@@ -53,7 +53,7 @@ public class MyTokenInterceptor extends HandlerInterceptorAdapter {
         String uri = request.getRequestURI();
 
         String token = this.getToken(request);
-        log.info("[preHandle] uri:{}，接受到token：{}", uri, token);
+        log.info("[Token] uri:{}，接受到token：{}", uri, token);
 
         if (!(handler instanceof HandlerMethod)) {
             // 如果不是映射到方法直接通过
@@ -71,7 +71,7 @@ public class MyTokenInterceptor extends HandlerInterceptorAdapter {
             UserLoginToken userLoginToken = method.getAnnotation(UserLoginToken.class);
             if (userLoginToken.required()) {
                 if(token == null){
-                    log.error("[preHandle] Token 不存在！");
+                    log.error("[Token] Token 不存在！");
                     this.responseRst(response, WebApiResult.error(401, "token无效！"));
                     return false;
                 }
@@ -113,7 +113,7 @@ public class MyTokenInterceptor extends HandlerInterceptorAdapter {
                     this.responseRst(response, WebApiResult.error(401, e.getMessage()));
                     return false;
                 }
-                log.info("[preHandle]Token校验通过！");
+                log.info("[Token]Token校验通过！");
                 return true;
             }
         }
