@@ -18,7 +18,7 @@ public class WebConfig implements WebMvcConfigurer {
             , "/v2/**", "/swagger-ui.html/**"
             , "/swagger-ui.html#!/**"
             ,"/csrf", "/error","/","/login"
-            ,"/swagger-ui/index.html","/v3/api-docs","/swagger-ui/favicon-32x32.png"};
+            ,"/swagger-ui/index.html","/v3/api-docs","/swagger-ui/favicon-32x32.png","/index.html"};
 
     @Autowired
     MyTokenInterceptor tokenInterceptor;
