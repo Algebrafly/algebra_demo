@@ -1,0 +1,24 @@
+server:
+  port: 8866
+  servlet:
+    context-path: /jpa
+
+---
+spring:
+  thymeleaf:
+    cache: false
+    prefix: classpath:/templates/
+
+---
+spring:
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/test?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=true&serverTimezone=UTC
+    username: root
+    password: 123456
+  jpa:
+    show-sql: true
+    database: mysql
+    hibernate:
+      ddl-auto: update
+
