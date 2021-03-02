@@ -5,6 +5,10 @@ spring:
     include: param
     active: dev
 
+frc:
+  authority:
+    dataFilterEnable: true
+
 ---
 server:
   tomcat:

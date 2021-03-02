@@ -1,5 +1,6 @@
 package com.algebra.demobase;
 
+import com.algebra.demo.auth.EnableDataFilter;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -13,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 @SpringBootApplication
 @MapperScan(value = "com.algebra.demobase.mapper")
 @EnableAsync
+@EnableDataFilter
 public class DemoBaseApplication {
 
     public static void main(String[] args) {

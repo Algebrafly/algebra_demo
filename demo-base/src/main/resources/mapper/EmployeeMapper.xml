@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.algebra.demobase.mapper.EmployeeMapper">
+  <resultMap id="BaseResultMap" type="com.algebra.demobase.entity.domain.Employee">
+    <!--@mbg.generated-->
+    <!--@Table employee-->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="first_name" jdbcType="VARCHAR" property="firstName" />
+    <result column="last_name" jdbcType="VARCHAR" property="lastName" />
+    <result column="salary" jdbcType="DECIMAL" property="salary" />
+    <result column="relative_json" jdbcType="VARCHAR" property="relativeJson" />
+    <result column="dept_id" jdbcType="CHAR" property="deptId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, first_name, last_name, salary, relative_json, dept_id
+  </sql>
+
+  <select id="getOneByName" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" />
+    from employee
+    where last_name like concat('%',#{name,jdbcType=VARCHAR},'%')
+    limit 1
+  </select>
+
+  <select id="getListByName" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" />
+    from employee
+    where first_name like concat('%',#{name,jdbcType=VARCHAR},'%')
+  </select>
+</mapper>

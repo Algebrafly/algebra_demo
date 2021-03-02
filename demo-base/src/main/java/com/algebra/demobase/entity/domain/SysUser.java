@@ -10,7 +10,7 @@ import lombok.Data;
   * @date 2020/2/5 11:10
   * @description 
   */
-@ApiModel(value="SysUser")
+@ApiModel(value="用户")
 @Data
 public class SysUser implements Serializable {
     /**
