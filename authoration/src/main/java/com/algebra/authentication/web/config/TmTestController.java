@@ -38,21 +38,18 @@ public class TmTestController {
     public void testTm01(){
 
         QueryWrapper<TmTest> queryWrapper = new QueryWrapper<>();
-//        queryWrapper.lambda().orderByAsc(TmTest::getInputTime);
+        queryWrapper.lambda().orderByAsc(TmTest::getInputTime);
 
         Page<TmTest> page = new Page<>(1,10);
 
         long start = System.currentTimeMillis();
         log.info("start: {}", start);
         Page<TmTest> listForPage = testMapper.selectPage(page, queryWrapper);
-//        jdbcTemplate.queryForList("SELECT * FROM tm_aa LIMIT 10 OFFSET 1");
-//        List<TmTest> listForPage = testMapper.getListForPage();
-
         long end = System.currentTimeMillis();
         log.info("end: {}", end);
 
         log.info("Cost time: {}", end-start);
-//        System.out.println(JSONUtil.toJsonStr(listForPage));
+        System.out.println(JSONUtil.toJsonStr(listForPage));
 
     }
 
@@ -63,7 +60,6 @@ public class TmTestController {
         long start = System.currentTimeMillis();
         log.info("start: {}", start);
         List<TmTest> listForPage = testMapper.getListForPage();
-
         long end = System.currentTimeMillis();
         log.info("end: {}", end);
 
