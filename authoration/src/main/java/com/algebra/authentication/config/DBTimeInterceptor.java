@@ -36,8 +36,14 @@ public class DBTimeInterceptor implements Interceptor {
         long start = System.currentTimeMillis();
         returnValue = invocation.proceed();
         long end = System.currentTimeMillis();
+
+//        Object parameter = invocation.getArgs()[1];
+//        BoundSql boundSql = mappedStatement.getBoundSql(parameter);
+//        String originalSql = boundSql.getSql();
+
         Long cost = end - start;
         logger.info("[SqlTimeQuery_PA]{}-cost: {}ms", sqlId, cost);
+//        logger.info(originalSql);
 
         return returnValue;
     }
