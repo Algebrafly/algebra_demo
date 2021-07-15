@@ -27,7 +27,7 @@ public class TestQlExp {
         Object execute = null;
         try {
             execute = runner.execute("(a+b)*c", context1, null, true, true);
-            runner.execute(exp, context2, null, true, true);
+//            runner.execute(exp, context2, null, true, true);
         } catch (Exception e) {
             e.printStackTrace();
         }
