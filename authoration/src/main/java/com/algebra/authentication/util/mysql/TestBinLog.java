@@ -1,9 +1,15 @@
 package com.algebra.authentication.util.mysql;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.github.shyiko.mysql.binlog.BinaryLogClient;
 import com.github.shyiko.mysql.binlog.event.*;
 
 import java.io.IOException;
+import java.io.Serializable;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author al
@@ -27,6 +33,13 @@ public class TestBinLog {
             if (data instanceof UpdateRowsEventData) {
                 System.out.println("Update:");
                 System.out.println(data.toString());
+                UpdateRowsEventData updateRowsEventData = (UpdateRowsEventData) data;
+                for (Map.Entry<Serializable[], Serializable[]> row : updateRowsEventData.getRows()) {
+                    List<Serializable> entries = Arrays.asList(row.getValue());
+                    System.out.println(entries);
+                    JSONObject dataObject = getDataObject(entries);
+                    System.out.println(dataObject);
+                }
             } else if (data instanceof WriteRowsEventData) {
                 System.out.println("Insert:");
                 System.out.println(data.toString());
@@ -42,5 +55,15 @@ public class TestBinLog {
             e.printStackTrace();
         }
 
+    }
+
+    private static JSONObject getDataObject(List message) {
+        JSONObject resultObject = new JSONObject();
+        String format = "{\"book_no\":\"0\",\"name\":\"1\",\"price\":\"2\",\"publication_date\":\"3\"}";
+        JSONObject json = JSON.parseObject(format);
+        for (String key : json.keySet()) {
+            resultObject.put(key, message.get(json.getInteger(key)));
+        }
+        return resultObject;
     }
 }
