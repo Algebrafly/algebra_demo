@@ -3,6 +3,7 @@ package com.algebra.authentication.web.config;
 import cn.hutool.json.JSONUtil;
 import com.algebra.authentication.domain.TmTest;
 import com.algebra.authentication.mapper.config.TmTestMapper;
+import com.algebra.authentication.util.ApiCall;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -35,6 +36,7 @@ public class TmTestController {
 
     @GetMapping("/testTm01")
     @ApiOperation("testTm01")
+    @ApiCall
     public void testTm01(){
 
         QueryWrapper<TmTest> queryWrapper = new QueryWrapper<>();
@@ -55,6 +57,7 @@ public class TmTestController {
 
     @GetMapping("/testTm02")
     @ApiOperation("testTm02")
+    @ApiCall
     public void testTm02(){
 
         long start = System.currentTimeMillis();
@@ -66,6 +69,27 @@ public class TmTestController {
         log.info("Cost time: {}", end-start);
         System.out.println(JSONUtil.toJsonStr(listForPage));
 
+    }
+
+    @GetMapping("/testTm03")
+    @ApiOperation("testTm03")
+    @ApiCall
+    public String testTm03(){
+
+        long start = System.currentTimeMillis();
+        log.info("start: {}", start);
+        try {
+            Thread.sleep(90000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        long end = System.currentTimeMillis();
+        log.info("end: {}", end);
+
+        log.info("Cost time: {}", end-start);
+
+        return String.valueOf(end-start);
     }
 
 }
