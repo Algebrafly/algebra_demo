@@ -128,8 +128,8 @@ public class FtpUtil {
      * */
     public static boolean uploadDir(FTPClient ftpClient, String localDir, String remoteDir) throws IOException {
         File src = new File(localDir);
-        remoteDir = remoteDir + "/" +src.getName() + "/";
-        if(!ftpClient.changeWorkingDirectory(remoteDir)){
+        remoteDir = remoteDir + "/" + src.getName() + "/";
+        if (!ftpClient.changeWorkingDirectory(remoteDir)) {
             // 文件切换不了说明不存在
             ftpClient.makeDirectory(remoteDir);
         }
@@ -151,11 +151,12 @@ public class FtpUtil {
         return true;
     }
 
-    /***
-     * @下载文件夹
-     * @param localDirectory 本地地址
+    /**
+     * 下载文件夹
+     *
+     * @param localDirectory  本地地址
      * @param remoteDirectory 远程文件夹
-     * */
+     */
     public static boolean downloadDir(FTPClient ftpClient, String localDirectory, String remoteDirectory) {
         try {
             String fileName = new File(remoteDirectory).getName();
