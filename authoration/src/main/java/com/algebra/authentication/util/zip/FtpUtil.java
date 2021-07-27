@@ -28,7 +28,7 @@ public class FtpUtil {
      * @return
      * @throws IOException
      */
-    public static FTPClient ftpConnection(String ip, String port, String username, String password) throws IOException {
+    public static FTPClient ftpConnection(String ip, String port, String username, String password) {
         FTPClient ftpClient = new FTPClient();
         try {
             ftpClient.connect(ip, Integer.parseInt(port));
@@ -128,24 +128,26 @@ public class FtpUtil {
      * */
     public static boolean uploadDir(FTPClient ftpClient, String localDir, String remoteDir) throws IOException {
         File src = new File(localDir);
-        remoteDir = remoteDir + "/" + src.getName() + "/";
+//        remoteDir = remoteDir + "/" + src.getName();
         if (!ftpClient.changeWorkingDirectory(remoteDir)) {
             // 文件切换不了说明不存在
-            ftpClient.makeDirectory(remoteDir);
+            boolean changeDir = ftpClient.changeWorkingDirectory("/");
+            boolean createDir = createDir(ftpClient, remoteDir);
+            log.info("切换根目录：{}，创建新目录：{}", changeDir, createDir);
         }
-        ftpClient.changeWorkingDirectory("/");
-        boolean makeDirFlag = ftpClient.makeDirectory(remoteDir);
         File[] allFile = src.listFiles();
-
-        for (File file : allFile) {
-            if (!file.isDirectory()) {
-                String srcPath = file.getPath();
-                upload(ftpClient, remoteDir + "/" + file.getName(), srcPath);
+        if (allFile != null) {
+            for (File file : allFile) {
+                if (!file.isDirectory()) {
+                    String srcPath = file.getPath();
+                    boolean upload = upload(ftpClient, remoteDir + "/" + file.getName(), srcPath);
+                    System.out.println(upload);
+                }
             }
-        }
-        for (File file : allFile) {
-            if (file.isDirectory()) {
-                uploadDir(ftpClient, file.getPath(), remoteDir);
+            for (File file : allFile) {
+                if (file.isDirectory()) {
+                    uploadDir(ftpClient, file.getPath(), remoteDir);
+                }
             }
         }
         return true;
@@ -183,6 +185,57 @@ public class FtpUtil {
     }
 
 
+    public static boolean createDir(FTPClient ftpClient, String remote) throws IOException {
+        boolean success = true;
+        String directory = remote + "/";
+        // 如果远程目录不存在，则递归创建远程服务器目录
+        if (!"/".equalsIgnoreCase(directory) && !ftpClient.changeWorkingDirectory(directory)) {
+            int start = 0;
+            int end = 0;
+            if (directory.startsWith("/")) {
+                start = 1;
+            } else {
+                start = 0;
+            }
+            end = directory.indexOf("/", start);
+            String path = "";
+            StringBuilder paths = new StringBuilder();
+            while (true) {
+
+                String subDirectory = new String(remote.substring(start, end).getBytes("GBK"), StandardCharsets.ISO_8859_1);
+                path = path + "/" + subDirectory;
+                if (!existFile(ftpClient, path)) {
+                    if (ftpClient.makeDirectory(subDirectory)) {
+                        ftpClient.changeWorkingDirectory(subDirectory);
+                    } else {
+                        log.debug("创建目录[" + subDirectory + "]失败");
+                        ftpClient.changeWorkingDirectory(subDirectory);
+                    }
+                } else {
+                    ftpClient.changeWorkingDirectory(subDirectory);
+                }
+
+                paths.append("/").append(subDirectory);
+                start = end + 1;
+                end = directory.indexOf("/", start);
+                // 检查所有目录是否创建完毕
+                if (end <= start) {
+                    break;
+                }
+            }
+        }
+        return success;
+    }
+
+    public static boolean existFile(FTPClient ftpClient, String path) throws IOException {
+        boolean flag = false;
+        FTPFile[] ftpFileArr = ftpClient.listFiles(path);
+        if (ftpFileArr.length > 0) {
+            flag = true;
+        }
+        return flag;
+    }
+
     public static void main(String[] args) {
         FTPClient ftpClient = null;
         try {
@@ -196,10 +249,10 @@ public class FtpUtil {
             System.out.println(Arrays.toString(ftpFiles));
 
             /* 批量下载（文件夹下所有文件） */
-            downloadDir(ftpClient, "D:/test01", "/opt");
+//            downloadDir(ftpClient, "D:/test01", "/opt");
 
             /* 批量上传（文件夹下所有文件） */
-//            uploadDir(ftpClient, "D:\\test\\pic", "/opt/pic01");
+            uploadDir(ftpClient, "D:\\test01\\root\\file", "/root/file");
 
             /* 中文上传失败问题 */
 //            String remotePath = "/opt/pic/轮巡壁纸 (2).jpg";

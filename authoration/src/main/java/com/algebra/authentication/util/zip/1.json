@@ -1,0 +1,13 @@
+{
+  "success": true,
+  "message": "提示信息",
+  "data":[{
+    "vinNumber": "车架号",
+    "dealerId": "经销商/二网ID号",
+    "dealerName": "经销商/二网名称",
+    "shopAddress": "经销商/二网经营地址（省、市、详细地址）",
+    "agentId": "所属渠道ID号",
+    "agentName": "所属渠道名称",
+    "agentAddress": "渠道经营地址（省、市、详细地址）"
+  }]
+}
