@@ -141,7 +141,7 @@ public class FtpUtil {
                 if (!file.isDirectory()) {
                     String srcPath = file.getPath();
                     boolean upload = upload(ftpClient, remoteDir + "/" + file.getName(), srcPath);
-                    System.out.println(upload);
+//                    System.out.println(upload);
                 }
             }
             for (File file : allFile) {

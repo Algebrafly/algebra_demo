@@ -20,9 +20,9 @@ import java.util.stream.Collectors;
 @Slf4j
 public class ZipFileUtil {
 
-    private static List<CustomerFile> files = new ArrayList<>();
+    private static final List<CustomerFile> FILES = new ArrayList<>();
 
-    private static final FTPClient ftpClient = FtpUtil.ftpConnection("192.168.6.63", "21", "algebra-ftp", "algebra-ftp");
+    private static final FTPClient FTP_CLIENT = FtpUtil.ftpConnection("192.168.6.63", "21", "algebra-ftp", "algebra-ftp");
 
     static {
         CustomerFile f1 = new CustomerFile("A1001", "F001", "F1.jpg", "/root/file/");
@@ -35,7 +35,7 @@ public class ZipFileUtil {
         CustomerFile f8 = new CustomerFile("A1004", "F008", "F8.jpg", "/root/file/");
         CustomerFile f9 = new CustomerFile("A1004", "F009", "F9.jpg", "/root/file/");
         CustomerFile f10 = new CustomerFile("A1005", "F0010", "F10.xlsx", "/root/file/");
-        Collections.addAll(files, f1, f2, f3, f4, f5, f6, f7, f8, f9, f10);
+        Collections.addAll(FILES, f1, f2, f3, f4, f5, f6, f7, f8, f9, f10);
     }
 
     /**
@@ -47,7 +47,7 @@ public class ZipFileUtil {
      */
     public static void main(String[] args) {
 
-        Map<String, List<CustomerFile>> groupByNo = files.stream().collect(Collectors.groupingBy(CustomerFile::getContractNo));
+        Map<String, List<CustomerFile>> groupByNo = FILES.stream().collect(Collectors.groupingBy(CustomerFile::getContractNo));
         log.info("按照合同分组，结果：{}", JSONUtil.toJsonStr(groupByNo));
 
         String dateStr = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
@@ -60,7 +60,7 @@ public class ZipFileUtil {
             log.debug("循环遍历，拉取FTP服务器上文件");
             for (CustomerFile customerFile : v) {
                 try {
-                    FtpUtil.downFile(ftpClient, customerFile.getName(),
+                    FtpUtil.downFile(FTP_CLIENT, customerFile.getName(),
                             customerFile.getPath() + "/" + customerFile.getName(), contractPath);
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -73,11 +73,17 @@ public class ZipFileUtil {
         String ftpZipPath = "/root/zip/" + dateStr;
         log.info("压缩处理完毕！上传压缩包到FTP文件指定目录，FTP-path: {}", ftpZipPath);
         try {
-            FtpUtil.uploadDir(ftpClient, localZipPath, ftpZipPath);
+            FtpUtil.uploadDir(FTP_CLIENT, localZipPath, ftpZipPath);
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+//        try {
+//            Thread.sleep(2000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+        log.info("上传处理完毕！删除本地临时文件夹以及下面所有文件，localPath：{}", rootPath);
+        FileUtil.del(rootPath);
     }
 
 
