@@ -6,4 +6,8 @@
         SELECT * FROM tm_aa where 1=1 order by inputtime LIMIT 10 OFFSET 1
     </select>
 
+    <select id="getInParam" parameterType="int" resultType="String">
+        SELECT id FROM tm_aa LIMIT ${limit}
+    </select>
+
 </mapper>
