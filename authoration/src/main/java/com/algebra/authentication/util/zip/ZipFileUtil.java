@@ -1,12 +1,14 @@
 package com.algebra.authentication.util.zip;
 
 import cn.hutool.core.io.FileUtil;
+import cn.hutool.core.io.file.FileWriter;
 import cn.hutool.core.util.ZipUtil;
 import cn.hutool.json.JSONUtil;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.net.ftp.FTPClient;
 
+import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -54,6 +56,12 @@ public class ZipFileUtil {
         String rootPath = "/root/" + dateStr;
         String localZipPath = rootPath + "/zip/";
         log.info("遍历合同Map，根据合同名称创建文件夹并按照合同分组拉取文件，根目录：{}", rootPath);
+
+//        FileUtil.mkdir(rootPath);
+//        for (String s : groupByNo.keySet()) {
+//            log.info(s);
+//        }
+
         groupByNo.forEach((k, v) -> {
             String contractPath = rootPath + "/" + k;
             FileUtil.mkdir(contractPath);
@@ -66,6 +74,10 @@ public class ZipFileUtil {
                     e.printStackTrace();
                 }
             }
+            log.info("创建说明文件，写入内容");
+            FileWriter fileWriter = FileWriter.create(new File(contractPath + "/readme.txt"));
+            fileWriter.write("这仅仅是一个说明文件");
+
             log.info("处理压缩合同：{}下面的文件，path：{}", k, contractPath);
             ZipUtil.zip(contractPath, localZipPath + k + ".zip", true);
         });

@@ -20,8 +20,8 @@ import javax.servlet.http.HttpServletRequest;
  * @date 2020/7/14 11:41
  * @description LanguageInterceptor
  */
-@Component
-@Aspect
+//@Component
+//@Aspect
 @Slf4j
 public class LanguageAspect {
 
@@ -30,11 +30,11 @@ public class LanguageAspect {
     @Autowired
     private SysDictionaryService dictionaryService;
 
-    @Pointcut("execution(public * com.algebra.authentication.web..*.*(..))")
+//    @Pointcut("execution(public * com.algebra.authentication.web..*.*(..))")
     public void webResult(){}
 
 
-    @Before("webResult()")
+//    @Before("webResult()")
     public void doBefore(JoinPoint joinPoint){
         log.info("Controller-before pointcut the method...");
 
@@ -53,7 +53,7 @@ public class LanguageAspect {
         log.info("API language type is {}", languageType);
     }
 
-    @AfterReturning(returning = "ret", pointcut = "webResult()")
+//    @AfterReturning(returning = "ret", pointcut = "webResult()")
     public void doAfterReturning(Object ret) throws Throwable {
         log.info("Controller-after returning method result! language is {}", languageType);
         if(ret instanceof WebApiResult){
