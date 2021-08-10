@@ -2,6 +2,15 @@ spring:
   # 应用名（很重要）
   application:
     name: demo-authoration
+  redis:
+    cluster:
+      nodes: 192.168.40.160:7001,192.168.40.160:7002,192.168.40.160:7003
+    password:
+    jedis:
+      pool:
+        max-active: 10
+        max-idle: 10
+        min-idle: 1
   # 数据源配置
   datasource:
     driverClassName: org.postgresql.Driver
@@ -38,6 +47,12 @@ spring:
         wall:
           config:
             multi-statement-allow: true
+
+#redis
+redis:
+  cluster:
+    nodes: 192.168.40.160:7001,192.168.40.160:7002,192.168.40.160:7003
+    password:
 
 ---
 # mybatis
