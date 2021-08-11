@@ -11,10 +11,10 @@ import org.springframework.context.annotation.Configuration;
  * @date 2021/8/10 9:40
  * @description
  */
-//@Configuration
+@Configuration
 public class RedissonConfigSingle {
 
-//    @Bean
+    @Bean
     public RedissonClient getRedisson(){
         Config config = new Config();
         //单机模式  依次设置redis地址和密码

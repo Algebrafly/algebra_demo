@@ -25,7 +25,7 @@ public class ScheduleTestController {
     @Autowired
     RedissonClient redissonClient;
 
-    @Scheduled(fixedRate = 1000 * 60 * 1)
+//    @Scheduled(fixedRate = 1000 * 60 * 1)
     public void copyTask() {
         if (canDo) {
             canDo = false;
@@ -50,7 +50,7 @@ public class ScheduleTestController {
     }
 
 
-    @Scheduled(fixedRate = 1000 * 5 * 1)
+//    @Scheduled(fixedRate = 1000 * 5 * 1)
     public void copyTask2() {
         if (canDo) {
             canDo = false;

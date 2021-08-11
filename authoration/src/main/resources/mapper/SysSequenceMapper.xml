@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.algebra.authentication.mapper.config.SysSequenceMapper">
+  <!--useCache="false" flushCache="true"-->
+  <select id="getPrimaryKey" resultType="string" parameterType="string" >
+    SELECT  #{mark,jdbcType=VARCHAR} || lpad(nextval(#{mark,jdbcType=VARCHAR})::VARCHAR,10,'0')
+  </select>
+
+  <select id="getCurrVal" resultType="string" parameterType="string" useCache="false" flushCache="true">
+    SELECT currval(#{mark,jdbcType=VARCHAR})
+  </select>
+
+  <select id="getNextVal" resultType="string" parameterType="string" useCache="false" flushCache="true">
+    SELECT nextval(#{mark,jdbcType=VARCHAR})
+  </select>
+</mapper>
