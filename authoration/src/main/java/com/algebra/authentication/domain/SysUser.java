@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
+import mybatis.mate.annotation.Algorithm;
+import mybatis.mate.annotation.FieldEncrypt;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -33,6 +35,7 @@ public class SysUser implements Serializable {
      * 账户密码
      */
     @TableField(value = "password")
+    @FieldEncrypt(algorithm = Algorithm.PBEWithMD5AndDES)
     private String password;
 
     /**
