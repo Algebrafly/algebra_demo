@@ -1,7 +1,4 @@
 spring:
-  # 应用名（很重要）
-  application:
-    name: sys-test
   # 数据源配置
   datasource:
     driverClassName: org.postgresql.Driver
