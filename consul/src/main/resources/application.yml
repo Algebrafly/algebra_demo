@@ -1,0 +1,26 @@
+spring:
+  profiles:
+    active: dev
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+      discovery:
+        service-name: ${spring.application.name}
+#        prefer-ip-address: true
+#        heartbeat:
+#          enabled: false
+#        deregister: false
+#        register-health-check: false
+#        acl-token: 1111
+#        register: false
+server:
+  port: 8080
+  servlet:
+    context-path: /
+
+# \u5065\u5EB7\u68C0\u67E5
+management:
+  endpoint:
+    health:
+      show-details: always
