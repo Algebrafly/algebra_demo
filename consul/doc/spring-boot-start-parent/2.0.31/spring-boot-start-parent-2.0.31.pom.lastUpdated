@@ -1,0 +1,5 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Tue Jul 13 14:32:18 CST 2021
+@default-central-https\://repo.maven.apache.org/maven2/.lastUpdated=1626157823642
+https\://repo.maven.apache.org/maven2/.error=Could not transfer artifact com.paic.pazl.auto.arch\:spring-boot-start-parent\:pom\:2.0.31 from/to central (https\://repo.maven.apache.org/maven2)\: Transfer failed for https\://repo.maven.apache.org/maven2/com/paic/pazl/auto/arch/spring-boot-start-parent/2.0.31/spring-boot-start-parent-2.0.31.pom
+http\://maven.paic.com.cn/repository/maven-public/.lastUpdated=1626157938004

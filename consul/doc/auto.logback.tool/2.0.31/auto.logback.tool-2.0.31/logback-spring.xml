@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+
+    <springProperty scope="context" name="springAppName" source="spring.application.name"/>
+    <!-- Example for logging into the build folder of your project -->
+    <!--<property name="LOG_FILE" value="${BUILD_FOLDER:-build}/${springAppName}"/>-->
+    <property name="JSON_FILE" value="logs/json/${springAppName}"/>
+    <property name="READ_FILE" value="logs/txt/${springAppName}"/>
+    <property name="TRACE_FILE" value="logs/trace/${springAppName}"/>
+    <property name="SDK_FILE" value="logs/sdk/${springAppName}"/>
+    <property name="SECURITY_FILE" value="logs/json/${springAppName}"/>
+
+    <!-- You can override this to have a custom pattern -->
+    <property name="CONSOLE_LOG_PATTERN"
+              value="%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}"/>
+
+    <!--Appender to log to console-->
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <!-- Minimum logging level to be presented in the console logs-->
+            <level>DEBUG</level>
+        </filter>
+        <encoder>
+            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+            <charset>utf8</charset>
+        </encoder>
+    </appender>
+
+    <!-- Appender to log to file -->
+    <appender name="txtfile" class="net.logstash.logback.appender.LoggingEventAsyncDisruptorAppender">
+        <waitStrategyType>blocking</waitStrategyType>
+        <appender class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <file>${READ_FILE}</file>
+            <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+                <fileNamePattern>${READ_FILE}.%d{yyyy-MM-dd}_%i.txt.gz</fileNamePattern>
+                <maxFileSize>1GB</maxFileSize>
+                <maxHistory>365</maxHistory>
+                <totalSizeCap>40GB</totalSizeCap>
+            </rollingPolicy>
+            <encoder>
+                <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+                <charset>utf8</charset>
+            </encoder>
+        </appender>
+    </appender>
+
+    <!-- Appender to log to file in a JSON format -->
+    <appender name="jsonfile" class="net.logstash.logback.appender.LoggingEventAsyncDisruptorAppender">
+        <waitStrategyType>blocking</waitStrategyType>
+        <appender class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <file>${JSON_FILE}.json</file>
+            <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+                <fileNamePattern>${JSON_FILE}.%d{yyyy-MM-dd}_%i.json.gz</fileNamePattern>
+                <maxFileSize>100MB</maxFileSize>
+                <maxHistory>2</maxHistory>
+                <totalSizeCap>10GB</totalSizeCap>
+            </rollingPolicy>
+            <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
+                <providers>
+                    <timestamp>
+                        <timeZone>UTC</timeZone>
+                    </timestamp>
+                    <mdc/>
+                    <logstashMarkers/>
+                    <pattern>
+                        <pattern>
+                            {
+                            "severity": "%level",
+                            "level": "%level",
+                            "app_name": "${springAppName:-}",
+                            "service": "${springAppName:-}",
+                            "trace": "%X{X-B3-TraceId:-}",
+                            "span": "%X{X-B3-SpanId:-}",
+                            "parent": "%X{X-B3-ParentSpanId:-}",
+                            "exportable": "%X{X-Span-Export:-}",
+                            "pid": "${PID:-}",
+                            "thread_name": "%thread",
+                            "logger_name": "%logger{40}",
+                            "msg": "%message",
+                            "user_id": "%X{x-baggage-user-id:-}",
+                            "order_id": "%X{x-baggage-order-id:-}",
+                            "method": "%X{x-baggage-method:-}",
+                            "stack_trace":"%ex"
+                            }
+                        </pattern>
+                    </pattern>
+                </providers>
+            </encoder>
+        </appender>
+    </appender>
+
+    <!--######自定义配置  start########-->
+    <!-- 自定义配置__单独输出到一个日志文件中 -->
+    <!--当一个记录日志的事件被发起时，logback 会将这个事件发送给 appender-->
+    <!--RollingFileAppender，滚动记录文件，先将日志记录到指定文件，当符合某个条件时，将日志记录到其他文件-->
+    <appender name="trace.file" class="net.logstash.logback.appender.LoggingEventAsyncDisruptorAppender">
+        <waitStrategyType>blocking</waitStrategyType>
+        <appender class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <file>${TRACE_FILE}.json</file>
+            <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+                <fileNamePattern>${TRACE_FILE}.%d{yyyy-MM-dd}_%i.json.gz</fileNamePattern>
+                <maxFileSize>100MB</maxFileSize>
+                <maxHistory>2</maxHistory>
+                <totalSizeCap>5GB</totalSizeCap>
+            </rollingPolicy>
+            <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
+                <providers>
+                    <timestamp>
+                        <timeZone>UTC</timeZone>
+                    </timestamp>
+                    <logstashMarkers/>
+                    <pattern>
+                        <pattern>
+                            {
+                            "severity": "%level",
+                            "level": "%level",
+                            "app_name": "${springAppName:-}",
+                            "service": "${springAppName:-}",
+                            "pid": "${PID:-}",
+                            "thread_name": "%thread",
+                            "logger_name": "%logger{40}",
+                            "msg": "%message",
+                            "user_id": "%X{x-baggage-user-id:-}",
+                            "order_id": "%X{x-baggage-order-id:-}",
+                            "method": "%X{x-baggage-method:-}",
+                            "stack_trace":"%ex"
+                            }
+                        </pattern>
+                    </pattern>
+                </providers>
+            </encoder>
+        </appender>
+    </appender>
+
+    <!--######自定义配置  start########-->
+    <!-- 自定义配置__单独输出到一个日志文件中 -->
+    <!--当一个记录日志的事件被发起时，logback 会将这个事件发送给 appender-->
+    <!--RollingFileAppender，滚动记录文件，先将日志记录到指定文件，当符合某个条件时，将日志记录到其他文件-->
+    <appender name="trace.sdk.file" class="net.logstash.logback.appender.LoggingEventAsyncDisruptorAppender">
+        <waitStrategyType>blocking</waitStrategyType>
+        <appender class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <file>${SDK_FILE}.json</file>
+            <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+                <fileNamePattern>${SDK_FILE}.%d{yyyy-MM-dd}_%i.json.gz</fileNamePattern>
+                <maxFileSize>100MB</maxFileSize>
+                <maxHistory>2</maxHistory>
+                <totalSizeCap>5GB</totalSizeCap>
+            </rollingPolicy>
+            <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
+                <providers>
+                    <timestamp>
+                        <timeZone>UTC</timeZone>
+                    </timestamp>
+                    <mdc/>
+                    <logstashMarkers/>
+                    <pattern>
+                        <pattern>
+                            {
+                            "severity": "%level",
+                            "level": "%level",
+                            "app_name": "${springAppName:-}",
+                            "service": "${springAppName:-}",
+                            "trace": "%X{X-B3-TraceId:-}",
+                            "span": "%X{X-B3-SpanId:-}",
+                            "parent": "%X{X-B3-ParentSpanId:-}",
+                            "exportable": "%X{X-Span-Export:-}",
+                            "pid": "${PID:-}",
+                            "thread_name": "%thread",
+                            "logger_name": "%logger{40}",
+                            "msg": "%message",
+                            "stack_trace":"%ex"
+                            }
+                        </pattern>
+                    </pattern>
+                </providers>
+            </encoder>
+        </appender>
+    </appender>
+
+    <appender name="security.file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${SECURITY_FILE}.security.json</file>
+        <append>true</append>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${SECURITY_FILE}/logs/trace.%d{yyyy-MM-dd}.%i.security.json.zip</fileNamePattern>
+            <maxFileSize>100MB</maxFileSize>
+            <maxHistory>2</maxHistory>
+            <totalSizeCap>1GB</totalSizeCap>
+        </rollingPolicy>
+        <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
+            <providers>
+                <timestamp>
+                    <timeZone>UTC</timeZone>
+                </timestamp>
+                <mdc/>
+                <logstashMarkers/>
+                <pattern>
+                    <pattern>
+                        {
+                        "severity": "%level",
+                        "level": "%level",
+                        "app_name": "${springAppName:-}",
+                        "service": "${springAppName:-}",
+                        "trace": "%X{X-B3-TraceId:-}",
+                        "span": "%X{X-B3-SpanId:-}",
+                        "parent": "%X{X-B3-ParentSpanId:-}",
+                        "exportable": "%X{X-Span-Export:-}",
+                        "pid": "${PID:-}",
+                        "thread_name": "%thread",
+                        "logger_name": "%logger{40}",
+                        "msg": "%message",
+                        "user_id": "%X{x-baggage-user-id:-}",
+                        "order_id": "%X{x-baggage-order-id:-}",
+                        "method": "%X{x-baggage-method:-}",
+                        "stack_trace":"%ex"
+                        }
+                    </pattern>
+                </pattern>
+            </providers>
+        </encoder>
+    </appender>
+
+    <!--使用LoggerFactory.getLogger("traceLogger") 使用这个logger-->
+    <logger name="traceLogger" additivity="false">
+        <!--使用哪一个Appender-->
+        <appender-ref ref="trace.file"/>
+    </logger>
+
+    <!--使用LoggerFactory.getLogger("traceSdkLogger") 使用这个logger-->
+    <logger name="traceSdkLogger" additivity="false">
+        <!--使用哪一个Appender-->
+        <appender-ref ref="trace.sdk.file"/>
+    </logger>
+
+    <!--使用LoggerFactory.getLogger("securityLogger") 使用这个logger-->
+    <logger name="securityLogger" additivity="false">
+        <appender-ref ref="security.file" />
+    </logger>
+
+    <root level="INFO">
+        <springProfile name="dev">
+            <appender-ref ref="console"/>
+        </springProfile>
+        <!-- uncomment this to have also JSON logs -->
+        <appender-ref ref="txtfile"/>
+        <appender-ref ref="jsonfile"/>
+    </root>
+</configuration>
