@@ -1,8 +1,10 @@
 package com.algebra.demo.web;
 
 import com.algebra.demo.config.WebApiResult;
+import com.algebra.demo.entity.PersonConfigProps;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,10 +26,23 @@ public class TestController {
     @Value("${password}")
     private String password;
 
+    @Value("${aclToken}")
+    private String aclToken;
+
+    @Autowired
+    PersonConfigProps personConfigProps;
+
+
     @GetMapping("/getOnlineConfigOfConsul")
     @ApiOperation("测试获取consul配置")
     public WebApiResult<String> getOnlineConfigOfConsul() {
-        return WebApiResult.ok(name + ":" + password);
+        return WebApiResult.ok(name + ":" + password + ":" + aclToken);
+    }
+
+    @GetMapping("/getOnlineConfigOfConsul2")
+    @ApiOperation("测试获取consul配置-props")
+    public WebApiResult<String> getOnlineConfigOfConsul2() {
+        return WebApiResult.ok(personConfigProps.getUsername() + ":" + personConfigProps.getAclToken());
     }
 
 }
