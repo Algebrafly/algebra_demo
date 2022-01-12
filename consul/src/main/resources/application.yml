@@ -4,13 +4,13 @@ spring:
   profiles:
     active: dev
   config:
-    import: optional:consul:localhost:8500
+    import: optional:consul:10.11.2.58:8500
   cloud:
     consul:
-      host: 127.0.0.1
+      host: 10.11.2.58
       port: 8500
       config:
-        acl-token: 9cd9d389-a8e6-5510-7f54-e350cf65c6c8
+#        acl-token: 9cd9d389-a8e6-5510-7f54-e350cf65c6c8
         # 默认是true
         enabled: true
         # 表示consul上面文件的格式，有四种： YAML PROPERTIES KEY-VALUE FILES
@@ -23,7 +23,7 @@ spring:
         #  表示配置文件对应的应用名称
         default-context: application
         # 表示如果有多个profile(eg: 开发环境dev，测试环境test...) ，则key名中的profile与defaultContext之间，用什么分隔符来表
-        profile-separator: ','
+        profile-separator: '-'
       discovery:
         # 是否需要注册
         enabled: true
@@ -35,13 +35,13 @@ spring:
         # 注册实例ID，必须唯一
         instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}
         # 健康检查
-        health-check-path: /demo/actuator/health
+        health-check-path: /actuator/health
         health-check-interval: 5s
         # 是否使用IP地址注册
         prefer-ip-address: true
-        # 当前实例请求IP
-        ip-address: ${spring.cloud.client.ip-address}
-        acl-token: e6d2d573-e88c-d157-32db-87f4a73ed753
+        # 当前实例请求IP（这个IP有讲究）
+        ip-address: 10.11.2.56
+#        acl-token: e6d2d573-e88c-d157-32db-87f4a73ed753
 #        heartbeat:
 #          enabled: false
         # 配置域名访问
@@ -54,7 +54,7 @@ spring:
 server:
   port: 8080
   servlet:
-    context-path: /demo
+    context-path: /
 
 # 健康检查
 management:
