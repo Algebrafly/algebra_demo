@@ -4,13 +4,13 @@ spring:
   profiles:
     active: dev
   config:
-    import: optional:consul:10.11.2.58:8500
+    import: optional:consul:10.11.2.62:8500
   cloud:
     consul:
-      host: 10.11.2.58
+      host: 10.11.2.62
       port: 8500
       config:
-#        acl-token: 9cd9d389-a8e6-5510-7f54-e350cf65c6c8
+        acl-token: a37e739e-cf8d-05c3-8939-3d9911464129
         # 默认是true
         enabled: true
         # 表示consul上面文件的格式，有四种： YAML PROPERTIES KEY-VALUE FILES
@@ -41,7 +41,7 @@ spring:
         prefer-ip-address: true
         # 当前实例请求IP（这个IP有讲究）
         ip-address: 10.11.2.56
-#        acl-token: e6d2d573-e88c-d157-32db-87f4a73ed753
+        acl-token: a37e739e-cf8d-05c3-8939-3d9911464129
 #        heartbeat:
 #          enabled: false
         # 配置域名访问
