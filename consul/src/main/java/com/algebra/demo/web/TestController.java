@@ -45,4 +45,15 @@ public class TestController {
         return WebApiResult.ok(personConfigProps.getUsername() + ":" + personConfigProps.getAclToken());
     }
 
+
+    @GetMapping("/getOnlineConfigOfConsul3")
+    @ApiOperation("测试网关超时熔断")
+    public WebApiResult<String> getOnlineConfigOfConsul3() {
+        try {
+            Thread.sleep(600000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return WebApiResult.ok(personConfigProps.getUsername() + ":" + personConfigProps.getAclToken());
+    }
 }

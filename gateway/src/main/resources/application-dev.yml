@@ -1,0 +1,57 @@
+spring:
+  cloud:
+    gateway:
+      # 路由（routes：路由，它由唯一标识（ID）、目标服务地址（uri）、一组断言（predicates）和一组过滤器组成（filters），filters 不是必需参数）
+      routes:
+        # id 必需唯一
+        - id: sys-test
+          # lb:service-name 表示注册中心的服务名称
+          uri: lb://sys-test
+          # 匹配条件
+          predicates:
+            - Path=/sys-test/**
+          filters:
+            - StripPrefix=1
+        - id: sys-consumer
+          uri: lb://sys-test
+          predicates:
+            - Path=/consumer/**
+          filters:
+            # StripPrefix=1表示过滤Path第一段（截取/test）
+            - StripPrefix=1
+            # 在转发url后加参数version=test0
+            - AddRequestParameter=version,test0
+            # 添加熔断机制,当服务不可用时或超过了指定超时长，则转发到fallback
+            - name: Hystrix
+              args:
+                name: test1Hystrix
+                fallbackUri: forward:/fallback/test1
+# 配置日志
+logging:
+  level:
+    # log 级别
+    org.springframework.cloud.gateway: debug
+
+
+# 熔断器配置
+hystrix:
+  command:
+    default:
+      execution:
+        timeout:
+          # enabled表示是否启用超时检测，默认为true
+          enabled: true
+        isolation:
+          thread:
+            # 全局熔断器超时
+            timeoutInMilliseconds: 5000
+    # test1Hystrix为熔断器名称，对应：filters.args.name
+    test1Hystrix:
+      execution:
+        timeout:
+          # enabled表示是否启用超时检测，默认为true
+          enabled: true
+        isolation:
+          thread:
+            # 特定服务熔断器超时
+            timeoutInMilliseconds: 2000

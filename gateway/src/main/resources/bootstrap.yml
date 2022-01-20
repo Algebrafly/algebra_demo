@@ -1,0 +1,48 @@
+spring:
+  application:
+    name: sys-gateway
+  profiles:
+    active: dev
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          # 启用本地化网关
+          enabled: true
+          # 将服务名转换为小写
+          #lower-case-service-id: true
+    # consul
+    consul:
+      host: 10.11.2.62
+      port: 8500
+      # consul-config
+      config:
+        enabled: true
+        acl-token: a37e739e-cf8d-05c3-8939-3d9911464129
+        format: yaml
+        data-key: data
+        prefix: config
+        default-context: application
+        profile-separator: '-'
+      # consul-discovery
+      discovery:
+        enabled: true
+        acl-token: a37e739e-cf8d-05c3-8939-3d9911464129
+        service-name: ${spring.application.name}
+        instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}
+        health-check-interval: 10s
+        prefer-ip-address: true
+        ip-address: 10.11.2.56
+        tags: version=1.0, author=algebra
+
+# 端口号和访问路径
+server:
+  port: 8880
+  servlet:
+    context-path: /
+
+# 健康检查
+management:
+  endpoint:
+    health:
+      show-details: always
