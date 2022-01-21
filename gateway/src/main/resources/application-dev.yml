@@ -26,6 +26,16 @@ spring:
               args:
                 name: test1Hystrix
                 fallbackUri: forward:/fallback/test1
+        - id: sys-consumer2
+          uri: lb://sys-test
+          predicates:
+            - Path=/consumer2/**
+          filters:
+            - StripPrefix=1
+            - name: CircuitBreaker
+              args:
+                name: test1Hystrix
+                fallbackUri: forward:/fallback/test1
 # 配置日志
 logging:
   level:
