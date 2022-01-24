@@ -48,3 +48,7 @@ management:
   endpoint:
     health:
       show-details: always
+
+auth:
+  name: A
+  type: A
