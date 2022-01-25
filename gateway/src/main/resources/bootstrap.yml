@@ -46,3 +46,16 @@ management:
   endpoint:
     health:
       show-details: always
+
+auth:
+  # 认证鉴权方式：user-api/spring-security/jwt/...
+  type: user-api
+  globalToken:
+    # 最高权限的认证手段（作为签发UserToken的依据：可以按照高低权限进行签发）
+    ssl: admin
+    # 此Token拥有配置接口权限（谨慎使用，避免泄露）
+    sysUser: admin
+  # 支持正则匹配和全字符匹配，多重路径写 /**
+  ignoreUrlList:
+    - /consumer2/**
+    - /test/**
