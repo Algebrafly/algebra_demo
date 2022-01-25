@@ -53,7 +53,7 @@ public class AuthXFilter implements GlobalFilter, Ordered {
             canSkip = true;
         }
 
-        log.debug("2.免Token校验的URL（白名单）");
+        log.debug("2.免Token校验的URL（配置的白名单+swagger）");
         String requestUrl = request.getPath().toString();
         List<String> ignoreUrlList = authTypeProps.getIgnoreUrlList();
         if (ignoreUrlList != null && ignoreUrlList.size() > 0) {
