@@ -90,16 +90,17 @@
                 </executions>
                 <configuration>
                     <!--指定生成的镜像名-->
-                    <imageName>${project.name}:${project.version}</imageName>
+                    <imageName>algebra/${project.name}:${project.version}</imageName>
                     <!--指定标签-->
                     <imageTags>
-                        <imageTag>latest</imageTag>
+                        <imageTag>${project.version}</imageTag>
                     </imageTags>
                     <!--指定基础镜像jdk1.8-->
                     <baseImage>openjdk:8-jdk-alpine</baseImage>
                     <!--切换到ROOT目录-->
                     <workdir>/ROOT</workdir>
                     <!--<cmd>["java", "-version"]</cmd>-->
+                    <env>TZ Asia/Shanghai</env>
                     <entryPoint>["java", "-Djava.security.egd=file:/dev/./urandom", "-jar", "/${project.build.finalName}.jar"]</entryPoint>
                     <!--指定远程 docker api地址-->
                     <dockerHost>http://10.11.2.63:2375</dockerHost>
