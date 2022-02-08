@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.algebra.docker</groupId>
     <artifactId>docker</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.2-SNAPSHOT</version>
     <name>docker-demo</name>
     <description>Demo project for Spring Boot</description>
     <properties>
@@ -24,6 +24,11 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
 
         <dependency>
@@ -100,7 +105,7 @@
                     <!--切换到ROOT目录-->
                     <workdir>/ROOT</workdir>
                     <!--<cmd>["java", "-version"]</cmd>-->
-                    <env>TZ Asia/Shanghai</env>
+                    <!--<env>TZ Asia/Shanghai</env>-->
                     <entryPoint>["java", "-Djava.security.egd=file:/dev/./urandom", "-jar", "/${project.build.finalName}.jar"]</entryPoint>
                     <!--指定远程 docker api地址-->
                     <dockerHost>http://10.11.2.63:2375</dockerHost>
