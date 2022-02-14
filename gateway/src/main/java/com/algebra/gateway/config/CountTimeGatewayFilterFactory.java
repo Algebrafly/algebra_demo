@@ -3,7 +3,6 @@ package com.algebra.gateway.config;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
-import org.springframework.cloud.gateway.filter.factory.StripPrefixGatewayFilterFactory;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
 
