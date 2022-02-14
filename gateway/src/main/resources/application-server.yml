@@ -1,17 +1,13 @@
 spring:
-  application:
-    name: sys-gateway
   profiles:
-    active: dev
-  config:
-    location: 10.11.2.62
+    include: dev
   cloud:
     gateway:
       discovery:
         locator:
-          # \u542F\u7528\u672C\u5730\u5316\u7F51\u5173
+          # 启用本地化网关
           enabled: true
-          # \u5C06\u670D\u52A1\u540D\u8F6C\u6362\u4E3A\u5C0F\u5199
+          # 将服务名转换为小写
           #lower-case-service-id: true
     # consul
     consul:
@@ -19,7 +15,7 @@ spring:
       port: 8500
       # consul-config
       config:
-        enabled: false
+        enabled: true
         acl-token: a37e739e-cf8d-05c3-8939-3d9911464129
         format: yaml
         data-key: data
@@ -37,18 +33,27 @@ spring:
         ip-address: 10.11.2.56
         tags: version=1.0, author=algebra
 
-# \u7AEF\u53E3\u53F7\u548C\u8BBF\u95EE\u8DEF\u5F84
+# 端口号和访问路径
 server:
-  port: 8880
+  port: 8888
   servlet:
     context-path: /
 
-# \u5065\u5EB7\u68C0\u67E5
+# 健康检查
 management:
   endpoint:
     health:
       show-details: always
 
 auth:
-  name: A
-  type: A
+  # 认证鉴权方式：user-api/spring-security/jwt/...
+  type: user-api
+  globalToken:
+    # 最高权限的认证手段（作为签发UserToken的依据：可以按照高低权限进行签发）
+    ssl: admin
+    # 此Token拥有配置接口权限（谨慎使用，避免泄露）
+    sysUser: admin
+  # 支持正则匹配和全字符匹配，多重路径写 /**
+  ignoreUrlList:
+    - /consumer2/**
+    - /test/**

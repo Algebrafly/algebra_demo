@@ -1,0 +1,52 @@
+spring:
+  profiles:
+    include: dev
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+    # consul
+    consul:
+      host: 127.0.0.1
+      port: 8500
+      # consul-config
+      config:
+        enabled: false
+#        acl-token: a37e739e-cf8d-05c3-8939-3d9911464129
+        format: yaml
+        data-key: data
+        prefix: config
+        default-context: application
+        profile-separator: '-'
+      # consul-discovery
+      discovery:
+        enabled: true
+#        acl-token: a37e739e-cf8d-05c3-8939-3d9911464129
+        service-name: ${spring.application.name}
+        instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}
+        health-check-interval: 10s
+        tags: version=1.0, author=algebra
+
+server:
+  port: 8888
+  servlet:
+    context-path: /
+
+management:
+  endpoint:
+    health:
+      show-details: always
+
+auth:
+  # 认证鉴权方式：user-api/spring-security/jwt/...
+  type: user-api
+  globalToken:
+    # 最高权限的认证手段（作为签发UserToken的依据：可以按照高低权限进行签发）
+    ssl: admin
+    # 此Token拥有配置接口权限（谨慎使用，避免泄露）
+    sysUser: admin
+  # 支持正则匹配和全字符匹配，多重路径写 /**
+  ignoreUrlList:
+    - /consumer2/**
+    - /test/**

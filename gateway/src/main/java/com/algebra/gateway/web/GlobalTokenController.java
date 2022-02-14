@@ -19,7 +19,7 @@ public class GlobalTokenController {
     @Autowired
     AuthTypeProps authTypeProps;
 
-    @GetMapping("/getTmpToken")
+    @GetMapping("/getTempToken")
     public void getTempGlobalUserToken(@RequestParam("ssl") String ssl, @RequestParam("type") String type) {
         log.info("获取临时Token：ssl = {}, type = {}", ssl, type);
         try {
