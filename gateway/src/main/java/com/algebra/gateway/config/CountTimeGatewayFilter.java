@@ -20,7 +20,7 @@ import java.util.concurrent.TimeUnit;
  * @date 2022/2/14 17:00
  * @description
  */
-@Component
+//@Component
 @Slf4j
 public class CountTimeGatewayFilter implements GlobalFilter, Ordered {
 

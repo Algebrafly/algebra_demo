@@ -33,6 +33,7 @@ spring:
             - Path=/consumer2/**
           filters:
             - StripPrefix=1
+            - CountTime=true
             - name: CircuitBreaker
               args:
                 name: test1Hystrix
