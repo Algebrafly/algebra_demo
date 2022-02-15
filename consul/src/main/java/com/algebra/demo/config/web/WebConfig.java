@@ -29,12 +29,12 @@ public class WebConfig implements WebMvcConfigurer {
                 .addPathPatterns("/**").excludePathPatterns(EXCLUDE_PATH_PATTERNS);
     }
 
-    @Override
-    public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**")
-                .allowedOrigins("*")
-                .allowedHeaders("*")
-                .allowedMethods("GET", "HEAD", "POST","PUT", "DELETE", "OPTIONS")
-                .allowCredentials(false).maxAge(3600);
-    }
+//    @Override
+//    public void addCorsMappings(CorsRegistry registry) {
+//        registry.addMapping("/**")
+//                .allowedOrigins("*")
+//                .allowedHeaders("*")
+//                .allowedMethods("GET", "HEAD", "POST","PUT", "DELETE", "OPTIONS")
+//                .allowCredentials(false).maxAge(3600);
+//    }
 }

@@ -6,6 +6,17 @@ spring:
       discovery:
         locator:
           enabled: true
+      # 跨域-仅针对服务端请求路径有效（对于网关自身请求路径无效）
+      globalcors:
+        cors-configurations:
+          # 匹配所有请求
+          '[/**]':
+            #跨域处理 允许所有的域
+            allowedOrigins: "*"
+            allowCredentials: true
+            allowedHeaders: "*"
+            # 支持的方法
+            allowedMethods: "*"
     # consul
     consul:
       host: 127.0.0.1
@@ -26,6 +37,7 @@ spring:
         service-name: ${spring.application.name}
         instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}
         health-check-interval: 10s
+        prefer-ip-address: true
         tags: version=1.0, author=algebra
 
 server:

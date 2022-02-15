@@ -32,11 +32,12 @@ public class CountTimeGatewayFilterFactory extends AbstractGatewayFilterFactory<
                     Mono.fromRunnable(() -> {
                         Long startTime = exchange.getAttribute(COUNT_START_TIME);
                         if (startTime != null) {
-                            StringBuilder sb = new StringBuilder(exchange.getRequest().getURI().getRawPath())
+                            StringBuilder sb = new StringBuilder("[Request-Time] ")
+                                    .append(exchange.getRequest().getURI().getRawPath())
                                     .append(": ")
                                     .append(System.currentTimeMillis() - startTime)
                                     .append("ms");
-                            sb.append(" params:").append(exchange.getRequest().getQueryParams());
+                            sb.append(" params: ").append(exchange.getRequest().getQueryParams());
                             log.info(sb.toString());
                         }
                     })
