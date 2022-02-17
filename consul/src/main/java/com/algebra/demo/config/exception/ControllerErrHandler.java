@@ -21,7 +21,7 @@ public class ControllerErrHandler {
 
     @ExceptionHandler(Exception.class)
     @ResponseBody
-    public WebApiResult exceptionHandling(Exception ex) {
+    public WebApiResult<Object> exceptionHandling(Exception ex) {
         String exceptionMessageFormat = "Message: %s: %s \n Suppressed: %s";
         String msg = String.format(exceptionMessageFormat,
                 ex.getClass().getName(), ex.getMessage(), StringUtils.join(ex.getStackTrace()), "\n");

@@ -2,6 +2,8 @@ package com.algebra.demo.web;
 
 import com.algebra.demo.config.WebApiResult;
 import com.algebra.demo.entity.PersonConfigProps;
+import com.algebra.demo.entity.TestValidVo;
+import com.alibaba.druid.support.json.JSONUtils;
 import com.alibaba.fastjson.JSONObject;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -9,7 +11,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
@@ -62,4 +68,29 @@ public class TestController {
         }
         return WebApiResult.ok(personConfigProps.getUsername() + ":" + personConfigProps.getAclToken());
     }
+
+    @PostMapping("/testValidParam1")
+    @ApiOperation("测试参数校验1")
+    public WebApiResult<String> testValidParam1(@Validated @RequestBody TestValidVo vo, BindingResult bindingResult) {
+        try {
+            if (bindingResult.hasErrors()) {
+                String error = bindingResult.getFieldError().getDefaultMessage();
+                return WebApiResult.error(error);
+            }
+            log.info("参数为：{}", JSONObject.toJSONString(vo));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return WebApiResult.ok("参数校验通过！");
+    }
+
+    @PostMapping("/testValidParam2")
+    @ApiOperation("测试参数校验2")
+    public WebApiResult<String> testValidParam2(@Validated @RequestBody TestValidVo vo) {
+        log.info("参数为：{}", JSONObject.toJSONString(vo));
+
+        return WebApiResult.ok("参数校验通过！");
+    }
+
 }
