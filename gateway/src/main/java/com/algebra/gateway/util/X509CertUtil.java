@@ -9,10 +9,13 @@ import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.bouncycastle.operator.ContentSigner;
 import org.bouncycastle.operator.jcajce.JcaContentSignerBuilder;
 
+import javax.crypto.Cipher;
 import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
 import java.security.*;
 import java.security.cert.Certificate;
 import java.security.cert.CertificateFactory;
@@ -168,6 +171,46 @@ public class X509CertUtil {
         }
     }
 
+    public static KeyStore loadKeyStore(String keyStoreFile, String password) {
+        try (InputStream input = X509CertUtil.class.getResourceAsStream(keyStoreFile)) {
+            if (input == null) {
+                throw new RuntimeException("file not found in classpath: " + keyStoreFile);
+            }
+            KeyStore ks = KeyStore.getInstance(DEFAULT_KEY_TYPE);
+            ks.load(input, password.toCharArray());
+            return ks;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static byte[] encrypt(X509Certificate certificate, byte[] message) throws GeneralSecurityException {
+        Cipher cipher = Cipher.getInstance(certificate.getPublicKey().getAlgorithm());
+        cipher.init(Cipher.ENCRYPT_MODE, certificate.getPublicKey());
+        return cipher.doFinal(message);
+    }
+
+    public static byte[] decrypt(PrivateKey privateKey, byte[] data) throws GeneralSecurityException {
+        Cipher cipher = Cipher.getInstance(privateKey.getAlgorithm());
+        cipher.init(Cipher.DECRYPT_MODE, privateKey);
+        return cipher.doFinal(data);
+    }
+
+    public static byte[] sign(PrivateKey privateKey, X509Certificate certificate, byte[] message)
+            throws GeneralSecurityException {
+        Signature signature = Signature.getInstance(certificate.getSigAlgName());
+        signature.initSign(privateKey);
+        signature.update(message);
+        return signature.sign();
+    }
+
+    public static boolean verify(X509Certificate certificate, byte[] message, byte[] sig) throws GeneralSecurityException {
+        Signature signature = Signature.getInstance(certificate.getSigAlgName());
+        signature.initVerify(certificate);
+        signature.update(message);
+        return signature.verify(sig);
+    }
+
     public static void main(String[] args) {
 
         String issuer = "C=CN,ST=BJ,L=BJ,O=test,OU=testGroup,CN=localhost";
@@ -177,8 +220,29 @@ public class X509CertUtil {
         String alias = "test-code";
 
         try {
-            createCert(issuer, new Date(), new Date("2017/09/27"), certDestPath, serial, keyPassword, alias);
+//            createCert(issuer, new Date(), new Date("2017/09/27"), certDestPath, serial, keyPassword, alias);
             printCert(certDestPath, keyPassword);
+
+            System.out.println("*************************************");
+            byte[] message = "Hello, use X.509 cert!".getBytes("UTF-8");
+            // 读取KeyStore:
+            KeyStore ks = loadKeyStore("/store/my.keystore", "123456");
+            // 读取私钥:
+            PrivateKey privateKey = (PrivateKey) ks.getKey("mykeystore", "123456".toCharArray());
+            // 读取证书:
+            X509Certificate certificate = (X509Certificate) ks.getCertificate("mykeystore");
+            // 加密:
+            byte[] encrypted = encrypt(certificate, message);
+            System.out.println(String.format("encrypted: %x", new BigInteger(1, encrypted)));
+            // 解密:
+            byte[] decrypted = decrypt(privateKey, encrypted);
+            System.out.println("decrypted: " + new String(decrypted, StandardCharsets.UTF_8));
+            // 签名:
+            byte[] sign = sign(privateKey, certificate, message);
+            System.out.println(String.format("signature: %x", new BigInteger(1, sign)));
+            // 验证签名:
+            boolean verified = verify(certificate, message, sign);
+            System.out.println("verify: " + verified);
 
         } catch (Exception e) {
             e.printStackTrace();
