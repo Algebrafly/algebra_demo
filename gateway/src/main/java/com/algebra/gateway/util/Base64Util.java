@@ -11,34 +11,24 @@ import java.util.Base64;
 public class Base64Util {
 
     public static String encoder(byte[] input) {
+        return Base64.getEncoder().encodeToString(input);
+    }
 
-        String b64encoded = Base64.getEncoder().encodeToString(input);
-        String b64encoded2 = Base64.getEncoder().withoutPadding().encodeToString(input);
-        System.out.println(b64encoded);
-        System.out.println(b64encoded2);
-
-        byte[] output = Base64.getDecoder().decode(b64encoded2);
-        System.out.println(Arrays.toString(output));
-
-        return b64encoded;
+    public static byte[] decoder(String input) {
+        return Base64.getDecoder().decode(input);
     }
 
 
     public static void main(String[] args) {
-//        byte[] input = new byte[] { (byte) 0xe4, (byte) 0xb8, (byte) 0xad, 0x21 };
+//        byte[] input = new byte[] { (byte) 0xe4, (byte) 0xb7, (byte) 0xad, 0x20 };
         // byte是一个字节,范围是(-128到128) 存储大小是8位有符号数
-        byte[] input = new byte[] {-28, -72, -83, 33};
-        encoder(input);
+        byte[] input = new byte[]{-28, -71, -83, 32};
+        System.out.println(encoder(input));
 
         // 228(10) = 0xe4 = 11100100(2)
         byte[] as = BytesUtils.getBytes(228);
         System.out.println(Arrays.toString(as));
 
-//        11100100
-//      & 11111111
-//      --------------
-//        11100100
-//
         byte[] as1 = BytesUtils.getBytes(127);
         System.out.println(Arrays.toString(as1));  // 127
 
@@ -66,7 +56,7 @@ public class Base64Util {
         // 10000000.00000000.00000000.00000000
         // 128.0.0.0
         // -128.0.0.0
-        byte[] as8 = BytesUtils.getBytes(2147483648L);
+        byte[] as8 = BytesUtils.getBytes(-2147483648L);
         System.out.println(Arrays.toString(as8));
 
         byte[] as9 = BytesUtils.getBytes(1);
@@ -89,6 +79,11 @@ public class Base64Util {
         byte[] as11 = BytesUtils.getBytes(-2);
         System.out.println(Arrays.toString(as11));
 
+        System.out.println(Integer.toHexString(-128));
+        byte[] as12 = BytesUtils.getBytes(-128);
+        System.out.println(Arrays.toString(as12));
+
+        // 一个从-128 到 127 的数轴，每255位数作为一个循环单元，也就是byte数组的一个元素（八个二进制为一位：1byte = 8bit，正好2^8 = 256）
 
     }
 
