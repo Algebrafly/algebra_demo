@@ -1,5 +1,7 @@
 package com.algebra.gateway.util;
 
+import org.bouncycastle.jce.provider.BouncyCastleProvider;
+
 import javax.crypto.Cipher;
 import java.nio.charset.StandardCharsets;
 import java.security.*;
@@ -11,33 +13,41 @@ import java.security.*;
  */
 public class AsymmetricEncryptionUtil {
 
+    private String alg;
+
     private PrivateKey privateKey;
 
     private PublicKey publicKey;
 
-    private AsymmetricEncryptionUtil() {
+    static {
+        Security.addProvider(new BouncyCastleProvider());
     }
 
-    private AsymmetricEncryptionUtil(PrivateKey privateKey, PublicKey publicKey) {
+    private AsymmetricEncryptionUtil(String alg) {
+        this.alg = alg;
+    }
+
+    private AsymmetricEncryptionUtil(PrivateKey privateKey, PublicKey publicKey, String alg) {
         this.publicKey = publicKey;
         this.privateKey = privateKey;
+        this.alg = alg;
     }
 
     /**
      * 通过传入自己生成的密钥对来进行操作
      */
-    public static AsymmetricEncryptionUtil build() {
-        return new AsymmetricEncryptionUtil();
+    public static AsymmetricEncryptionUtil build(String alg) {
+        return new AsymmetricEncryptionUtil(alg);
     }
 
     /**
      * 使用自己生成的密钥对
      */
-    public static AsymmetricEncryptionUtil build(int size) throws NoSuchAlgorithmException {
-        KeyPairGenerator kpGen = KeyPairGenerator.getInstance("RSA");
+    public static AsymmetricEncryptionUtil build(int size, String alg) throws NoSuchAlgorithmException {
+        KeyPairGenerator kpGen = KeyPairGenerator.getInstance(alg);
         kpGen.initialize(size);
         KeyPair kp = kpGen.generateKeyPair();
-        return new AsymmetricEncryptionUtil(kp.getPrivate(), kp.getPublic());
+        return new AsymmetricEncryptionUtil(kp.getPrivate(), kp.getPublic(), alg);
     }
 
     public AsymmetricEncryptionUtil setPrivateKey(PrivateKey key) {
@@ -74,7 +84,7 @@ public class AsymmetricEncryptionUtil {
      * 用公钥加密
      */
     public byte[] encrypt(byte[] message) throws GeneralSecurityException {
-        Cipher cipher = Cipher.getInstance("RSA");
+        Cipher cipher = Cipher.getInstance(alg);
         cipher.init(Cipher.ENCRYPT_MODE, this.publicKey);
         return cipher.doFinal(message);
     }
@@ -88,7 +98,7 @@ public class AsymmetricEncryptionUtil {
      * 用私钥解密
      */
     public byte[] decrypt(byte[] input) throws GeneralSecurityException {
-        Cipher cipher = Cipher.getInstance("RSA");
+        Cipher cipher = Cipher.getInstance(alg);
         cipher.init(Cipher.DECRYPT_MODE, this.privateKey);
         return cipher.doFinal(input);
     }
@@ -96,12 +106,12 @@ public class AsymmetricEncryptionUtil {
 
     public static void main(String[] args) throws GeneralSecurityException {
 
-        AsymmetricEncryptionUtil rsa = AsymmetricEncryptionUtil.build(1024);
+        AsymmetricEncryptionUtil rsa = AsymmetricEncryptionUtil.build(1024, "RSA");
         String encrypt = rsa.encrypt("Hello World");
         System.out.println(encrypt);
 
         PrivateKey privateKey = rsa.getPrivateKey();
-        String decrypt = AsymmetricEncryptionUtil.build().setPrivateKey(privateKey).decrypt(encrypt);
+        String decrypt = AsymmetricEncryptionUtil.build("RSA").setPrivateKey(privateKey).decrypt(encrypt);
         System.out.println(decrypt);
 
     }
