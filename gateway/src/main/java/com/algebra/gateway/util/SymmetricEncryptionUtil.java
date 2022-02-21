@@ -7,12 +7,11 @@ import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
 import java.security.GeneralSecurityException;
 import java.security.SecureRandom;
-import java.util.Base64;
 
 /**
  * @author al
  * @date 2022/2/18 16:46
- * @description 对称加密工具类
+ * @description 对称加密工具类（使用的加密key必须是 16byte 的倍数）
  */
 public class SymmetricEncryptionUtil {
 
@@ -80,6 +79,7 @@ public class SymmetricEncryptionUtil {
         String message = "Hello, world!";
         System.out.println("Message: " + message);
         // 128位密钥 = 16 bytes Key:
+        // java中一个字母或者数字占2byte，16位
         String key = "1234567890abcdef";
         // 加密:
         String encrypted = encrypt(key, message);

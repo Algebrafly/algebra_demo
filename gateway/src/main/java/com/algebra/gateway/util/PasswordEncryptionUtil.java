@@ -10,13 +10,14 @@ import javax.crypto.spec.PBEParameterSpec;
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.security.GeneralSecurityException;
+import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.Security;
 
 /**
  * @author al
  * @date 2022/2/21 10:35
- * @description 口令加密算法工具类
+ * @description 口令加密算法工具类 （口令任意，是普通对称加密的升级版：需要自己生成 16 bytes随机Salt）
  */
 public class PasswordEncryptionUtil {
 
@@ -52,13 +53,18 @@ public class PasswordEncryptionUtil {
         return cipher.doFinal(input);
     }
 
+    public static byte[] getSaltDefault() throws NoSuchAlgorithmException {
+        return SecureRandom.getInstanceStrong().generateSeed(16);
+    }
+
     public static void main(String[] args) throws Exception {
         // 原文:
         String message = "Hello, world!";
         // 加密口令:
         String password = "hello12345";
         // 16 bytes随机Salt:
-        byte[] salt = SecureRandom.getInstanceStrong().generateSeed(16);
+        byte[] salt = getSaltDefault();
+//        System.out.println(Base64Util.encoder(salt));
         System.out.printf("salt: %032x\n", new BigInteger(1, salt));
         // 加密:
         String encrypted = encrypt(password, salt, message);
