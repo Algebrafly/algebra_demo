@@ -1,4 +1,6 @@
-package com.algebra.gateway.util;
+package com.algebra.gateway.util.security;
+
+import com.algebra.gateway.util.Base64Util;
 
 import javax.crypto.Cipher;
 import javax.crypto.SecretKey;

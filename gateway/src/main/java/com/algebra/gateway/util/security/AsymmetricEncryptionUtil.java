@@ -1,5 +1,6 @@
-package com.algebra.gateway.util;
+package com.algebra.gateway.util.security;
 
+import com.algebra.gateway.util.Base64Util;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
 import javax.crypto.Cipher;
@@ -76,6 +77,14 @@ public class AsymmetricEncryptionUtil {
         return this.publicKey.getEncoded();
     }
 
+    public String getAlg() {
+        return alg;
+    }
+
+    public void setAlg(String alg) {
+        this.alg = alg;
+    }
+
     public String encrypt(String message) throws GeneralSecurityException {
         return Base64Util.encoder(encrypt(message.getBytes(StandardCharsets.UTF_8)));
     }
@@ -104,14 +113,29 @@ public class AsymmetricEncryptionUtil {
     }
 
 
+    public static byte[] encrypt(PublicKey publicKey, String alg, byte[] message) throws GeneralSecurityException {
+        Cipher cipher = Cipher.getInstance(alg);
+        cipher.init(Cipher.ENCRYPT_MODE, publicKey);
+        return cipher.doFinal(message);
+    }
+
+
+    public static byte[] decrypt(PrivateKey privateKey, String alg, byte[] input) throws GeneralSecurityException {
+        Cipher cipher = Cipher.getInstance(alg);
+        cipher.init(Cipher.DECRYPT_MODE, privateKey);
+        return cipher.doFinal(input);
+    }
+
+
     public static void main(String[] args) throws GeneralSecurityException {
 
         AsymmetricEncryptionUtil rsa = AsymmetricEncryptionUtil.build(1024, "RSA");
         String encrypt = rsa.encrypt("Hello World");
         System.out.println(encrypt);
 
-        PrivateKey privateKey = rsa.getPrivateKey();
-        String decrypt = AsymmetricEncryptionUtil.build("RSA").setPrivateKey(privateKey).decrypt(encrypt);
+//        PrivateKey privateKey = rsa.getPrivateKey();
+//        String decrypt = AsymmetricEncryptionUtil.build("RSA").setPrivateKey(privateKey).decrypt(encrypt);
+        String decrypt = rsa.decrypt(encrypt);
         System.out.println(decrypt);
 
     }

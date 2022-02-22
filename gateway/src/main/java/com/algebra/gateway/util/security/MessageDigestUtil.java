@@ -1,4 +1,6 @@
-package com.algebra.gateway.util;
+package com.algebra.gateway.util.security;
+
+import com.algebra.gateway.util.BytesUtils;
 
 import javax.crypto.KeyGenerator;
 import javax.crypto.Mac;

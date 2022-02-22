@@ -1,5 +1,6 @@
-package com.algebra.gateway.util;
+package com.algebra.gateway.util.security;
 
+import com.algebra.gateway.util.Base64Util;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
 import javax.crypto.Cipher;
