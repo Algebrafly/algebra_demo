@@ -4,9 +4,7 @@ import com.algebra.gateway.util.Base64Util;
 
 import java.io.IOException;
 import java.math.BigInteger;
-import java.security.KeyPair;
-import java.security.KeyPairGenerator;
-import java.security.NoSuchAlgorithmException;
+import java.security.*;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.util.Date;
@@ -24,7 +22,7 @@ public class CertTransferUtil {
 
 
     // 借用测试CaUtil
-    public static void main(String[] args) throws NoSuchAlgorithmException, CertificateException, IOException {
+    public static void main(String[] args) throws NoSuchAlgorithmException, CertificateException, IOException, SignatureException, InvalidKeyException, NoSuchProviderException {
 
         KeyPairGenerator kpGen = KeyPairGenerator.getInstance("RSA");
         kpGen.initialize(2048);
@@ -39,8 +37,18 @@ public class CertTransferUtil {
         X509Certificate certificate = X509CertUtil.readCertFile("E:\\store\\test.cer");
         System.out.println(Base64Util.encoder(certificate.getPublicKey().getEncoded()));
 
-        X509Certificate certificate2 = X509CertUtil.readCertFile("/store/default.cer");
-        System.out.println(Base64Util.encoder(certificate2.getPublicKey().getEncoded()));
+        System.out.println("-----------------------------------------");
+
+        X509Certificate defaultCert = X509CertUtil.readCertFile("/store/default.cer");
+        System.out.println(Base64Util.encoder(defaultCert.getPublicKey().getEncoded()));
+
+        PublicKey defaultPublicKey = CaUtil.getDefaultPublicKey();
+        System.out.println(Base64Util.encoder(defaultPublicKey.getEncoded()));
+
+        System.out.println("-------------------------------------------");
+        // 验证是否已使用与指定公钥（CA-公钥）相应的私钥签署了此证书
+//        certificate.verify(kp.getPublic());
+        certificate.verify(defaultPublicKey);
 
     }
 

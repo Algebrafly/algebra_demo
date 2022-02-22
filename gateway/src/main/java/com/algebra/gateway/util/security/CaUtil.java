@@ -8,13 +8,11 @@ import org.bouncycastle.cert.X509v3CertificateBuilder;
 import org.bouncycastle.operator.ContentSigner;
 import org.bouncycastle.operator.jcajce.JcaContentSignerBuilder;
 
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
+import java.io.*;
 import java.math.BigInteger;
 import java.security.PrivateKey;
 import java.security.PublicKey;
+import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
 import java.util.Date;
@@ -77,7 +75,28 @@ public class CaUtil {
     }
 
 
-    public PublicKey getDefaultPublicKey() {
+    /**
+     * 验证证书可信性
+     * 验证是否已使用与指定公钥（CA-公钥）相应的私钥签署了此证书
+     *
+     * @param certPath 证书文件路径
+     * @return
+     * @throws CertificateException
+     * @throws IOException
+     */
+    public static boolean verifyCert(String certPath) throws CertificateException, IOException {
+        X509Certificate cert = X509CertUtil.readCertFile(certPath);
+        try {
+            cert.verify(getDefaultPublicKey());
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+
+    public static PublicKey getDefaultPublicKey() {
         Ca ca = Ca.getInstance();
         return ca.getPublicKey();
     }
